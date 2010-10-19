@@ -305,61 +305,44 @@ Analýza a návrh implementace (včetně diskuse různých alternativ a volby im
 \section{Možnosti získání dat z KOS}
 \subsection{Struktura exportu z KOS}
 \section{EDUX?}
+\section{Použité technologie}
+Pro implementaci aplikace byl použit skriptovací jazyk PHP a databázový stroj MySQL, a to především z důvodů autorových zkušeností a preferencí.
+\subsection{PHP}
+PHP je velmi oblíbený skriptovací programovací jazyk používaný především pro tvorbu dynamických webových stránek. Od verze 5 disponuje také dobrou podporou objektově orientovaného programování. Přestože si jazyk s sebou z minulosti nese spoustu nevýhod, jde dnes nejspíše o nejpoužívanější jazyk pro tvorbu webů. Poslední významná verze PHP 5.3 rozšířila možnosti jazyka také o deklaraci jmenných prostorů, anonymní funkce, řetězení výjimek a mnoho dalších menších změn.
+
+\subsection{MySQL}
+\subsection{Nette Framework}
+Nette je český framework pro tvorbu webových aplikací v PHP 5. Zaměřuje se především na eliminaci bezpečnostních rizik a vede programátory k čistému návrhu aplikace s důrazem na budoucí rozšiřitelnost. Využívá událostmi řízeného programování a využívá pricipy třívrstvé architektury Model-View-Presenter, DRY\footnote{neopekovat se} a KISS\footnote{řešit vše jednoduše}. Původním autorem Nette je David Grudl, dnes se o jeho vývoj stará komunita vývojářu Nette Foundation. Framework je volně dostupný pod licencí GNU/GPL a licencí Nette, která je obdobou BSD licence\cite{nette:licence}.
+
+\subsection{dibi databázová vrstva}
 
 
 
 %*****************************************************************************
 \chapter{Návrh řešení}
 Popis implementace/realizace se zaměřením na nestandardní části řešení.
-\section{Použité technologie}
-Pro implementaci aplikace byl použit skriptovací jazyk PHP a databázový stroj MySQL, a to především z důvodů autorových zkušeností a preferencí.
-\subsection{PHP}
-PHP je velmi oblíbený skriptovací programovací jazyk používaný především pro tvorbu dynamických webových stránek. Jeho vývoj začal v roce 1994, kdy grónský programátor Rasmus Lerdorf vytvořil sadu skriptů v Perlu pro svou webovou stránku, kterou pojmenoval \uv{Personal Home Page Tools}. Tuto sadu později přepsal do jazyka C a spolu s rozšířeními pro podporu zpracování webových formulářu a spojení s databází vydal v červnu 1995 první veřejnou verzi PHP Tools 1.0. 
-
-O dva roky později dva izraelští vývojáři, Zeev Suraski a Andi Gutmans, přepsali parser jazyka a vytvořili tak základ pro PHP verze 3. Ihned po jeho finálním vydání se Suraski a Gutmans vrhli na další vývoj a přepsání parseru a vytvoření Zend Engine I, na kterém je postavena další majoritní verze -  PHP 4. Zároveň také založili společnost Zend Technologies, která se o vývoj PHP stará dodnes.
-
-Aktuální verzí PHP je 5.3.3. Verze 5 z roku 2004 přinesla díky použití Zend Engine II plně objektový přístup. Poslední výzmaná verze 5.3 z června 2009 rozšířila jazyk o možnosti deklarování jmených prostorů, anonymní funkce a uzávěry\footnote{Známé také jako lambda funkce a closures}, late static binding\footnote{Do PHP 5.3 byla statická metoda rodiče třídy volána nad rodičovskou třídou, nikoli nad potomkem. Více viz \cite{php:lsb}} a mnoho dalších menších změn. 
-\subsubsection{Výhody PHP}
-\begin{itemize}
-\item Multiplatformnost
-\item Velké množství dostupných rozšiřujících modulů
-\item Pravděpodobně nejrozšířenější jazyk pro psaní webových aplikací a z toho vyplívající obrovská webová komunita
-\item Slušná dokumentace
-
-\end{itemize}
-\subsubsection{Nevýhody PHP}
-Velkým problémem současného stavu PHP je zatížení jeho historickým vývojem. Z toho také vyplívají některé z následujících nevýhod.
-\begin{itemize}
-\item Nedokonalá podpora OOP
-\item Míchání procedurálního a objektového přístupu - drtivá většina nativních funkcí je deklarovaná jako globální
-\item Neexistence kontextu aplikace - neexistuje zde nic jako například v Javě nebo ASP.NET, veškeré vytvořené objekty jsou při dokončení zpracování požadavku \uv{zapomenuty}. Nový požadavek se musí znovu spojet s databází, znovu instanciovat třidy...
-\item Nativní funkce nepoužívají výjimky
-\item Skript se parsuje a zpracovává vždy od začátku, není nijak předkompilován - lze obejít pomocí tzv. op-code cache, například APC, Xcache
-\end{itemize}
-
-\subsection{MySQL}
-\subsection{Nette Framework}
-
-\subsection{dibi databázová vrstva}
 
 \section{Načtení XML exportu}
-\section{Zabezpezpečení přístupu}
+\subsection{Cizí klíče a referenční závislosti}
+\section{Verzování databáze}
+\subsection{Zachování integrity dat}
 
 
 
 %*****************************************************************************
 \chapter{Implementace}
 
-\begin{itemize}
- \item Způsob, průběh a výsledky testování.
- \item Srovnání s existujícími řešeními, pokud jsou známy.
-\end{itemize} 
+ 
 \section{Nasazení aplikace}
 \subsection{Požadadavky aplikace}
 \subsection{Konfigurace}
 
 %*****************************************************************************
 \chapter{Testování}
+\begin{itemize}
+ \item Způsob, průběh a výsledky testování.
+ \item Srovnání s existujícími řešeními, pokud jsou známy.
+\end{itemize}
 
 %*****************************************************************************
 \chapter{Závěr}
@@ -632,7 +615,7 @@ stati ve sborníku [3] a html odkazu [4]:
 \end{small}
 \ldots{} abychom výše citované odkazy skutečně našli v (automaticky generovaném) seznamu literatury tohoto textu, musíme je nyní alespoň jednou citovat: Kniha \cite{kniha}, článek v~časopisu \cite{clanek}, příspěvek na konferenci \cite{sbornik}, www odkaz \cite{www}.
 
-Ještě přidáme další ukázku citací online zdrojů podle české normy. Odkaz na wiki o frameworcich \cite{wiki:framework} a ORM \cite{wiki:orm}. Použití viz soubor \verb|reference.bib|. V seznamu literatury by nyní měly být živé odkazy na zdroje. V \verb|reference.bib| je zcela nový typ publikace. Detaily dohledal a dodal Petr Dlouhý v dubnu 2010. Podrobnosti najdete ve zdrojovém souboru tohoto textu v komentáři u příkazu \verb|\thebibliography|.
+Ještě přidáme další ukázku citací online zdrojů podle české normy. Odkaz na wiki o frameworcich  a ORM \cite{wiki:orm}. Použití viz soubor \verb|reference.bib|. V seznamu literatury by nyní měly být živé odkazy na zdroje. V \verb|reference.bib| je zcela nový typ publikace. Detaily dohledal a dodal Petr Dlouhý v dubnu 2010. Podrobnosti najdete ve zdrojovém souboru tohoto textu v komentáři u příkazu \verb|\thebibliography|.
 
 \subsection{Odkazy na obrázky, tabulky a kapitoly}
 \begin{itemize}
