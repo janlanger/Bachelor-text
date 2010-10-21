@@ -22,7 +22,7 @@
 \usepackage[utf8]{inputenc}
 %=-=-=-=-=-=-=-=-=-=-=-=--=%
 % In case of problems with PDF fonts, one may try to uncomment this line:
-\usepackage{lmodern}
+%\usepackage{lmodern}
 %=-=-=-=-=-=-=-=-=-=-=-=--=%
 %=-=-=-=-=-=-=-=-=-=-=-=--=%
 % Depending on your particular TeX distribution and version of conversion tools 
@@ -263,15 +263,6 @@ Očekávají se cca 1 -- 2 odstavce, maximálně půl stránky.
 % Chcete-li selektivne zamezit odsazeni 1. radku nektereho odstavce,
 % pouzijte prikaz \noindent.
 
-%**************************************************************
-
-% Pro snadnejsi praci s vetsimi texty je rozumne tyto rozdelit
-% do samostatnych souboru nejlepe dle kapitol a tyto potom vkladat
-% pomoci prikazu \include{jmeno_souboru.tex} nebo \include{jmeno_souboru}.
-% Napr.:
-% \include{1_uvod}
-% \include{2_teorie}
-% atd...
 
 %*****************************************************************************
 \chapter{Úvod}
@@ -285,11 +276,6 @@ Výsledná struktura vaší práce a názvy a rozsahy jednotlivých kapitol se s
 %*****************************************************************************
 \chapter{Popis problému, specifikace cíle}
 
-\begin{itemize}
-\item Popis řešeného problému, vymezení cílů DP/BP a požadavků na implementovaný systém.
-\item Popis struktury DP/BP ve vztahu k vytyčeným cílům.
-\item Rešeršní zpracování existujících implementací, pokud jsou známy.
-\end{itemize}
 \section{Historie KOS}
 \section{Historie berličky}
 
@@ -301,26 +287,42 @@ Výsledná struktura vaší práce a názvy a rozsahy jednotlivých kapitol se s
 %*****************************************************************************
 \chapter{Analýza}
 Analýza a návrh implementace (včetně diskuse různých alternativ a volby implementačního prostředí).
-\section{Současný způsob importu}
+
+
 \section{Možnosti získání dat z KOS}
+Studijní informační systém KOS je uzavřený systém, ke kterému téměř nikdo nemá přímý aplikační přístup. Samotný KOS totiž neposkytuje žádné dostupné API, pomocí kterého by mohli aplikace jednotlivých kateder získat alespoň základní data o studentech, učitelích a vyučovaných předmětech. V podstatě jediným dnes dostupným způsobem jak tato data získat je soubor \textit{rz.xml}. Každý, kdo chce tyto informace ve své aplikaci použít, tak musí tento soubor nějakým způsobem zpracovat - typicky převést do podobny databáze se kterou pak pracuje samotná aplikace. V letním semestru 2009/2010 Jakub Jirůtka v rámci své bakalářské práce\cite{jirutka}  vytvořil KOSApi, webovou službu pro aplikační přístup k datům rozvrhu bez nutnosti parsovat \textit{rz.xml}. Nicméně tato práce začala již na jaře 2010, kdy KOSApi nebylo ještě dokončené, a proto jej moje práce přímo nevyužívá, ale implementuje vlastní parser pro \textit{rz.xml}.
+
+\subsection{Současný způsob importu}
+//TODO - zeptat se (asi) Hunky na podrobnosti 
+
 \subsection{Struktura exportu z KOS}
+//TODO - zkráceně struktura, odkaz na Jirutku, rozdíly, které se tam objevily
+
 \section{EDUX?}
-\section{Použité technologie}
-Pro implementaci aplikace byl použit skriptovací jazyk PHP a databázový stroj MySQL, a to především z důvodů autorových zkušeností a preferencí.
-\subsection{PHP}
-PHP je velmi oblíbený skriptovací programovací jazyk používaný především pro tvorbu dynamických webových stránek. Od verze 5 disponuje také dobrou podporou objektově orientovaného programování. Přestože si jazyk s sebou z minulosti nese spoustu nevýhod, jde dnes nejspíše o nejpoužívanější jazyk pro tvorbu webů. Poslední významná verze PHP 5.3 rozšířila možnosti jazyka také o deklaraci jmenných prostorů, anonymní funkce, řetězení výjimek a mnoho dalších menších změn.
 
-\subsection{MySQL}
-\subsection{Nette Framework}
-Nette je český framework pro tvorbu webových aplikací v PHP 5. Zaměřuje se především na eliminaci bezpečnostních rizik a vede programátory k čistému návrhu aplikace s důrazem na budoucí rozšiřitelnost. Využívá událostmi řízeného programování a využívá principy třívrstvé architektury Model-View-Presenter, DRY\footnote{neopakovat se} a KISS\footnote{řešit vše jednoduše}. Původním autorem Nette je David Grudl, dnes se o jeho vývoj stará komunita vývojářů Nette Foundation. Framework je volně dostupný pod licencí GNU/GPL a licencí Nette, která je obdobou BSD licence\cite{nette:licence}.
 
-\subsection{dibi databázová vrstva}
+
 
 
 
 %*****************************************************************************
 \chapter{Návrh řešení}
 Popis implementace/realizace se zaměřením na nestandardní části řešení.
+
+\section{Použité technologie}
+Pro implementaci aplikace byl použit skriptovací jazyk PHP a databázový stroj MySQL, a to především z důvodů autorových zkušeností a preferencí.
+
+\subsection{PHP}
+PHP je velmi oblíbený skriptovací programovací jazyk používaný především pro tvorbu dynamických webových stránek. Od verze 5 disponuje také dobrou podporou objektově orientovaného programování. Přestože si jazyk s sebou z minulosti nese spoustu nevýhod, jde dnes nejspíše o nejpoužívanější jazyk pro tvorbu webů. Poslední významná verze PHP 5.3 rozšířila možnosti jazyka také o deklaraci jmenných prostorů, anonymní funkce, řetězení výjimek a mnoho dalších menších změn.
+
+\subsection{MySQL}
+MySQL je multiplatformní relační databázový systém od švédské společnosti MySQL AB. Pro svou jednoduchou instalaci, konfiguraci, výkon a také proto, že je volně dostupné pod GNU GPL, je na webových serverech velmi oblíbená, především v kombinaci s Apache a PHP. MySQL bylo od počátku svého vývoje optimalizováno především pro výkon, a to i za cenu zjednodušení funkčnosti, například podpora definice cizích klíčů a transakcí byla přidána až ve verzi 3.23, šest let od prvního vydání. MySQL podporuje většinu ze standartu SQL:99, doplněnou stejně jako u většiny ostatních DBMS o vlastní rozšíření.
+
+\subsection{Nette Framework}
+Nette je český framework pro tvorbu webových aplikací v PHP 5. Zaměřuje se především na eliminaci bezpečnostních rizik a vede programátory k čistému návrhu aplikace s důrazem na budoucí rozšiřitelnost. Využívá událostmi řízeného programování a principy třívrstvé architektury Model-View-Presenter, DRY\footnote{neopakovat se} a KISS\footnote{řešit vše jednoduše}. Původním autorem Nette je David Grudl, dnes se o jeho vývoj stará komunita vývojářů Nette Foundation. Framework je volně dostupný pod licencí GNU/GPL a licencí Nette, která je obdobou BSD licence\cite{nette:licence}.
+
+\subsection{Databázová abstrakce - PDA a dibi}
+\subsection{Web Services, SOAP}
 
 \section{Načtení XML exportu}
 \subsection{Cizí klíče a referenční závislosti}
@@ -613,7 +615,7 @@ stati ve sborníku [3] a html odkazu [4]:
      http://www.cgg.cvut.cz/Bib/library/ 
 \end{verbatim}
 \end{small}
-\ldots{} abychom výše citované odkazy skutečně našli v (automaticky generovaném) seznamu literatury tohoto textu, musíme je nyní alespoň jednou citovat: Kniha \cite{kniha}, článek v~časopisu \cite{clanek}, příspěvek na konferenci \cite{sbornik}, www odkaz \cite{www}.
+\ldots{} abychom výše citované odkazy skutečně našli v (automaticky generovaném) seznamu literatury tohoto textu, musíme je nyní alespoň jednou citovat: Kniha \cite{kniha}, článek v~časopisu \cite{clanek}, příspěvek na konferenci {sbornik}, www odkaz \cite{www}.
 
 Ještě přidáme další ukázku citací online zdrojů podle české normy. Odkaz na wiki o frameworcich  a ORM \cite{wiki:orm}. Použití viz soubor \verb|reference.bib|. V seznamu literatury by nyní měly být živé odkazy na zdroje. V \verb|reference.bib| je zcela nový typ publikace. Detaily dohledal a dodal Petr Dlouhý v dubnu 2010. Podrobnosti najdete ve zdrojovém souboru tohoto textu v komentáři u příkazu \verb|\thebibliography|.
 
