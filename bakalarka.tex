@@ -281,7 +281,59 @@ Výsledná struktura vaší práce a názvy a rozsahy jednotlivých kapitol se s
 
 \section{Specifikace požadavků}
 \subsection{Funkční požadavky}
+
+\begin{enumerate}
+\item Importér z KOS
+\begin{enumerate}
+\item Importní modul bude převádět data ze souboru rz.xml do podoby relační databáze.
+\item Import bude plně automatický.
+\item Zpracování bude logováno aby bylo možné odhalit případná selhání.
+\end{enumerate}
+
+\item Webová služba
+\begin{enumerate}
+\item Systém bude poskytovat data prostřednictvím webové služby a protokolu SOAP.
+\item Chyby při zpracování požadavků na WS budou logovány.
+\end{enumerate}
+
+\item Poskytovaná data
+\begin{enumerate}
+\item Systém bude umožňovat definici rozhraní služby pro každou klientskou aplikaci.
+\end{enumerate}
+
+\item Aktuálnost dat
+\begin{enumerate}
+\item Pro každou klientskou aplikaci bude možné definovat přístup ke stéle stejné revizi databáze.
+\item Zároveň systém také umožní přístup ke vždy aktuálním datům (každodenně importovaným).
+\end{enumerate}
+\end{enumerate}
+
 \subsection{Nefunkční požadavky}
+\begin{enumerate}
+\item Použitelnost
+\begin{enumerate}
+\item Celá aplikace bude snadno použitelná.
+\item Použitá technologie WS umožní integraci služby s aplikacemi na platformách PHP a Java.
+\end{enumerate}
+
+\item Modulárnost
+\begin{enumerate}
+\item Celá aplikace se bude skládat z oddělených modulů pro import rz.xml, zpracování požadavků WS a samotné administrace.
+\item Moduly na sobě nebudou závislé a nahrazení jednoho modulu by nemělo ovlivnit ostatní.
+\end{enumerate}
+
+\item Přístupová práva
+\begin{enumerate}
+\item Aplikace nebude řešit práva přístupu do administrace služby, to je záležitost webového serveru a nadřazených aplikací.
+\item Bude však implementovat nějakou formu autentizace klientských aplikací při komunikaci přes WS.
+\end{enumerate}
+
+%\item Nezávislost na databázi
+%\begin{enumerate}
+%\item Systém nebude svázán s konkrétní relační databází.
+%\end{enumerate}
+
+\end{enumerate}
 
 
 %*****************************************************************************
@@ -290,13 +342,15 @@ Analýza a návrh implementace (včetně diskuse různých alternativ a volby im
 
 
 \section{Možnosti získání dat z KOS}
-Studijní informační systém KOS je uzavřený systém, ke kterému téměř nikdo nemá přímý aplikační přístup. Samotný KOS totiž neposkytuje žádné dostupné API, pomocí kterého by mohli aplikace jednotlivých kateder získat alespoň základní data o studentech, učitelích a vyučovaných předmětech. V podstatě jediným dnes dostupným způsobem jak tato data získat je soubor \textit{rz.xml}. Každý, kdo chce tyto informace ve své aplikaci použít, tak musí tento soubor nějakým způsobem zpracovat - typicky převést do podobny databáze se kterou pak pracuje samotná aplikace. V letním semestru 2009/2010 Jakub Jirůtka v rámci své bakalářské práce\cite{jirutka}  vytvořil KOSApi, webovou službu pro aplikační přístup k datům rozvrhu bez nutnosti parsovat \textit{rz.xml}. Nicméně tato práce začala již na jaře 2010, kdy KOSApi nebylo ještě dokončené, a proto jej moje práce přímo nevyužívá, ale implementuje vlastní parser pro \textit{rz.xml}.
+Studijní informační systém KOS je uzavřený systém, ke kterému téměř nikdo nemá přímý aplikační přístup. Samotný KOS totiž neposkytuje žádné dostupné API, pomocí kterého by mohli aplikace jednotlivých kateder získat alespoň základní data o studentech, učitelích a vyučovaných předmětech. V podstatě jediným dnes dostupným způsobem jak tato data získat je soubor \textit{rz.xml}. Každý, kdo chce tyto informace ve své aplikaci použít, tak musí tento soubor nějakým způsobem zpracovat - typicky převést do podoby databáze se kterou pak pracuje samotná aplikace. V letním semestru 2009/2010 Jakub Jirůtka v rámci své bakalářské práce\cite{jirutka}  vytvořil KOSApi, webovou službu pro aplikační přístup k datům rozvrhu bez nutnosti parsovat \textit{rz.xml}. Nicméně tato práce začala již na jaře 2010, kdy KOSApi nebylo ještě dokončené, a proto jej tato práce přímo nevyužívá, ale implementuje vlastní parser pro \textit{rz.xml}.
 
 \subsection{Současný způsob importu}
 //TODO - zeptat se (asi) Hunky na podrobnosti 
 
 \subsection{Struktura exportu z KOS}
-//TODO - zkráceně struktura, odkaz na Jirutku, rozdíly, které se tam objevily
+Jak jsem už zmínil, jediným dostupným způsobem jak získat data rozvrhu je rz.xml. Struktura tohoto souboru zdánlivě připomíná databázové tabulky. Začíná kořenovým elementem ROZVRH, v kterém jsou zanořeny elementy jednotlivých \uv{tabulek}, každou s právě jedním výskytem. Tyto elementy pak obsahují jednotlivé \uv{řádky} tabulek, kdy názvy atributů elementů odpovídají sloupcům tabulky, hodnota atributů pak datům sloupce. struktura souboru sice budí dojem, že se jedná o přímý export minimálně části databázové struktury KOSu, skutečnost je jiná. Jak uvádí Jakub Jirůtka\cite{jirutka}, data jsou pomocí uložených procedur agregována i z několika tabulek a mapována do struktury XML. Správu těchto uložených procedur má na starosti VIC.
+
+//TODO
 
 \section{EDUX?}
 
@@ -321,11 +375,11 @@ MySQL je multiplatformní relační databázový systém od švédské společno
 \subsection{Nette Framework}
 Nette je český framework pro tvorbu webových aplikací v PHP 5. Zaměřuje se především na eliminaci bezpečnostních rizik a vede programátory k čistému návrhu aplikace s důrazem na budoucí rozšiřitelnost. Využívá událostmi řízeného programování a principy třívrstvé architektury Model-View-Presenter, DRY\footnote{neopakovat se} a KISS\footnote{řešit vše jednoduše}. Původním autorem Nette je David Grudl, dnes se o jeho vývoj stará komunita vývojářů Nette Foundation. Framework je volně dostupný pod licencí GNU/GPL a licencí Nette, která je obdobou BSD licence\cite{nette:licence}.
 
-\subsection{Databázová abstrakce - PDA a dibi}
+\subsection{Databázová abstrakce - PDO a dibi}
 \subsection{Web Services, SOAP}
 
 \section{Načtení XML exportu}
-\subsection{Cizí klíče a referenční závislosti}
+%\subsection{Cizí klíče a referenční závislosti}
 \section{Verzování databáze}
 \subsection{Zachování integrity dat}
 
