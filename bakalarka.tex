@@ -39,7 +39,7 @@
 % Styles required in your work follow %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{graphicx}
-%\usepackage{indentfirst} %1. odstavec jako v cestine.
+\usepackage{indentfirst} %1. odstavec jako v cestine.
 
 \usepackage{k336_thesis_macros} % specialni makra pro formatovani DP a BP
  % muzete si vytvorit i sva vlastni v souboru k336_thesis_macros.sty
@@ -124,7 +124,7 @@ unicode=true,
 \usepackage[square, numbers]{natbib}             % sazba pouzite literatury
 %\usepackage{url}
 %\DeclareUrlCommand\url{\def\UrlLeft{<}\def\UrlRight{>}\urlstyle{tt}}  %rm/sf/tt
-%\renewcommand{\emph}[1]{\textsl{#1}}    % melo by byt kurziva nebo sklonene,
+\renewcommand{\emph}[1]{\textsl{#1}}    % melo by byt kurziva nebo sklonene,
 \let\oldUrl\url
 \renewcommand\url[1]{<\texttt{\oldUrl{#1}}>}
 
@@ -266,9 +266,18 @@ Očekávají se cca 1 -- 2 odstavce, maximálně půl stránky.
 
 %*****************************************************************************
 \chapter{Úvod}
-Úvod charakterizující kontext zadání, případně motivace.
+\section{KOS a jeho historie}
+Následující odstavce obsahující pohled do historie KOSu. Na tomto místě bych rád upozornil, že vycházejí z několika málo zdrojů, které obsahují pouze kusé informace. Nejde tedy o v žádném případě o kompletní a pravděpodobně ani úplně přesnou historii, jde však o jediné informace, které se mi podařilo nalézt. Nicméně si myslím, že na krátké seznámení s historii tohoto informačního systému postačují.
+\subsection{Historický vývoj}
+Historie Komponenty Studium se začala psát před osmnácti lety, v akademickém roce 1992/93\cite{forum:historie-kos}. Tehdejší děkan Fakulty elektrotechnické prof. Hlavička ustanovil komisi, která měla za úkol vytvoření informačního systému pro podporu studijních agend fakulty. Ačkoli původní plán byl takový, že systém vytvoří vlastními silami profesionálové z Katedry počítačů, nakonec jej ale na základě specifikací od akademických pracovníků z řady kateder vytvořila kladenská softwarová firma Tril, spol s.r.o.\cite{forum:neocekavana}.
 
-Výsledná struktura vaší práce a názvy a rozsahy jednotlivých kapitol se samozřejmě budou lišit podle typu práce a podle konkrétní povahy zpracovávaného tématu. Níže uvedená struktura práce odpovídá \textit{práci implementační}, viz \cite{infodp} respektive \cite{infobp}. 
+Systém byl (a stále je) postaven nad databázovým strojem Oracle, uživatelské rozhraní bylo vygenerováno prostřednictvím Oracle Forms verze 4, které je přístupné prostřednictvím znakového terminálu. Zavedení systému značně zjednodušilo správu studijních agend a umožnilo studentům samostatně řešit některé úkoly bez nustnosti navštívit Pedagogické oddělení. Nedlouho po vytvoření systému jej zavedla také Fakulta strojní a později i zbylé fakulty ČVUT.
+
+Nyní se přesuneme kousek blíže současnosti, do roku 2002. KOSu už je 10 let a nyní běží ve třech samostatných instancích - na FEL, FS a ve VIC pro ostatní fakulty. Za tu dobu se také ve velké míře rozšířili osobní počítače a rychlý internet do domácností, a tak sílí hlasy po možnosti přístupu přes WWW rozhraní. Je tedy vypsáno výběrové řízení na WWW rozhraní KOSu pro role Student a Ucitel. Zadání specifikovalo společné WWW rozhraní pro celé ČVUT, které bude komunikovat se všemi třemi instancemi databáze. Zároveň mělo být řešení postaveno na existujících základech a umožnit koexistenci s terminálovým přístupem. 
+
+Zakázku vyhrála firma Trask Solutions, a.s. a webový KOS byl v září 2002 uveden do provozu, zatím jen nad instancí spravovanou ve VIC. K tomu uvádí Ing. Halaška\cite{student:komentar-ke-kos} \uv{Urychlené uvedení vybraných WWW formulářů do provozu k prvnímu září 2002 bylo možné (z našeho hlediska) pouze za cenu některých bezpečnostních kompromisů, kterých se my na FEL bojíme.} To se nakonec ukázalo jako správné rozhodnutí, rozhraní totiž obsahovalo množství závažných chyb, a tak se WWW KOS zpřístupnil pro studenty a učitele na FEL až v září 2003\cite{student:kos-na-web}.
+
+\section{Historie berličky}
 
 
 
@@ -276,8 +285,7 @@ Výsledná struktura vaší práce a názvy a rozsahy jednotlivých kapitol se s
 %*****************************************************************************
 \chapter{Popis problému, specifikace cíle}
 
-\section{Historie KOS}
-\section{Historie berličky}
+
 
 \section{Specifikace požadavků}
 \subsection{Funkční požadavky}
