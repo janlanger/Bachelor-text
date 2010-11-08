@@ -275,7 +275,7 @@ Následující kapitola obsahuje krátký pohled do historie KOSu. Ačkoli infor
 \subsection{Historický vývoj}
 Historie Komponenty Studium se začala psát před osmnácti lety, v akademickém roce 1992/93\cite{forum:historie-kos}. Tehdejší děkan Fakulty elektrotechnické prof. Hlavička ustanovil komisi, která měla za úkol vytvoření informačního systému pro podporu studijních agend fakulty. Ačkoli původní plán byl takový, že systém vytvoří vlastními silami profesionálové z Katedry počítačů, nakonec jej ale na základě specifikací od akademických pracovníků z řady kateder vytvořila kladenská softwarová firma Tril, spol s.r.o.\cite{forum:neocekavana}.
 
-Systém byl (a stále je) postaven nad databázovým strojem Oracle, uživatelské rozhraní bylo vygenerováno prostřednictvím Oracle Forms verze 4, a bylo přístupné prostřednictvím znakového terminálu. Zavedení systému značně zjednodušilo správu studijních agend a umožnilo studentům samostatně řešit některé úkoly bez nutnosti navštívit Pedagogické oddělení. Nedlouho po vytvoření systému jej zavedla také Fakulta strojní a později i zbylé fakulty ČVUT.
+Systém byl (a stále je) postaven nad databázovým strojem Oracle, uživatelské rozhraní bylo vygenerováno prostřednictvím Oracle Forms verze 4, a bylo přístupné prostřednictvím znakového terminálu. Zavedení systému značně zjednodušilo správu studijních agend a dovolilo studentům samostatně řešit některé úkoly bez nutnosti navštívit Pedagogické oddělení. Nedlouho po vytvoření systému jej zavedla také Fakulta strojní a později i zbylé fakulty ČVUT.
 
 KOS přístupný pouze přes znakový terminál fungoval téměř deset let, do roku 2002. Za tu dobu se ve velké míře rozšířili osobní počítače a vysokorychlostní internet i do domácností, a tak sílily hlasy po webovém rozhraní. Bylo vypsáno výběrové řízení na WWW rozhraní KOSu pro role Student a Ucitel. Zadání specifikovalo společné WWW rozhraní pro celé ČVUT, které bude komunikovat se všemi třemi (FEL, FS a VIC) instancemi  databáze. Zároveň mělo být řešení postaveno na existujících základech a umožnit koexistenci s terminálovým přístupem. 
 
@@ -284,30 +284,49 @@ Zakázku vyhrála firma Trask Solutions, a.s. a webový KOS byl v září 2002 u
 \subsection{Současný stav KOS}
 Píše se rok 2010 a KOS má za sebou 18 let své existence. Po akci \uv{Sjednocení instancí KOS} z listopadu 2008\cite{sik} již běží pouze v jedné instanci pod správou VIC pro celou univerzitu. Je téměř neuvěřitelné, že systém přežil až do dnešních dní, navíc jak uvádí Ing. Halaška\cite{student:komentar-ke-kos} \textit{\uv{aniž by bylo nutné cokoliv zásadně měnit}}. Za těch 18 let ale udělal vývoj v informatice pořádný skok kupředu, a KOS dnes v porovnání s informačními systémy jiných českých univerzit\footnote{Za zmínku stojí především IS/STAG Západočeské univerzity nebo IS Masarykovy univerzity v Brně, který obdržel v roce 2005 ocenění EUNIS Elite Award. Systém je formou outsourcingu nasazován i na jiných školách v ČR. } již neobstojí.
 
-Velkým problémem současného stavu je neexistence aplikačního rozhraní. V době , kde je ve velké míře prosazován svobodný přístup k informacím má ČVUT informační systém, který je proprietární a z vnějšku pro aplikace kateder v podstatě nepřístupný.
+Velkým problémem současného stavu je neexistence aplikačního rozhraní. V době, kdy je ve velké míře prosazován svobodný přístup k informacím má ČVUT informační systém, který je proprietární a z vnějšku pro aplikace kateder v podstatě nepřístupný.
 
 
 \section{Historie Studentovy berličky}
 
 Studentova berlička je prací, která vznikla na v rámci bakalářské\cite{hunka:bp} a diplomové\cite{hunka:dp} práce Jiřiho Hunky při jeho studiu na ČVUT FEL. Tato kapitola popisuje v několika odstavcích její historii.
+
 //TODO
+
+
 
 
 %*****************************************************************************
 \chapter{Popis problému, specifikace cíle}
 
-\section{Požadavky na aplikaci}
+\section{Cíl práce}
+Cílem této práce je nalezení, nebo vytvoření datového zdroje, který by poskytl aplikacím přístup k základním datům o studentech, učitelích a rozvrhu. Toto řešení by mělo být dostatečně univerzální aby pokrylo potřeby nejen Studentovy berličky a jejích modulů, ale i případných dalších aplikací. Základním požadavkem je také možnost vytváření revizí dat a jejich vzájemné porovnávání.
 
 \section{Současný způsob importu}
-//TODO - zeptat se (asi) Hunky na podrobnosti 
+Jak popisuje Jiří Hunka ve své bakalářské práci\cite{hunka:bp}, současná verze Studentovy berličky používá pro import textové soubory spravované Ing. Martinem Bílým. Ing. Bílý k nim uvádí tyto informace:
+
+\begin{quotation}
+Není mi známo, jak vypadají skutečné databázové tabulky KOSu a jaké všechny atributy obsahují. Vycházím z pravidelně exportovaných XML dat v souboru rz.xml, která předzpracovávám, načítám do jiné databáze, lehce začišťuji a podstatné informace ukládám do následujících souborů v podadresáři data. Každý soubor v datovém adresáři představuje jednu tabulku.
+
+K souborům umožním přístup těm, kteří je potřebují pro svůj projekt, diplomovou či i jinou práci. Uživatel se zavazuje, že data použije právě k těmto účelům.
+\end{quotation}
+
+Jednotlivé textové soubory obsahují informace o katedrách, místnostech, studentech, učitelích, rozvrhové lístky a zápisy studentů na předměty. Víceméně jde tedy o kompletní rozvrh. Data jednotlivých sloupců jsou v souborech oddělena čárkou, Ing. Bílý uvádí i jejich význam.
+
+Pro tato data je v databázi Studentovi berličky vytvořena struktura tabulek, která odpovídá struktuře souborů.
+
+//TODO - zjistit podrobnosti
+
+//TODO - dál to asi úplně dobře nenavazuje
 
 \section{Možnosti získání dat z KOS}
+
 Studijní informační systém KOS je uzavřený systém, ke kterému téměř nikdo nemá přímý aplikační přístup. Samotný KOS totiž neposkytuje žádné dostupné API, pomocí kterého by mohli aplikace jednotlivých kateder získat alespoň základní data o studentech, učitelích a vyučovaných předmětech. V podstatě jediným dnes dostupným způsobem jak tato data získat je soubor \textit{rz.xml}. Každý, kdo chce tyto informace ve své aplikaci použít, tak musí tento soubor nějakým způsobem zpracovat - typicky převést do podoby databáze se kterou pak pracuje samotná aplikace. V letním semestru 2009/2010 Jakub Jirůtka v rámci své bakalářské práce\cite{jirutka}  vytvořil KOSApi, webovou službu pro aplikační přístup k datům rozvrhu bez nutnosti parsovat \textit{rz.xml}. Nicméně tato práce začala již na jaře 2010, kdy KOSApi nebylo ještě dokončené, a proto jej tato práce přímo nevyužívá, ale implementuje vlastní parser pro \textit{rz.xml}.
 
 
 
 \section{EDUX}
-
+//TODO - zjistit podrobnosti
 
 \section{KOS API}
 
