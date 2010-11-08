@@ -16,7 +16,7 @@
 % The user of this template may find useful to have an alternative to these 
 % officially suggested packages:
 \usepackage[czech, english]{babel}
-\usepackage[T1]{fontenc} % pouzije EC fonty 
+%\usepackage[T1]{fontenc} % pouzije EC fonty 
 % pripadne pisete-li cesky, pak lze zkusit take:
 % \usepackage[OT1]{fontenc} 
 \usepackage[utf8]{inputenc}
@@ -191,7 +191,7 @@ unicode=true,
 \chapter*{Na tomto místě bude oficiální zadání vaší práce}
 \begin{itemize}
 \item Toto zadání je podepsané děkanem a vedoucím katedry,
-\item musíte si ho vyzvednout na studiijním oddělení Katedry počítačů na Karlově náměstí,
+\item musíte si ho vyzvednout na studijním oddělení Katedry počítačů na Karlově náměstí,
 \item v jedné odevzdané práci bude originál tohoto zadání (originál zůstává po obhajobě na katedře),
 \item ve druhé bude na stejném místě neověřená kopie tohoto dokumentu (tato se vám vrátí po obhajobě).
 \end{itemize}
@@ -267,15 +267,20 @@ Očekávají se cca 1 -- 2 odstavce, maximálně půl stránky.
 %*****************************************************************************
 \chapter{Úvod}
 \section{KOS a jeho historie}
-Následující odstavce obsahující pohled do historie KOSu. Na tomto místě bych rád upozornil, že vycházejí z několika málo zdrojů, které obsahují pouze kusé informace. Nejde tedy o v žádném případě o kompletní a pravděpodobně ani úplně přesnou historii, jde však o jediné informace, které se mi podařilo nalézt. Nicméně si myslím, že na krátké seznámení s historii tohoto informačního systému postačují.
+Následující kapitola obsahuje krátký pohled do historie KOSu. Ačkoli informace vychází z malého počtu zdrojů, které navíc obsahují pouze kusé informace, jde o jediné zdroje, které se mi podařilo najít.
 \subsection{Historický vývoj}
 Historie Komponenty Studium se začala psát před osmnácti lety, v akademickém roce 1992/93\cite{forum:historie-kos}. Tehdejší děkan Fakulty elektrotechnické prof. Hlavička ustanovil komisi, která měla za úkol vytvoření informačního systému pro podporu studijních agend fakulty. Ačkoli původní plán byl takový, že systém vytvoří vlastními silami profesionálové z Katedry počítačů, nakonec jej ale na základě specifikací od akademických pracovníků z řady kateder vytvořila kladenská softwarová firma Tril, spol s.r.o.\cite{forum:neocekavana}.
 
-Systém byl (a stále je) postaven nad databázovým strojem Oracle, uživatelské rozhraní bylo vygenerováno prostřednictvím Oracle Forms verze 4, které je přístupné prostřednictvím znakového terminálu. Zavedení systému značně zjednodušilo správu studijních agend a umožnilo studentům samostatně řešit některé úkoly bez nustnosti navštívit Pedagogické oddělení. Nedlouho po vytvoření systému jej zavedla také Fakulta strojní a později i zbylé fakulty ČVUT.
+Systém byl (a stále je) postaven nad databázovým strojem Oracle, uživatelské rozhraní bylo vygenerováno prostřednictvím Oracle Forms verze 4, a bylo přístupné prostřednictvím znakového terminálu. Zavedení systému značně zjednodušilo správu studijních agend a umožnilo studentům samostatně řešit některé úkoly bez nutnosti navštívit Pedagogické oddělení. Nedlouho po vytvoření systému jej zavedla také Fakulta strojní a později i zbylé fakulty ČVUT.
 
-Nyní se přesuneme kousek blíže současnosti, do roku 2002. KOSu už je 10 let a nyní běží ve třech samostatných instancích - na FEL, FS a ve VIC pro ostatní fakulty. Za tu dobu se také ve velké míře rozšířili osobní počítače a rychlý internet do domácností, a tak sílí hlasy po možnosti přístupu přes WWW rozhraní. Je tedy vypsáno výběrové řízení na WWW rozhraní KOSu pro role Student a Ucitel. Zadání specifikovalo společné WWW rozhraní pro celé ČVUT, které bude komunikovat se všemi třemi instancemi databáze. Zároveň mělo být řešení postaveno na existujících základech a umožnit koexistenci s terminálovým přístupem. 
+KOS přístupný pouze přes znakový terminál fungoval téměř deset let, do roku 2002. Za tu dobu se ve velké míře rozšířili osobní počítače a vysokorychlostní internet i do domácností, a tak sílily hlasy po webovém rozhraní. Bylo vypsáno výběrové řízení na WWW rozhraní KOSu pro role Student a Ucitel. Zadání specifikovalo společné WWW rozhraní pro celé ČVUT, které bude komunikovat se všemi třemi (FEL, FS a VIC) instancemi  databáze. Zároveň mělo být řešení postaveno na existujících základech a umožnit koexistenci s terminálovým přístupem. 
 
 Zakázku vyhrála firma Trask Solutions, a.s. a webový KOS byl v září 2002 uveden do provozu, zatím jen nad instancí spravovanou ve VIC. K tomu uvádí Ing. Halaška\cite{student:komentar-ke-kos} \uv{Urychlené uvedení vybraných WWW formulářů do provozu k prvnímu září 2002 bylo možné (z našeho hlediska) pouze za cenu některých bezpečnostních kompromisů, kterých se my na FEL bojíme.} To se nakonec ukázalo jako správné rozhodnutí, rozhraní totiž obsahovalo množství závažných chyb, a tak se WWW KOS zpřístupnil pro studenty a učitele na FEL až v září 2003\cite{student:kos-na-web}.
+
+%\subsection{Současný stav KOS}
+%Píše se rok 2010 a KOS má za sebou 18 let své existence. Po akci \uv{Sjednocení instancí KOS} z listopadu 2008\cite{sik} již běží pouze v jedné instanci pod správou VIC pro celou univerzitu. Je téměř neuvěřitelné, že systém přežil až do dnešních dní, navíc jak uvádí Ing. Halaška\cite{student:komentar-ke-kos} \uv{aniž by bylo nutné cokoliv zásadně měnit}. Za těch 18 let ovšem vývoj technologií a přístupů udělal obrovský skok kupředu a je tedy také skoro neuvěřitelné, že KOS se nijak zásadně nezměnil.
+
+%Vyučující si často a rádi vybírají KOS jako příklad aplikace, která je špatně navržená, především po stránce databáze. 
 
 \section{Historie berličky}
 
@@ -285,8 +290,23 @@ Zakázku vyhrála firma Trask Solutions, a.s. a webový KOS byl v září 2002 u
 %*****************************************************************************
 \chapter{Popis problému, specifikace cíle}
 
+\section{Požadavky na aplikaci}
+
+\section{Současný způsob importu}
+//TODO - zeptat se (asi) Hunky na podrobnosti 
+
+\section{Možnosti získání dat z KOS}
+Studijní informační systém KOS je uzavřený systém, ke kterému téměř nikdo nemá přímý aplikační přístup. Samotný KOS totiž neposkytuje žádné dostupné API, pomocí kterého by mohli aplikace jednotlivých kateder získat alespoň základní data o studentech, učitelích a vyučovaných předmětech. V podstatě jediným dnes dostupným způsobem jak tato data získat je soubor \textit{rz.xml}. Každý, kdo chce tyto informace ve své aplikaci použít, tak musí tento soubor nějakým způsobem zpracovat - typicky převést do podoby databáze se kterou pak pracuje samotná aplikace. V letním semestru 2009/2010 Jakub Jirůtka v rámci své bakalářské práce\cite{jirutka}  vytvořil KOSApi, webovou službu pro aplikační přístup k datům rozvrhu bez nutnosti parsovat \textit{rz.xml}. Nicméně tato práce začala již na jaře 2010, kdy KOSApi nebylo ještě dokončené, a proto jej tato práce přímo nevyužívá, ale implementuje vlastní parser pro \textit{rz.xml}.
 
 
+
+\section{EDUX}
+
+
+\section{KOS API}
+
+
+\section{Vlastní řešení}
 \section{Specifikace požadavků}
 \subsection{Funkční požadavky}
 
@@ -349,11 +369,7 @@ Zakázku vyhrála firma Trask Solutions, a.s. a webový KOS byl v září 2002 u
 Analýza a návrh implementace (včetně diskuse různých alternativ a volby implementačního prostředí).
 
 
-\section{Možnosti získání dat z KOS}
-Studijní informační systém KOS je uzavřený systém, ke kterému téměř nikdo nemá přímý aplikační přístup. Samotný KOS totiž neposkytuje žádné dostupné API, pomocí kterého by mohli aplikace jednotlivých kateder získat alespoň základní data o studentech, učitelích a vyučovaných předmětech. V podstatě jediným dnes dostupným způsobem jak tato data získat je soubor \textit{rz.xml}. Každý, kdo chce tyto informace ve své aplikaci použít, tak musí tento soubor nějakým způsobem zpracovat - typicky převést do podoby databáze se kterou pak pracuje samotná aplikace. V letním semestru 2009/2010 Jakub Jirůtka v rámci své bakalářské práce\cite{jirutka}  vytvořil KOSApi, webovou službu pro aplikační přístup k datům rozvrhu bez nutnosti parsovat \textit{rz.xml}. Nicméně tato práce začala již na jaře 2010, kdy KOSApi nebylo ještě dokončené, a proto jej tato práce přímo nevyužívá, ale implementuje vlastní parser pro \textit{rz.xml}.
 
-\subsection{Současný způsob importu}
-//TODO - zeptat se (asi) Hunky na podrobnosti 
 
 \subsection{Struktura exportu z KOS}
 Jak jsem už zmínil, jediným dostupným způsobem jak získat data rozvrhu je rz.xml. Struktura tohoto souboru zdánlivě připomíná databázové tabulky. Začíná kořenovým elementem ROZVRH, v kterém jsou zanořeny elementy jednotlivých \uv{tabulek}, každou s právě jedním výskytem. Tyto elementy pak obsahují jednotlivé \uv{řádky} tabulek, kdy názvy atributů elementů odpovídají sloupcům tabulky, hodnota atributů pak datům sloupce. struktura souboru sice budí dojem, že se jedná o přímý export minimálně části databázové struktury KOSu, skutečnost je jiná. Jak uvádí Jakub Jirůtka\cite{jirutka}, data jsou pomocí uložených procedur agregována i z několika tabulek a mapována do struktury XML. Správu těchto uložených procedur má na starosti VIC.
