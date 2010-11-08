@@ -9,16 +9,16 @@
 % sjednoceni zdrojoveho kodu pro anglickou, ceskou, bakalarskou a diplomovou praci
 
 % One-page layout: (proof-)reading on display
- \documentclass[11pt,oneside,a4paper]{book}
+% \documentclass[11pt,oneside,a4paper]{book}
 % Two-page layout: final printing
-%\documentclass[11pt,twoside,a4paper]{book}   
+\documentclass[11pt,twoside,a4paper]{book}   
 %=-=-=-=-=-=-=-=-=-=-=-=--=%
 % The user of this template may find useful to have an alternative to these 
 % officially suggested packages:
 \usepackage[czech, english]{babel}
-%\usepackage[T1]{fontenc} % pouzije EC fonty 
+\usepackage[T1]{fontenc} % pouzije EC fonty 
 % pripadne pisete-li cesky, pak lze zkusit take:
-% \usepackage[OT1]{fontenc} 
+%\usepackage[OT1]{fontenc} 
 \usepackage[utf8]{inputenc}
 %=-=-=-=-=-=-=-=-=-=-=-=--=%
 % In case of problems with PDF fonts, one may try to uncomment this line:
@@ -32,7 +32,8 @@
 % to process your work. Note however, this file is in UTF-8 and a conversion to 
 % your native encoding may be required. Some settings below depend on babel 
 % macros and should also be modified. See \selectlanguage \iflanguage.
-%\usepackage{czech}  %%%%%\usepackage[T1]{czech} %%%%[IL2] [T1] [OT1]
+%\usepackage{czech}  %%%%%
+%\usepackage[T1]{czech} %%%%[IL2] [T1] [OT1]
 %=-=-=-=-=-=-=-=-=-=-=-=--=%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -122,9 +123,9 @@ unicode=true,
 % See comment over \thebibliography command for details.
 
 \usepackage[square, numbers]{natbib}             % sazba pouzite literatury
-%\usepackage{url}
+\usepackage{url}
 %\DeclareUrlCommand\url{\def\UrlLeft{<}\def\UrlRight{>}\urlstyle{tt}}  %rm/sf/tt
-\renewcommand{\emph}[1]{\textsl{#1}}    % melo by byt kurziva nebo sklonene,
+%\renewcommand{\emph}[1]{\textsl{#1}}    % melo by byt kurziva nebo sklonene,
 \let\oldUrl\url
 \renewcommand\url[1]{<\texttt{\oldUrl{#1}}>}
 
@@ -266,6 +267,9 @@ Očekávají se cca 1 -- 2 odstavce, maximálně půl stránky.
 
 %*****************************************************************************
 \chapter{Úvod}
+
+V této úvodní kapitole naleznete stručnou historii dvou informačních systémů, kterých se tato práce bezprostředně dotýká - Komponenty Studium a Studentovy berličky.
+
 \section{KOS a jeho historie}
 Následující kapitola obsahuje krátký pohled do historie KOSu. Ačkoli informace vychází z malého počtu zdrojů, které navíc obsahují pouze kusé informace, jde o jediné zdroje, které se mi podařilo najít.
 \subsection{Historický vývoj}
@@ -275,16 +279,18 @@ Systém byl (a stále je) postaven nad databázovým strojem Oracle, uživatelsk
 
 KOS přístupný pouze přes znakový terminál fungoval téměř deset let, do roku 2002. Za tu dobu se ve velké míře rozšířili osobní počítače a vysokorychlostní internet i do domácností, a tak sílily hlasy po webovém rozhraní. Bylo vypsáno výběrové řízení na WWW rozhraní KOSu pro role Student a Ucitel. Zadání specifikovalo společné WWW rozhraní pro celé ČVUT, které bude komunikovat se všemi třemi (FEL, FS a VIC) instancemi  databáze. Zároveň mělo být řešení postaveno na existujících základech a umožnit koexistenci s terminálovým přístupem. 
 
-Zakázku vyhrála firma Trask Solutions, a.s. a webový KOS byl v září 2002 uveden do provozu, zatím jen nad instancí spravovanou ve VIC. K tomu uvádí Ing. Halaška\cite{student:komentar-ke-kos} \uv{Urychlené uvedení vybraných WWW formulářů do provozu k prvnímu září 2002 bylo možné (z našeho hlediska) pouze za cenu některých bezpečnostních kompromisů, kterých se my na FEL bojíme.} To se nakonec ukázalo jako správné rozhodnutí, rozhraní totiž obsahovalo množství závažných chyb, a tak se WWW KOS zpřístupnil pro studenty a učitele na FEL až v září 2003\cite{student:kos-na-web}.
+Zakázku vyhrála firma Trask Solutions, a.s. a webový KOS byl v září 2002 uveden do provozu, zatím jen nad instancí spravovanou ve VIC. K tomu uvádí Ing. Halaška\cite{student:komentar-ke-kos} \textit{\uv{Urychlené uvedení vybraných WWW formulářů do provozu k prvnímu září 2002 bylo možné (z našeho hlediska) pouze za cenu některých bezpečnostních kompromisů, kterých se my na FEL bojíme.}} To se nakonec ukázalo jako správné rozhodnutí, rozhraní totiž obsahovalo množství závažných chyb, a tak se WWW KOS zpřístupnil pro studenty a učitele na FEL až v září 2003\cite{student:kos-na-web}.
 
-%\subsection{Současný stav KOS}
-%Píše se rok 2010 a KOS má za sebou 18 let své existence. Po akci \uv{Sjednocení instancí KOS} z listopadu 2008\cite{sik} již běží pouze v jedné instanci pod správou VIC pro celou univerzitu. Je téměř neuvěřitelné, že systém přežil až do dnešních dní, navíc jak uvádí Ing. Halaška\cite{student:komentar-ke-kos} \uv{aniž by bylo nutné cokoliv zásadně měnit}. Za těch 18 let ovšem vývoj technologií a přístupů udělal obrovský skok kupředu a je tedy také skoro neuvěřitelné, že KOS se nijak zásadně nezměnil.
+\subsection{Současný stav KOS}
+Píše se rok 2010 a KOS má za sebou 18 let své existence. Po akci \uv{Sjednocení instancí KOS} z listopadu 2008\cite{sik} již běží pouze v jedné instanci pod správou VIC pro celou univerzitu. Je téměř neuvěřitelné, že systém přežil až do dnešních dní, navíc jak uvádí Ing. Halaška\cite{student:komentar-ke-kos} \textit{\uv{aniž by bylo nutné cokoliv zásadně měnit}}. Za těch 18 let ale udělal vývoj v informatice pořádný skok kupředu, a KOS dnes v porovnání s informačními systémy jiných českých univerzit\footnote{Za zmínku stojí především IS/STAG Západočeské univerzity nebo IS Masarykovy univerzity v Brně, který obdržel v roce 2005 ocenění EUNIS Elite Award. Systém je formou outsourcingu nasazován i na jiných školách v ČR. } již neobstojí.
 
-%Vyučující si často a rádi vybírají KOS jako příklad aplikace, která je špatně navržená, především po stránce databáze. 
-
-\section{Historie berličky}
+Velkým problémem současného stavu je neexistence aplikačního rozhraní. V době , kde je ve velké míře prosazován svobodný přístup k informacím má ČVUT informační systém, který je proprietární a z vnějšku pro aplikace kateder v podstatě nepřístupný.
 
 
+\section{Historie Studentovy berličky}
+
+Studentova berlička je prací, která vznikla na v rámci bakalářské\cite{hunka:bp} a diplomové\cite{hunka:dp} práce Jiřiho Hunky při jeho studiu na ČVUT FEL. Tato kapitola popisuje v několika odstavcích její historii.
+//TODO
 
 
 %*****************************************************************************
@@ -376,7 +382,6 @@ Jak jsem už zmínil, jediným dostupným způsobem jak získat data rozvrhu je 
 
 //TODO
 
-\section{EDUX?}
 
 
 
