@@ -321,12 +321,12 @@ Pro tato data je v databázi Studentovi berličky vytvořena struktura tabulek, 
 
 \section{Možnosti získání dat z KOS}
 
-Studijní informační systém KOS je uzavřený systém, ke kterému téměř nikdo nemá přímý aplikační přístup. Samotný KOS totiž neposkytuje žádné dostupné API, pomocí kterého by mohli aplikace jednotlivých kateder získat alespoň základní data o studentech, učitelích a vyučovaných předmětech. V podstatě jediným dnes dostupným způsobem jak tato data získat je soubor \textit{rz.xml}. Každý, kdo chce tyto informace ve své aplikaci použít, tak musí tento soubor nějakým způsobem zpracovat - typicky převést do podoby databáze se kterou pak pracuje samotná aplikace. V letním semestru 2009/2010 Jakub Jirůtka v rámci své bakalářské práce\cite{jirutka}  vytvořil KOSApi, webovou službu pro aplikační přístup k datům rozvrhu bez nutnosti parsovat \textit{rz.xml}. Nicméně tato práce začala již na jaře 2010, kdy KOSApi nebylo ještě dokončené, a proto jej tato práce přímo nevyužívá, ale implementuje vlastní parser pro \textit{rz.xml}.
-
-
+Studijní informační systém KOS je uzavřený systém, ke kterému v podstatě nelze získat přímý aplikační přístup. Samotný KOS totiž neposkytuje žádné dostupné API, pomocí kterého by mohli aplikace jednotlivých fakult a kateder získat alespoň základní data o studentech, učitelích a vyučovaných předmětech. Někteří si proto v minulosti vyžádali nějakou formu generovaného výstupu vhodnou pro svou aplikaci. Jedním takovým exportem je i soubor rz.xml který obsahuje data rozvrhu, tady studenty, učitele, předměty, zápisy do paralelek a další. Každý, kdo chce tento typ dat ve své aplikaci použít, musí tento soubor nějakým způsobem zpracovat - typicky převést do podoby databáze se kterou pak pracuje samotná aplikace. Rozhodl jsem se proto nejdříve zjistit, jak získávání dat řeší některé větší aplikace, a zda-li by se nedali nějakým způsobem využít pro Studentovu berličku.
 
 \section{EDUX}
-//TODO - zjistit podrobnosti
+Aplikace EDUX je webový systém sloužící k organizaci výuky a publikování výukových materiálů na webu pro učitele i studenty. Jde o otevřený systém postavený na aplikaci DokuWiki, jejíchž vlastnosti přebírá a rozšiřuje. V současné době je provozován na serverových clusterech na FEL i na FIT. Studentova berlička by měla v budoucnu s EDUXem úzce spolupracovat, stát se v podstatě jeho plug-inem. EDUX samozřejmě také potřebuje pro své fungování data o rozvrhu z KOS, který zpracovává export rz.xml. Požádal jsem proto Ing. Tomáše Kadlece o vyjádření jakým způsobem aplikace zmíněný soubor zpracovává.
+
+EDUX zpracovává rz.xml formou XSL transformace, ze které jsou generovány informace rovnou ve formátu pro Dokuwiki. Tento import je prováděn každou noc, aplikace si zároveň udržuje 90 dní zpět rozdílovou zálohu pro případ problémů, ale jak uvádí Ing. Kadlec, za 1,5 roku provozu EDUXu ji nebylo nutné použít. Je tedy myslím celkem jasné, že pro poskytnutí dat Berličce nemlže EDUX nabídnout žádný výstup, žádnou \uv{mezi-databázi} vlastně ani nepoužívá.
 
 \section{KOS API}
 
