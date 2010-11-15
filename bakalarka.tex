@@ -9,9 +9,9 @@
 % sjednoceni zdrojoveho kodu pro anglickou, ceskou, bakalarskou a diplomovou praci
 
 % One-page layout: (proof-)reading on display
-% \documentclass[11pt,oneside,a4paper]{book}
+\documentclass[11pt,oneside,a4paper]{book}
 % Two-page layout: final printing
-\documentclass[11pt,twoside,a4paper]{book}   
+% \documentclass[11pt,twoside,a4paper]{book}   
 %=-=-=-=-=-=-=-=-=-=-=-=--=%
 % The user of this template may find useful to have an alternative to these 
 % officially suggested packages:
@@ -317,7 +317,6 @@ Pro tato data je v databázi Studentovi berličky vytvořena struktura tabulek, 
 
 //TODO - zjistit podrobnosti
 
-//TODO - dál to asi úplně dobře nenavazuje
 
 \section{Možnosti získání dat z KOS}
 
@@ -329,7 +328,13 @@ Aplikace EDUX je webový systém sloužící k organizaci výuky a publikování
 EDUX zpracovává rz.xml formou XSL transformace, ze které jsou generovány informace rovnou ve formátu pro Dokuwiki. Tento import je prováděn každou noc, aplikace si zároveň udržuje 90 dní zpět rozdílovou zálohu pro případ problémů, ale jak uvádí Ing. Kadlec, za 1,5 roku provozu EDUXu ji nebylo nutné použít. Je tedy myslím celkem jasné, že pro poskytnutí dat Berličce nemlže EDUX nabídnout žádný výstup, žádnou \uv{mezi-databázi} vlastně ani nepoužívá.
 
 \section{KOS API}
+V letním semestru 2009/2010 vytvořil Jakub Jirůtka v rámci své bakalářské práce\cite{jirutka} aplikaci nazvanou KOSapi. Jde o implementaci webové služby na bázi REST architektury nad zmíněným exportem z KOS rz.xml. Tato aplikace významně zjednodušuje získávání dat rozvrhu z KOS, neboť složité parsování a transformaci XML souboru do přístupnější formy nahrazuje RESTful webová služba s jednoduchou komunikací na bázi požadavek-odpověď nad protokolem HTTP.
 
+Ačkoli tato aplikace řeší několik úskalí práce s rz.xml, nakonec jsem ji nepoužil především z těchto důvodů:
+\begin{itemize}
+\item Aplikace udržuje vždy jen aktuální verzi dat (z poslední noci). Nelze tedy vytvářet revize a vzájemně je porovnávat, což je jeden z cílů této práce. Bylo by nejspíše nutné implementovat nějakou nadstavbu nad KOSapi, která by toto podporovala.
+\item Druhý, a podstatnějším důvod je ten, že v době, kdy jsem na této práci začal pracovat (jaro 2010) nebylo KOSapi ještě hotové a nasazené, k tomu došlo až na podzim. Je ovšem možné, že v budoucnu bude KOSapi nějakým způsobem využito.
+\end{itemize}
 
 \section{Vlastní řešení}
 \section{Specifikace požadavků}
