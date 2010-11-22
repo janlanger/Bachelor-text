@@ -337,7 +337,7 @@ Ačkoli tato aplikace řeší několik úskalí práce s rz.xml, nakonec jsem ji
 \end{itemize}
 
 \section{Vlastní řešení}
-Bohužel se mi tedy nepodařilo navíc takovou existující aplikaci, která by splnila všechny požadované podmínky, a proto jsem přistoupil k navržení a implementaci vlastního řešení
+Bohužel se mi tedy nepodařilo navíc takovou existující aplikaci, která by splnila všechny požadavky, a proto jsem přistoupil k navržení a implementaci vlastního aplikace. Prvním krokem k tomu bylo přesné specifikování požadavků.
 \section{Specifikace požadavků}
 \subsection{Funkční požadavky}
 
@@ -372,7 +372,7 @@ Bohužel se mi tedy nepodařilo navíc takovou existující aplikaci, která by 
 \item Použitelnost
 \begin{enumerate}
 \item Celá aplikace bude uživatelsky přívětivá a snadno použitelná.
-\item Použitá technologie WS umožní integraci služby s aplikacemi na běžně používaných platformách pro vývoj webových aplikací a plug-inů Studentovi berličky (PHP, C++, Java...).
+\item Použitá technologie WS umožní integraci služby s aplikacemi na běžně používaných platformách pro vývoj webových aplikací a plug-inů Studentovy berličky (PHP, C++, Java...).
 \end{enumerate}
 
 \item Modulárnost
@@ -424,20 +424,27 @@ Pro implementaci aplikace byl použit skriptovací jazyk PHP a databázový stro
 PHP je velmi oblíbený skriptovací programovací jazyk používaný především pro tvorbu dynamických webových stránek. Od verze 5 disponuje také dobrou podporou objektově orientovaného programování. Přestože si jazyk s sebou z minulosti nese spoustu nevýhod, jde dnes nejspíše o nejpoužívanější jazyk pro tvorbu webů. Poslední významná verze PHP 5.3 rozšířila možnosti jazyka také o deklaraci jmenných prostorů, anonymní funkce, řetězení výjimek a mnoho dalších menších změn.
 
 \subsection{MySQL}
-MySQL je multiplatformní relační databázový systém od švédské společnosti MySQL AB. Pro svou jednoduchou instalaci, konfiguraci, výkon a také proto, že je volně dostupné pod GNU GPL, je na webových serverech velmi oblíbená, především v kombinaci s Apache a PHP. MySQL bylo od počátku svého vývoje optimalizováno především pro výkon, a to i za cenu zjednodušení funkčnosti, například podpora definice cizích klíčů a transakcí byla přidána až ve verzi 3.23, šest let od prvního vydání. MySQL podporuje většinu ze standartu SQL:99, doplněnou stejně jako u většiny ostatních DBMS o vlastní rozšíření.
+MySQL je multiplatformní relační databázový systém od švédské společnosti MySQL AB. Pro svou jednoduchou instalaci, konfiguraci, výkon a také proto, že je volně dostupné pod GNU GPL, je na webových serverech velmi oblíbená, především v kombinaci s Apache a PHP. MySQL bylo od počátku svého vývoje optimalizováno především pro výkon, a to i za cenu zjednodušení funkčnosti, například podpora definice cizích klíčů a transakcí byla přidána až ve verzi 3.23, šest let od prvního vydání. MySQL podporuje většinu ze standartu SQL:99, doplněnou, stejně jako u většiny ostatních DBMS, o vlastní rozšíření.
 
 \subsection{Nette Framework}
-Nette je český framework pro tvorbu webových aplikací v PHP 5. Zaměřuje se především na eliminaci bezpečnostních rizik a vede programátory k čistému návrhu aplikace s důrazem na budoucí rozšiřitelnost. Využívá událostmi řízeného programování a principy třívrstvé architektury Model-View-Presenter, DRY\footnote{neopakovat se} a KISS\footnote{řešit vše jednoduše}. Původním autorem Nette je David Grudl, dnes se o jeho vývoj stará komunita vývojářů Nette Foundation. Framework je volně dostupný pod licencí GNU/GPL a licencí Nette, která je obdobou BSD licence\cite{nette:licence}.
+Nette je český framework pro tvorbu webových aplikací v PHP 5. Zaměřuje se především na eliminaci bezpečnostních rizik a vede programátory k čistému návrhu aplikace s důrazem na budoucí rozšiřitelnost. Využívá událostmi řízeného programování a principy třívrstvé architektury Model-View-Presenter, DRY\footnote{neopakovat se} a KISS\footnote{řešit vše jednoduše}. Mezi jeho silné stránky patří také výkonný nástroj pro odchytávání chyb (Nette\verb|\|Debug), který místo prosté textové informace PHP zobrazí celou stránku s detailním výpisem místa, kde k chybě došlo, call stacku a důležitých proměnných aplikace. Dalšími velmi užitečnými částmi frameworku jsou formuláře se silným validačním jazykem, routování, které slouží jak pro zpracování požadavků, tak i pro generování odkazů, a v neposlední řadě šablonovací jazyk Latte.
+
+Za dva roky veřejné existence si Nette získalo velkou popularitu na česko-slovenském webu, včetně komerčních aplikací. Původním autorem Nette je David Grudl, dnes se o jeho vývoj stará komunita vývojářů Nette Foundation. Framework je volně dostupný pod licencí GNU/GPL a licencí Nette, která je obdobou BSD licence\cite{nette:licence}.
 
 \subsection{Databázová abstrakce}
 Nutnost použití databázové abstrakce plyne z NP4a. Přímo v distribučním balíku PHP najdeme rozšíření PDO, které poskytuje abstrakční vrstvu a odstínění od konkrétní databáze. Já jsem se rozhodl nepoužít přímo PDO, ale knihovnu dibi.
 \subsubsection{dibi}
-Dibi pochází stejně jako Nette Framework od českého programátora Davida Grudla. V jeho podtitulu najdeme slova \uv{tiny 'n' smart database layer} (malá a chytrá databázová vrstva). Jde o knihovnu, jejímž hlavním cílem je zjednodušit zápis SQL příkazů a ulehčit rutinní úlohy programátora, například získání výsledků jako dvourozměrné pole, vytvoření pole výskledků indexovaného podle klíče z databáze a podobně. Dibi se také stará o escapování jak identifikátorů tak dat v SQL dotazu, čímž chrání aplikaci proti SQL Injection. Lze ho použít jak jako nadstavbu PDO, tak přímo s nativními PHP rozšířeními jednotlivých databázových strojů.
+Dibi je, jak se dočteme v podtitulu názvu \uv{tiny 'n' smart database layer} (malá a chytrá databázová vrstva). Jde o knihovnu, jejímž hlavním cílem je zjednodušit zápis SQL příkazů a ulehčit rutinní úlohy programátora, například získání výsledků jako dvourozměrné pole, vytvoření pole výsledků indexovaného podle klíče z databáze a podobně. Dibi také pomáhá předcházet zranitelnosti webů SQL Injection, neboť všechny parametry, které do dotazů vstupují jsou automaticky escapovány syntaxí podle použité databáze. Lze ho použít jednak jako nadstavbu PDO, tak přímo s nativními PHP rozšířeními pro jednotlivé databázové stroje.
+
+\subsubsection{Rozhraní pro správu databází}
+PDO i dibi poskytují abstrakci, která je dostačující pro běžnou aplikaci, které pracuje s jednou databází\footnote{Databází zde myslím kolekci tabulek. U MySQL se používá termín databáze, například u PostgreSQL by byl správný termín \uv{schéma}}. S jinými databázemi lze samozřejmě pracovat prostřednictvím \uv{tečkové} notace {\tt databáze.tabulka.sloupec}, ovšem v momentě, kdy je potřeba nastavit některou databázi jako výchozí (např. u MySQL příkazem {\tt USE database}), nenabízí PDO ani dibi žádnou možnost. Totéž pak platí i pro možnosti pro vytváření databáze a tabulek, jejich mazání, úpravy struktury a podobně.  A to je přesně to, co v této aplikaci potřebuji, neboť každá revize odpovídá samostatné databázi. Přímé zapsání těchto příkazů by samozřejmě způsobilo svázání aplikace s konkrétním DBMS, neboť syntaxe těchto příkazů ke u jednotlivých strojů různá.
+
+Z toho důvodu jsem v aplikaci vytvořil jednoduché rozhraní {\tt IDatabaseManager} které odstiňuje ostatní části od specifik databázového stroje. Převod systému pod jiný databázový stroj tedy spočívá jen v implementaci tohoto rozhraní pro konkrétní DBMS a změnu jednoho řádku v konfiguračním souboru.
 
 \subsection{Web Services, SOAP}
 
 \section{Načtení XML exportu}
-%\subsection{Cizí klíče a referenční závislosti}
+\subsection{Cizí klíče a referenční závislosti}
 \section{Verzování databáze}
 \subsection{Zachování integrity dat}
 
@@ -486,7 +493,7 @@ Dibi pochází stejně jako Nette Framework od českého programátora Davida Gr
 %\bibliographystyle{psc}
 {
 %JZ: 11.12.2008 Kdo chce mit v techto ukazkovych odkazech take odkaz na CSTeX:
-\def\CS{$\cal C\kern-0.1667em\lower.5ex\hbox{$\cal S$}\kern-0.075em $}
+%\def\CS{$\cal C\kern-0.1667em\lower.5ex\hbox{$\cal S$}\kern-0.075em $}
 \bibliography{reference}
 }
 
@@ -548,7 +555,7 @@ Určitě existuje nějaká pěkná latinská věta, která se k tomuhle testová
 \chapter{Pokyny a návody k formátování textu práce}
 \textbf{\large Tato příloha samozřejmě nebude součástí vaší práce. Slouží pouze jako příklad formátování textu.}
 
-Používat se dají všechny příkazy systému \LaTeX. Existuje velké množství volně přístupné dokumentace, tutoriálů, příruček a dalších materiálů v elektronické podobě. Výchozím bodem, kromě Googlu, může být stránka CSTUG (Czech Tech Users Group) \cite{CSTUG}. Tam najdete odkazy na další materiály.  Vetšinou dostačující a přehledně organizovanou elektronikou dokumentaci najdete například na \cite{latexdocweb} nebo \cite{latexwiki}.
+Používat se dají všechny příkazy systému \LaTeX. Existuje velké množství volně přístupné dokumentace, tutoriálů, příruček a dalších materiálů v elektronické podobě. Výchozím bodem, kromě Googlu, může být stránka CSTUG (Czech Tech Users Group) cite{CSTUG}. Tam najdete odkazy na další materiály.  Vetšinou dostačující a přehledně organizovanou elektronikou dokumentaci najdete například na cite{latexdocweb} nebo cite{latexwiki}.
 
 Existují i různé nadstavby nad systémy \TeX{} a \LaTeX, které výrazně usnadní psaní textu zejména začátečníkům. Velmi rozšířený v Linuxovém prostředí je systém Kile.
 
@@ -580,7 +587,7 @@ Příklad vložení obrázku:
 \section{Kreslení obrázků}
 Zřejmě každý z vás má nějaký oblíbený nástroj pro tvorbu obrázků. Jde jen o to, abyste dokázali obrázek uložit v požadovaném formátu nebo jej do něj konvertovat (viz předchozí kapitola). Je zřejmě vhodné kreslit obrázky vektorově. Celkem oblíbený, na ovládání celkem jednoduchý a přitom dostatečně mocný je například program Inkscape.
 
-Zde stojí za to upozornit na kreslící programe Ipe \cite{ipe}, který dokáže do obrázku vkládat komentáře přímo v latexovském formátu (vzroce, stejné fonty atd.). Podobné věci umí na Linuxové platformě nástroj Xfig. 
+Zde stojí za to upozornit na kreslící programe Ipe cite{ipe}, který dokáže do obrázku vkládat komentáře přímo v latexovském formátu (vzroce, stejné fonty atd.). Podobné věci umí na Linuxové platformě nástroj Xfig. 
 
 Za pozornost ještě stojí schopnost editoru Ipe importovat obrázek (jpg nebo bitmap) a krelit do něj latexovské popisky a komentáře. Výsledek pak umí exportovat přímo do pdf.
 
@@ -680,8 +687,8 @@ uzavírat do uvozovek (\texttt{author = "\dots"}), nikoliv do složených závor
 
 Odkazy na literaturu ve zdrojovém textu se pak zapisují:
 \begin{verbatim}
-Podívejte se na \cite{Chen01}, 
-další detaily najdete na \cite{latexdocweb}
+Podívejte se na cite{Chen01}, 
+další detaily najdete na cite{latexdocweb}
 \end{verbatim}
 
 Vazbu mezi soubory \verb|*.tex| a \verb|*.bib| zajistíte příkazem 
@@ -727,9 +734,9 @@ stati ve sborníku [3] a html odkazu [4]:
      http://www.cgg.cvut.cz/Bib/library/ 
 \end{verbatim}
 \end{small}
-\ldots{} abychom výše citované odkazy skutečně našli v (automaticky generovaném) seznamu literatury tohoto textu, musíme je nyní alespoň jednou citovat: Kniha \cite{kniha}, článek v~časopisu \cite{clanek}, příspěvek na konferenci {sbornik}, www odkaz \cite{www}.
+\ldots{} abychom výše citované odkazy skutečně našli v (automaticky generovaném) seznamu literatury tohoto textu, musíme je nyní alespoň jednou citovat: Kniha cite{kniha}, článek v~časopisu cite{clanek}, příspěvek na konferenci {sbornik}, www odkaz cite{www}.
 
-Ještě přidáme další ukázku citací online zdrojů podle české normy. Odkaz na wiki o frameworcich  a ORM \cite{wiki:orm}. Použití viz soubor \verb|reference.bib|. V seznamu literatury by nyní měly být živé odkazy na zdroje. V \verb|reference.bib| je zcela nový typ publikace. Detaily dohledal a dodal Petr Dlouhý v dubnu 2010. Podrobnosti najdete ve zdrojovém souboru tohoto textu v komentáři u příkazu \verb|\thebibliography|.
+Ještě přidáme další ukázku citací online zdrojů podle české normy. Odkaz na wiki o frameworcich  a ORM cite{wiki:orm}. Použití viz soubor \verb|reference.bib|. V seznamu literatury by nyní měly být živé odkazy na zdroje. V \verb|reference.bib| je zcela nový typ publikace. Detaily dohledal a dodal Petr Dlouhý v dubnu 2010. Podrobnosti najdete ve zdrojovém souboru tohoto textu v komentáři u příkazu \verb|\thebibliography|.
 
 \subsection{Odkazy na obrázky, tabulky a kapitoly}
 \begin{itemize}
@@ -822,7 +829,7 @@ V souboru \verb|k336_thesis_macros.tex| je příkaz \verb|\uv{}| pro sázení č
 \chapter{Obsah přiloženého CD}
 \textbf{\large Tato příloha je povinná pro každou práci. Každá práce musí totiž obsahovat přiložené CD. Viz dále.}
 
-Může vypadat například takto. Váš seznam samozřejmě bude odpovídat typu vaší práce. (viz \cite{infodp}):
+Může vypadat například takto. Váš seznam samozřejmě bude odpovídat typu vaší práce. (viz cite{infodp}):
 
 \begin{figure}[h]
 \begin{center}
