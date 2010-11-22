@@ -315,7 +315,7 @@ Jednotlivé textové soubory obsahují informace o katedrách, místnostech, stu
 
 Pro tato data je v databázi Studentovi berličky vytvořena struktura tabulek, která odpovídá struktuře souborů.
 
-//TODO - zjistit podrobnosti
+//TODO - zjistit podrobnosti - jak často se importuje
 
 
 \section{Možnosti získání dat z KOS}
@@ -323,9 +323,9 @@ Pro tato data je v databázi Studentovi berličky vytvořena struktura tabulek, 
 Studijní informační systém KOS je uzavřený systém, ke kterému v podstatě nelze získat přímý aplikační přístup. Samotný KOS totiž neposkytuje žádné dostupné API, pomocí kterého by mohli aplikace jednotlivých fakult a kateder získat alespoň základní data o studentech, učitelích a vyučovaných předmětech. Někteří si proto v minulosti vyžádali nějakou formu generovaného výstupu vhodnou pro svou aplikaci. Jedním takovým exportem je i soubor rz.xml který obsahuje data rozvrhu, tady studenty, učitele, předměty, zápisy do paralelek a další. Každý, kdo chce tento typ dat ve své aplikaci použít, musí tento soubor nějakým způsobem zpracovat - typicky převést do podoby databáze se kterou pak pracuje samotná aplikace. Rozhodl jsem se proto nejdříve zjistit, jak získávání dat řeší některé větší aplikace, a zda-li by se nedali nějakým způsobem využít pro Studentovu berličku.
 
 \section{EDUX}
-Aplikace EDUX je webový systém sloužící k organizaci výuky a publikování výukových materiálů na webu pro učitele i studenty. Jde o otevřený systém postavený na aplikaci DokuWiki, jejíchž vlastnosti přebírá a rozšiřuje. V současné době je provozován na serverových clusterech na FEL i na FIT. Studentova berlička by měla v budoucnu s EDUXem úzce spolupracovat, stát se v podstatě jeho plug-inem. EDUX samozřejmě také potřebuje pro své fungování data o rozvrhu z KOS, který zpracovává export rz.xml. Požádal jsem proto Ing. Tomáše Kadlece o vyjádření jakým způsobem aplikace zmíněný soubor zpracovává.
+Aplikace EDUX je webový systém sloužící k organizaci výuky a publikování výukových materiálů na webu pro učitele i studenty. Jde o otevřený systém postavený na aplikaci DokuWiki, jejíchž vlastnosti přebírá a rozšiřuje. V současné době je provozován na serverových clusterech na FEL i na FIT. Studentova berlička by měla v budoucnu s EDUXem úzce spolupracovat, stát se v podstatě jeho plug-inem. EDUX samozřejmě také potřebuje pro své fungování data o rozvrhu z KOS, která získává z exportu rz.xml. Požádal jsem proto Ing. Tomáše Kadlece, který se o EDUX stará, o vyjádření jakým způsobem aplikace zmíněný soubor zpracovává.
 
-EDUX zpracovává rz.xml formou XSL transformace, ze které jsou generovány informace rovnou ve formátu pro Dokuwiki. Tento import je prováděn každou noc, aplikace si zároveň udržuje 90 dní zpět rozdílovou zálohu pro případ problémů, ale jak uvádí Ing. Kadlec, za 1,5 roku provozu EDUXu ji nebylo nutné použít. Je tedy myslím celkem jasné, že pro poskytnutí dat Berličce nemlže EDUX nabídnout žádný výstup, žádnou \uv{mezi-databázi} vlastně ani nepoužívá.
+EDUX zpracovává rz.xml formou XSL transformace, ze které jsou generovány informace rovnou ve formátu pro Dokuwiki. Tento import je prováděn každou noc, aplikace si zároveň udržuje 90 dní zpět rozdílovou zálohu pro případ problémů, ale jak uvádí Ing. Kadlec, za 1,5 roku provozu EDUXu ji nebylo nutné použít. Studentově berličce tedy nemůže EDUX nabídnout žádný výstup, žádnou \uv{mezi-databázi} vlastně ani nepoužívá.
 
 \section{KOS API}
 V letním semestru 2009/2010 vytvořil Jakub Jirůtka v rámci své bakalářské práce\cite{jirutka} aplikaci nazvanou KOSapi. Jde o implementaci webové služby na bázi REST architektury nad zmíněným exportem z KOS rz.xml. Tato aplikace významně zjednodušuje získávání dat rozvrhu z KOS, neboť složité parsování a transformaci XML souboru do přístupnější formy nahrazuje RESTful webová služba s jednoduchou komunikací na bázi požadavek-odpověď nad protokolem HTTP.
@@ -337,6 +337,7 @@ Ačkoli tato aplikace řeší několik úskalí práce s rz.xml, nakonec jsem ji
 \end{itemize}
 
 \section{Vlastní řešení}
+Bohužel se mi tedy nepodařilo navíc takovou existující aplikaci, která by splnila všechny požadované podmínky, a proto jsem přistoupil k navržení a implementaci vlastního řešení
 \section{Specifikace požadavků}
 \subsection{Funkční požadavky}
 
@@ -361,7 +362,7 @@ Ačkoli tato aplikace řeší několik úskalí práce s rz.xml, nakonec jsem ji
 
 \item Aktuálnost dat
 \begin{enumerate}
-\item Pro každou klientskou aplikaci bude možné definovat přístup ke stéle stejné revizi databáze.
+\item Pro každou klientskou aplikaci bude možné definovat přístup ke stále stejné revizi databáze.
 \item Zároveň systém také umožní přístup ke vždy aktuálním datům (každodenně importovaným).
 \end{enumerate}
 \end{enumerate}
@@ -370,8 +371,8 @@ Ačkoli tato aplikace řeší několik úskalí práce s rz.xml, nakonec jsem ji
 \begin{enumerate}
 \item Použitelnost
 \begin{enumerate}
-\item Celá aplikace bude snadno použitelná.
-\item Použitá technologie WS umožní integraci služby s aplikacemi na platformách PHP a Java.
+\item Celá aplikace bude uživatelsky přívětivá a snadno použitelná.
+\item Použitá technologie WS umožní integraci služby s aplikacemi na běžně používaných platformách pro vývoj webových aplikací a plug-inů Studentovi berličky (PHP, C++, Java...).
 \end{enumerate}
 
 \item Modulárnost
@@ -383,13 +384,13 @@ Ačkoli tato aplikace řeší několik úskalí práce s rz.xml, nakonec jsem ji
 \item Přístupová práva
 \begin{enumerate}
 \item Aplikace nebude řešit práva přístupu do administrace služby, to je záležitost webového serveru a nadřazených aplikací.
-\item Bude však implementovat nějakou formu autentizace klientských aplikací při komunikaci přes WS.
+\item Bude však implementovat nějakou formu identifikace, případně i autorizace klientských aplikací při komunikaci přes WS.
 \end{enumerate}
 
-%\item Nezávislost na databázi
-%\begin{enumerate}
-%\item Systém nebude svázán s konkrétní relační databází.
-%\end{enumerate}
+\item Nezávislost na databázi
+\begin{enumerate}
+\item Systém nebude svázán s konkrétní relační databází.
+\end{enumerate}
 
 \end{enumerate}
 
@@ -428,7 +429,11 @@ MySQL je multiplatformní relační databázový systém od švédské společno
 \subsection{Nette Framework}
 Nette je český framework pro tvorbu webových aplikací v PHP 5. Zaměřuje se především na eliminaci bezpečnostních rizik a vede programátory k čistému návrhu aplikace s důrazem na budoucí rozšiřitelnost. Využívá událostmi řízeného programování a principy třívrstvé architektury Model-View-Presenter, DRY\footnote{neopakovat se} a KISS\footnote{řešit vše jednoduše}. Původním autorem Nette je David Grudl, dnes se o jeho vývoj stará komunita vývojářů Nette Foundation. Framework je volně dostupný pod licencí GNU/GPL a licencí Nette, která je obdobou BSD licence\cite{nette:licence}.
 
-\subsection{Databázová abstrakce - PDO a dibi}
+\subsection{Databázová abstrakce}
+Nutnost použití databázové abstrakce plyne z NP4a. Přímo v distribučním balíku PHP najdeme rozšíření PDO, které poskytuje abstrakční vrstvu a odstínění od konkrétní databáze. Já jsem se rozhodl nepoužít přímo PDO, ale knihovnu dibi.
+\subsubsection{dibi}
+Dibi pochází stejně jako Nette Framework od českého programátora Davida Grudla. V jeho podtitulu najdeme slova \uv{tiny 'n' smart database layer} (malá a chytrá databázová vrstva). Jde o knihovnu, jejímž hlavním cílem je zjednodušit zápis SQL příkazů a ulehčit rutinní úlohy programátora, například získání výsledků jako dvourozměrné pole, vytvoření pole výskledků indexovaného podle klíče z databáze a podobně. Dibi se také stará o escapování jak identifikátorů tak dat v SQL dotazu, čímž chrání aplikaci proti SQL Injection. Lze ho použít jak jako nadstavbu PDO, tak přímo s nativními PHP rozšířeními jednotlivých databázových strojů.
+
 \subsection{Web Services, SOAP}
 
 \section{Načtení XML exportu}
