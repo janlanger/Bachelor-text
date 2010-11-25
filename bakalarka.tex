@@ -315,10 +315,10 @@ s využitím protokolu SOAP umožnilo kompletní napojení na jakékoli rozší�
 Ideálním postupem by bylo celou Studentovu berličku napsat znova. Nejedná se pouze o silná slova, ale o ideální postup, který se navrhuje projektům, které dospějí do této fáze.
 \end{quotation}
 
-Současný stav SB je v podstatě typický pro aplikaci napsanou v době, kdy PHP nemělo pořádnou podporu OOP. Aplikace tak nemá žádnou architekturu, prezentační a aplikační logika jsou úzce spojeny a aplikaci nelze snadno rozšiřovat. Z těchto důvodů bylo rozhodnuto, že bude Studentova berlička bude navržena a vytvořena od základů znovu a jednotlivé části aplikace budou zadány jako samostatné bakalářské nebo diplomové práce.
+Současný stav SB je v podstatě typický pro aplikaci napsanou v době, kdy PHP nemělo pořádnou podporu OOP. Aplikace tak nemá žádnou architekturu, prezentační a aplikační logika jsou úzce spojeny a aplikaci nelze snadno rozšiřovat. Z těchto důvodů bylo rozhodnuto, že bude Studentova berlička bude navržena a vytvořena od základů znovu. Na toto téma již bylo zadáno v minulých semestrech několik bakalářských a diplomových prací, které řeší jednotlivé části (jádro, datové úložiště, podporu pluginů, a několik samostatných modulů).
 
 \section{Cíl práce}
-Cílem této práce je nalezení, nebo vytvoření datového zdroje, který by poskytl aplikaci Studentova berlička a jejím rozšiřujícím modulům přístup k základním datům o studentech, učitelích a rozvrhu. Toto řešení by mělo být dostatečně univerzální aby pokrylo potřeby nejen Studentovy berličky a jejích modulů, ale i případných dalších aplikací. Základním požadavkem je také možnost vytváření revizí dat a jejich vzájemné porovnávání.
+Cílem této práce je nalezení, nebo vytvoření datového zdroje, který by poskytl aplikaci Studentova berlička a jejím rozšiřujícím modulům přístup k základním datům o studentech, učitelích a rozvrhu. Toto řešení by mělo být dostatečně univerzální aby pokrylo potřeby nejen Studentovy berličky a jejích modulů, ale i případných dalších aplikací. Základním požadavkem je, kromě univerzálnosti, také možnost vytváření revizí dat a jejich vzájemné porovnávání.
 
 %*****************************************************************************
 \chapter{Popis problému, specifikace cíle}
@@ -372,7 +372,7 @@ Bohužel se mi tedy nepodařilo navíc takovou existující aplikaci, která by 
 
 \item Webová služba
 \begin{enumerate}
-\item Systém bude poskytovat data prostřednictvím webové služby a protokolu SOAP.
+\item Systém bude poskytovat data prostřednictvím webové služby.
 \item Chyby při zpracování požadavků na WS budou logovány.
 \end{enumerate}
 
@@ -384,6 +384,9 @@ Bohužel se mi tedy nepodařilo navíc takovou existující aplikaci, která by 
 \item Aktuálnost dat
 \begin{enumerate}
 \item Pro každou klientskou aplikaci bude možné definovat přístup ke stále stejné revizi databáze.
+\item U revize bude možné na úrovni tabulek definovat stupeň udržované aktuálnosti dat (viz kap. \pageref{rozbor})
+\item Revize může obsahovat pouze podmnožinu celé databáze.
+%\item Revize bude možné porovnávat s aktuální verzí dat.
 \item Zároveň systém také umožní přístup ke vždy aktuálním datům (každodenně importovaným).
 \end{enumerate}
 \end{enumerate}
@@ -415,11 +418,30 @@ Bohužel se mi tedy nepodařilo navíc takovou existující aplikaci, která by 
 
 \end{enumerate}
 
+\subsection{Rozbor požadavků} \label{rozbor}
+Některé výše zmíněné požadavky vycházejí ze zkušeností v provozu aktuální verze Studentovy berličky. V této části bych proto rád specifikoval, proč jsou některé požadavky nutné a důležité.
+
+\subsubsection{Verzování dat a porovnávání revizí}
+V exportu rz.xml se čas od času vyskytují chyby. To je zkrátka potřeba brát jako fakt a počítat s ním. Jak jsem se dozvěděl od Ing. Chludila a Ing. Kadlece, občas se například stane, že část dat v exportu několik dní chybí a poté se v něm zase objeví. V minulosti také došlo k přečíslování identifikátorů studentů, což způsobilo nefunkčnost Studentovi berličky, která je samozřejmě v databázi využívá. Základním požadavkem na novou aplikaci tedy je, aby dokázala předejít těmto situacím.
+
+To by mělo být zajištěno právě možností vytvářet revize databáze. Každá tabulka v revizi bude mít možnost definovat tyto možnosti aktualizace:
+\begin{itemize}
+\item Neaktualizovat - V tomto případě zůstane tabulka stále stejná z okamžiku vytvoření revize.
+\item Aktualizovat data - Tabulka bude automaticky po importování nové verze rz.xml naplněna aktuálními daty. Tato možnost bude doplněna navíc o údaj maximálního počtu změn v řádcích tabulky, pro které se ještě může provést aktualizace. V případě že bude tento počet překročen, bude upozorněn správce klientské aplikace. Stejně tak v případě že dojde ke změně struktury.
+\item Aktualizovat vše - V takovém případě bude tato tabulka vždy přepsána aktuální verzí z posledního importu. Aplikace v takovém případě dostává stejná data jako by přistupovala přímo k "live" databázi a změny nejsou kontrolovány.
+\end{itemize}
+
+\subsubsection{Vytváření podmnožin databáze}
+Nutnost tohoto požadavku plyne z prostého faktu, že databáze vytvořená ze současného rz.xml obsahuje cca 130 000 záznamů a zabírá cca 30 MB. Typická klientská aplikace ale nepotřebuje všechna data, ale jen jejich část, například informace o jednom předmětu a jeho studentech. Z toho důvodu je zbytečné, vytvářet revizi celá databáze, ale stačí nám pouze její část. U této části musí být také zajištěna konzistence dat , neboť tabulky jsou vzájemně propojeny cizími klíči. Tomuto problému se budu podrobněji věnovat v analýze.
+
+\subsubsection{Vlastní definice rozhraní}
+Ze zkušenosti vím, že definice univerzálního rozhraní služby je velmi problematická. Vždy totiž časem přijde takový požadavek, který stávající rozhraní buď vůbec neřeší, nebo jej řeší neefektivně. Takový požadavek pak typicky vyústí v přidání dalších parametrů nebo rovnou nových operací služby, a to \uv{jedinné, správné a univerzílní} rozhraní se rozrůstá do velkého objemu, a stává se nepřehledným.
+
+Tomu jsem se chtěl vyhnout, proto místo jediného rozhraní aplikace bude umožňovat definici vlastního rozhraní webové služby unikátně pro každou klientskou aplikaci.
+
 
 %*****************************************************************************
 \chapter{*Analýza}
-Analýza a návrh implementace (včetně diskuse různých alternativ a volby implementačního prostředí).
-
 
 
 
