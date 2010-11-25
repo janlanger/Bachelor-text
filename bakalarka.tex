@@ -9,9 +9,9 @@
 % sjednoceni zdrojoveho kodu pro anglickou, ceskou, bakalarskou a diplomovou praci
 
 % One-page layout: (proof-)reading on display
-\documentclass[11pt,oneside,a4paper]{book}
+%\documentclass[11pt,oneside,a4paper]{book}
 % Two-page layout: final printing
-% \documentclass[11pt,twoside,a4paper]{book}   
+ \documentclass[11pt,twoside,a4paper]{book}   
 %=-=-=-=-=-=-=-=-=-=-=-=--=%
 % The user of this template may find useful to have an alternative to these 
 % officially suggested packages:
@@ -109,9 +109,9 @@ pdfauthor={\FirstandFamilyName},
 bookmarks=true,
 colorlinks=true,
 breaklinks=true,
-urlcolor=red,
-citecolor=blue,
-linkcolor=blue,
+urlcolor=black,
+citecolor=black,
+linkcolor=black,
 unicode=true,
 ]
 {hyperref}
@@ -284,25 +284,46 @@ Zakázku vyhrála firma Trask Solutions, a.s. a webový KOS byl v září 2002 u
 \subsection{Současný stav KOS}
 Píše se rok 2010 a KOS má za sebou 18 let své existence. Po akci \uv{Sjednocení instancí KOS} z listopadu 2008\cite{sik} již běží pouze v jedné instanci pod správou VIC pro celou univerzitu. Je téměř neuvěřitelné, že systém přežil až do dnešních dní, navíc jak uvádí Ing. Halaška\cite{student:komentar-ke-kos} \textit{\uv{aniž by bylo nutné cokoliv zásadně měnit}}. Za těch 18 let ale udělal vývoj v informatice pořádný skok kupředu, a KOS dnes v porovnání s informačními systémy jiných českých univerzit\footnote{Za zmínku stojí především IS/STAG Západočeské univerzity nebo IS Masarykovy univerzity v Brně, který obdržel v roce 2005 ocenění EUNIS Elite Award. Systém je formou outsourcingu nasazován i na jiných školách v ČR. } již neobstojí.
 
-Velkým problémem současného stavu je neexistence aplikačního rozhraní. V době, kdy je ve velké míře prosazován svobodný přístup k informacím má ČVUT informační systém, který je proprietární a z vnějšku pro aplikace kateder v podstatě nepřístupný.
+Velkým problémem současného stavu je neexistence aplikačního rozhraní. V době kdy je ve velké míře prosazován svobodný přístup k informacím, má ČVUT informační systém, který je proprietární, a z vnějšku pro aplikace kateder v podstatě nepřístupný.
 
 
-\section{Historie Studentovy berličky}
+\section{Studentova berlička}
 
-Studentova berlička je prací, která vznikla na v rámci bakalářské\cite{hunka:bp} a diplomové\cite{hunka:dp} práce Jiřiho Hunky při jeho studiu na ČVUT FEL. Tato kapitola popisuje v několika odstavcích její historii.
+Studentova berlička je prací, kterou vytvořil Jiří Hunka při jeho studiu na ČVUT FEL a věnoval se jí ve své bakalářské\cite{hunka:bp} i diplomové\cite{hunka:dp} práci, za kterých jsem čerpal následující informace. Tato kapitola popisuje v několika odstavcích její historii.
 
-//TODO
+\subsection{Historický vývoj}
+První základy Studentovy berličky byly položeny v zimním semestru 2005/2006, kdy Ing. Jiří Chludil v rámci dobrovolné práce pro předmět Datové struktury a algoritmy zadal vytvoření dynamického systému pro správu cvičení. Prvotní požadavky byly poměrně jednoduché, a tak na sebe první verze, tedy pod názvem Jagu I nenechala slouho čekat. Systém byl po grafické i funkční stránce velmi omezený, ale stal se odrazovým můstkem pro další vývoj.
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=15cm]{figures/jaguI.png}
+\caption{Rozhraní cvičícího - Jagu II}
+\label{fig:jaguI}
+\end{center}
+\end{figure}
 
+Hned v následujícím semestru se přišly nové požadavky na podporu cvičení předmětů Teoretická informatika (TIN) a Aplikace výpočetní techniky (AVT). tyto požadavky zapříčinili nutnost systém v podstatě celý přepsat, bylo nutné přidat například podporu pro zadávání semestrálních prací, zakomponovat bodování docházky a podobně. Nová verze - Jagu 2 - si ovšem stále nesla neduhy svého předchůdce, především co se týče grafického zobrazení a přehlednosti. Na základě zkušeností s vývojem těchto dvou verzí došel Jiří Hunka k závěru, že je nutné vyvinout nový systém, který nebude postaven na bázi pouze jednoho předmětu, ale bude univerzální.
 
+Prvotní verze Studentovy berličky vznikla v rámci bakalářské práce Jiřího Hunky v roce 2007. Stav vycházející z tohoto zpracování je funkční dodnes.
 
+\subsection{Současný stav a budoucnost}
+
+Diplomová práce Jiřího Hunky, ve které se zabýval především uživatelským testováním, končí ne zrovna optimistickými slovy: 
+\begin{quotation}
+Vizí do budoucna je převést vlastní Studentovu berličku v pouhé GUI a
+veškeré další činnosti ponechat na databázi. Toto rozvržení by společně
+s využitím protokolu SOAP umožnilo kompletní napojení na jakékoli rozšíření, jinou aplikaci či vlastní spojení i s GUI Studentovy berličky.
+Ideálním postupem by bylo celou Studentovu berličku napsat znova. Nejedná se pouze o silná slova, ale o ideální postup, který se navrhuje projektům, které dospějí do této fáze.
+\end{quotation}
+
+Současný stav SB je v podstatě typický pro aplikaci napsanou v době, kdy PHP nemělo pořádnou podporu OOP. Aplikace tak nemá žádnou architekturu, prezentační a aplikační logika jsou úzce spojeny a aplikaci nelze snadno rozšiřovat. Z těchto důvodů bylo rozhodnuto, že bude Studentova berlička bude navržena a vytvořena od základů znovu a jednotlivé části aplikace budou zadány jako samostatné bakalářské nebo diplomové práce.
+
+\section{Cíl práce}
+Cílem této práce je nalezení, nebo vytvoření datového zdroje, který by poskytl aplikaci Studentova berlička a jejím rozšiřujícím modulům přístup k základním datům o studentech, učitelích a rozvrhu. Toto řešení by mělo být dostatečně univerzální aby pokrylo potřeby nejen Studentovy berličky a jejích modulů, ale i případných dalších aplikací. Základním požadavkem je také možnost vytváření revizí dat a jejich vzájemné porovnávání.
 
 %*****************************************************************************
 \chapter{Popis problému, specifikace cíle}
 
-\section{Cíl práce}
-Cílem této práce je nalezení, nebo vytvoření datového zdroje, který by poskytl aplikacím přístup k základním datům o studentech, učitelích a rozvrhu. Toto řešení by mělo být dostatečně univerzální aby pokrylo potřeby nejen Studentovy berličky a jejích modulů, ale i případných dalších aplikací. Základním požadavkem je také možnost vytváření revizí dat a jejich vzájemné porovnávání.
-
-\section{Současný způsob importu}
+\section{*Současný způsob získávání dat}
 Jak popisuje Jiří Hunka ve své bakalářské práci\cite{hunka:bp}, současná verze Studentovy berličky používá pro import textové soubory spravované Ing. Martinem Bílým. Ing. Bílý k nim uvádí tyto informace:
 
 \begin{quotation}
@@ -338,7 +359,7 @@ Ačkoli tato aplikace řeší několik úskalí práce s rz.xml, nakonec jsem ji
 
 \section{Vlastní řešení}
 Bohužel se mi tedy nepodařilo navíc takovou existující aplikaci, která by splnila všechny požadavky, a proto jsem přistoupil k navržení a implementaci vlastního aplikace. Prvním krokem k tomu bylo přesné specifikování požadavků.
-\section{Specifikace požadavků}
+\section{*Specifikace požadavků}
 \subsection{Funkční požadavky}
 
 \begin{enumerate}
@@ -396,13 +417,13 @@ Bohužel se mi tedy nepodařilo navíc takovou existující aplikaci, která by 
 
 
 %*****************************************************************************
-\chapter{Analýza}
+\chapter{*Analýza}
 Analýza a návrh implementace (včetně diskuse různých alternativ a volby implementačního prostředí).
 
 
 
 
-\subsection{Struktura exportu z KOS}
+\subsection{*Struktura exportu z KOS}
 Jak jsem už zmínil, jediným dostupným způsobem jak získat data rozvrhu je rz.xml. Struktura tohoto souboru zdánlivě připomíná databázové tabulky. Začíná kořenovým elementem ROZVRH, v kterém jsou zanořeny elementy jednotlivých \uv{tabulek}, každou s právě jedním výskytem. Tyto elementy pak obsahují jednotlivé \uv{řádky} tabulek, kdy názvy atributů elementů odpovídají sloupcům tabulky, hodnota atributů pak datům sloupce. struktura souboru sice budí dojem, že se jedná o přímý export minimálně části databázové struktury KOSu, skutečnost je jiná. Jak uvádí Jakub Jirůtka\cite{jirutka}, data jsou pomocí uložených procedur agregována i z několika tabulek a mapována do struktury XML. Správu těchto uložených procedur má na starosti VIC.
 
 //TODO
@@ -441,32 +462,32 @@ PDO i dibi poskytují abstrakci, která je dostačující pro běžnou aplikaci,
 
 Z toho důvodu jsem v aplikaci vytvořil jednoduché rozhraní {\tt IDatabaseManager} které odstiňuje ostatní části od specifik databázového stroje. Převod systému pod jiný databázový stroj tedy spočívá jen v implementaci tohoto rozhraní pro konkrétní DBMS a změnu jednoho řádku v konfiguračním souboru.
 
-\subsection{Web Services, SOAP}
+\subsection{*Web Services, SOAP}
 
-\section{Načtení XML exportu}
-\subsection{Cizí klíče a referenční závislosti}
-\section{Verzování databáze}
-\subsection{Zachování integrity dat}
+\section{*Načtení XML exportu}
+\subsection{*Cizí klíče a referenční závislosti}
+\section{*Verzování databáze}
+\subsection{*Zachování integrity dat}
 
 
 
 %*****************************************************************************
-\chapter{Implementace}
+\chapter{*Implementace}
 
  
-\section{Nasazení aplikace}
-\subsection{Požadavky aplikace}
-\subsection{Konfigurace}
+\section{*Nasazení aplikace}
+\subsection{*Požadavky aplikace}
+\subsection{*Konfigurace}
 
 %*****************************************************************************
-\chapter{Testování}
+\chapter{*Testování}
 \begin{itemize}
  \item Způsob, průběh a výsledky testování.
  \item Srovnání s existujícími řešeními, pokud jsou známy.
 \end{itemize}
 
 %*****************************************************************************
-\chapter{Závěr}
+\chapter{*Závěr}
 
 \begin{itemize}
 \item Zhodnocení splnění cílů DP/BP a  vlastního přínosu práce (při formulaci je třeba vzít v potaz zadání práce).
