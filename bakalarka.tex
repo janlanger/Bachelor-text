@@ -360,7 +360,7 @@ Ačkoli tato aplikace řeší několik úskalí práce s rz.xml, nakonec jsem ji
 
 \section{Vlastní řešení}
 Bohužel se mi tedy nepodařilo navíc takovou existující aplikaci, která by splnila všechny požadavky, a proto jsem přistoupil k navržení a implementaci vlastního aplikace. Prvním krokem k tomu bylo přesné specifikování požadavků.
-\section{*Specifikace požadavků}
+\section{Specifikace požadavků}
 \subsection{Funkční požadavky}
 
 \begin{enumerate}
@@ -454,23 +454,70 @@ Tomu jsem se chtěl vyhnout, proto místo jediného rozhraní aplikace bude umo�
 %*****************************************************************************
 \chapter{*Analýza}
 
+\section{Struktura exportu z KOS}
+Jak jsem už zmínil, jediným dostupným způsobem jak získat data rozvrhu je rz.xml. Práce s tímto souborem je celkem obtížná, protože k němu neexistuje naprosto žádná dokumentace. U většiny elementů a atributů lze ale celkem bez problémů rozluštit jejich význam, a tak jsem v podstatě až do doby, než Jakub Jirutky\cite{jirutka} dokončil svou práci neměl potřebu pátrat po významu těch několika zbylých, nerozluštěných. V své práci Jakub Jirůtka zpracovat velmi podrobný popis struktury souboru, a vytvořil tak \textit{de facto} jeho první dokumentaci. 
 
+Soubor obsahuje jeden kořenový element ROZVRH, v něm pak následují elementy jednotlivých \uv{tabulek}, každý s právě jením výskytem. Tabulky pak obsahují data jednotlivých \uv{řádků}, názvy atributů jsou sloupce, hodnoty atributů pak data jednotlivých sloupců. Některé elementy řádků pak ještě obsahují vnořené elementy, kde pak platí že název tagu je názvem sloupce, data v něm pak data příslušného sloupce. Jde například o popis předmětu a požadavků u tabulky PREDMETY, tedy o delší text.
 
-\section{*Struktura exportu z KOS}
-Jak jsem už zmínil, jediným dostupným způsobem jak získat data rozvrhu je rz.xml. Struktura tohoto souboru zdánlivě připomíná databázové tabulky. Začíná kořenovým elementem ROZVRH, v kterém jsou zanořeny elementy jednotlivých \uv{tabulek}, každou s právě jedním výskytem. Tyto elementy pak obsahují jednotlivé \uv{řádky} tabulek, kdy názvy atributů elementů odpovídají sloupcům tabulky, hodnota atributů pak datům sloupce. struktura souboru sice budí dojem, že se jedná o přímý export minimálně části databázové struktury KOSu, skutečnost je jiná. Jak uvádí Jakub Jirůtka\cite{jirutka}, data jsou pomocí uložených procedur agregována i z několika tabulek a mapována do struktury XML. Správu těchto uložených procedur má na starosti VIC.
+Následující text popisuje stručně strukturu rz.xml, zaměřil jsem se především na rozdíly oproti struktuře kterou popisuje Jakub Jirutka ve své práci\cite{jirutka}. Jednotlivé elementy jsou uvedeny v pořadí, v jakém se v souboru vyskytují.
 
+\subsection{ROZVRH}
+Element ROZVRH je kořenovým elementem XML stromu dokumentu. Obsahuje základní informace o semestrech:
+\begin{itemize}
+\item \texttt{semestr, aktsem, aktsem2} - Kódy semestrů pro které se jsou data v rz.xml generována. V průběhu semestru je ve všech atributech uvedený stejný kód (např. B101), v době kdy se tvoří rozvrh se kódy různí.
+\item \texttt{nazev\_semestru} - Textový název aktuálního semestru (odpovídá semestru v atributu \texttt{semestr})
+\item \texttt{zacatek\_sem, konec\_sem} - Obsahuje datum začátku, resp. konce aktuálního semestru dle harmonogramu školního roku. Formát data je \texttt{dd.mm.yyyy}.
+\end{itemize}
 
+\subsection{KATEDRY}
+V databázi KOS tvoří jsou rektorát, fakulty a katedry umístěny v jedné tabulce a tvoří stromovou strukturu středisek. Záznamy jsou spojeny relací \texttt{nadrizena=id}, přičemž fakultu od katedry lze snadno rozlišit tím, že fakulta má nadrizena=1 (id rektorátu). V souboru rz.xml nalezneme ale jen FEL a jeho katedry, takže tuto relaci nemůžeme explicitně přenést do databáze.
 
+Element obsahuje atributy \texttt{id, nadrizena, nazev\_cz, nazev\_en} (český a anglický název) a číselný \texttt{kod} střediska.
 
+\subsection{MISTNOSTI}
+Element obsahuje místnosti ve kterých probíhá výuka. Atributy jsou \texttt{id, cislo} (např. KN:E-107), lokalitu (\texttt{lok}) a odkaz na katedru, která má místnost ve správě (\texttt{kat\_id}).
+
+\subsection{PREDMETY}
+Element PREDMETY obsahuje všechny vypsané předměty v semestrech uvedených v elementu ROZVRH. Protože jsou samozřejmě stejné předměty vypisovány v různých předmětech, jsou jednotlivé záznamy identifikované složeným primárním klíčem \texttt{id, sem\_id}.
+
+Element obsahuje následující atributy a elementy:
+
+\begin{itemize}
+\item \texttt{id, sem\_id} identifikátor záznamu
+\item \texttt{kod} Kód předmětu, např. Y36BAP.
+\item \texttt{garanti} Identifikátory učitelů, kteří jsou garanty předmětu. Obsahuje hodnoty oddělené čárkou.
+\item \texttt{kat\_id, pr\_kat\_id} Identifikátor katedry, která předmět zajišťuje (oba atributy obsahují stejnou hodnotu).
+\item \texttt{nazev, nazev\_an} Český, respektive anglický název předmětu (ano, anglický název má skutečně suffix \textit{an}, nikoliv \textit{en})
+\item \texttt{rozsah} Hodinová dotace předmětu.
+\item \texttt{pr\_forma\_studia} Forma studia pro kterou je předmět určen.
+\item \texttt{pr\_kredity} Počet kreditů za absolvování předmětu.
+\item \texttt{pr\_zpuszak} Způsob zakončení předmětu, hodnoty [KZ|Z|ZK|Z,ZK|NIC].
+\item \texttt{pr.kapacita, pr\_obsazeno, pr\_zapnuto} Kapacita předmětu, počet zapsaných a příznak určující, zda-li je zapnuto hlídání překročení kapacity. (ano, atribut kapacita skutečně obsahuje v názvu tečku, nikoliv podtržítko).
+\item \texttt{pr\_program\_id} ID programů ve kterých je možné předmět zapsat. Obsahuje hodnoty oddělené čárkou.
+\item \texttt{pr\_p\_blok, pr\_c\_blok, pr\_l\_blok} Toto jsou pomocné atributy, které určují, kolik rozvrhových lístků má být vygenerováno pro přednášky, cvičení a laboratoře.
+\item \texttt{pozadavky, poznamka} Toto jsou vnořené elementy v elementu řádku, obsahují textový popis požadavků na předmět, respektive textovou poznámku.
+\end{itemize}
+Na rozdíl od toho, co popisuje Jakub Jirůtka, v současném rz.xml se nevyskytuje atribut \texttt{pr\_znamky\_hlas}.
+
+\subsection{*UCITELE}
+\subsection{*LISTKY}
+\subsection{*STUDENTI}
+\subsection{*LISTKY\_STUDENTU}
+\subsection{*JEDNORAZOVE\_TERMINY}
+\subsection{*CASOVA\_OKENKA}
+\subsection{*ZAPISY\_PREDMETU}
+\subsection{*VYPSANE\_TERMINY}
+\subsection{*ZKOUSEJICI}
+\subsection{*ZAPISY\_JA}
 
 
 
 %*****************************************************************************
 \chapter{Návrh řešení}
-Popis implementace/realizace se zaměřením na nestandardní části řešení.
+
 
 \section{Použité technologie}
-Pro implementaci aplikace byl použit skriptovací jazyk PHP a databázový stroj MySQL, a to především z důvodů autorových zkušeností a preferencí.
+Pro implementaci aplikace byl použit skriptovací jazyk PHP a databázový stroj MySQL, a to především z toho důvodu, že s nimi mám nejvíce praktických zkušeností. Nezanedbatelným argumentem je také to, že stávající Studentova berlička je také využívá.
 
 \subsection{PHP}
 PHP je velmi oblíbený skriptovací programovací jazyk používaný především pro tvorbu dynamických webových stránek. Od verze 5 disponuje také dobrou podporou objektově orientovaného programování. Přestože si jazyk s sebou z minulosti nese spoustu nevýhod, jde dnes nejspíše o nejpoužívanější jazyk pro tvorbu webů. Poslední významná verze PHP 5.3 rozšířila možnosti jazyka také o deklaraci jmenných prostorů, anonymní funkce, řetězení výjimek a mnoho dalších menších změn.
@@ -493,7 +540,7 @@ PDO i dibi poskytují abstrakci, která je dostačující pro běžnou aplikaci,
 
 Z toho důvodu jsem v aplikaci vytvořil jednoduché rozhraní {\tt IDatabaseManager} které odstiňuje ostatní části od specifik databázového stroje. Převod systému pod jiný databázový stroj tedy spočívá jen v implementaci tohoto rozhraní pro konkrétní DBMS a změnu jednoho řádku v konfiguračním souboru.
 
-\subsection{*Web Services, SOAP}
+\subsection{Webové služby}
 
 \section{*Načtení XML exportu}
 \subsection{*Cizí klíče a referenční závislosti}
