@@ -387,7 +387,7 @@ Bohužel se mi tedy nepodařilo navíc takovou existující aplikaci, která by 
 \item Aktuálnost dat
 \begin{enumerate}
 \item Pro každou klientskou aplikaci bude možné definovat přístup ke stále stejné revizi databáze.
-\item U revize bude možné na úrovni tabulek definovat stupeň udržované aktuálnosti dat (viz kap. \pageref{rozbor})
+\item U revize bude možné na úrovni tabulek definovat stupeň udržované aktuálnosti dat (viz kap. \ref{rozbor})
 \item Revize může obsahovat pouze podmnožinu celé databáze.
 %\item Revize bude možné porovnávat s aktuální verzí dat.
 \item Zároveň systém také umožní přístup ke vždy aktuálním datům (každodenně importovaným).
@@ -459,7 +459,7 @@ Jak jsem už zmínil, jediným dostupným způsobem jak získat data rozvrhu je 
 
 Soubor obsahuje jeden kořenový element ROZVRH, v něm pak následují elementy jednotlivých \uv{tabulek}, každý s právě jením výskytem. Tabulky pak obsahují data jednotlivých \uv{řádků}, názvy atributů jsou sloupce, hodnoty atributů pak data jednotlivých sloupců. Některé elementy řádků pak ještě obsahují vnořené elementy, kde pak platí že název tagu je názvem sloupce, data v něm pak data příslušného sloupce. Jde například o popis předmětu a požadavků u tabulky PREDMETY, tedy o delší text.
 
-Následující text popisuje stručně strukturu rz.xml, zaměřil jsem se především na rozdíly oproti struktuře kterou popisuje Jakub Jirutka ve své práci\cite{jirutka}. Jednotlivé elementy jsou uvedeny v pořadí, v jakém se v souboru vyskytují.
+Následující text popisuje stručně strukturu rz.xml, zaměřil jsem se především na rozdíly oproti struktuře kterou popisuje Jakub Jirutka ve své práci\cite{jirutka}. Jednotlivé elementy nejsou v následujícím textu uvedeny v pořadí v jakém se nacházejí v exportu, ale podle logických souvislostí.
 
 \subsection{ROZVRH}
 Element ROZVRH je kořenovým elementem XML stromu dokumentu. Obsahuje základní informace o semestrech:
@@ -478,7 +478,7 @@ Element obsahuje atributy \texttt{id, nadrizena, nazev\_cz, nazev\_en} (český 
 Element obsahuje místnosti ve kterých probíhá výuka. Atributy jsou \texttt{id, cislo} (např. KN:E-107), lokalitu (\texttt{lok}) a odkaz na katedru, která má místnost ve správě (\texttt{kat\_id}).
 
 \subsection{PREDMETY}
-Element PREDMETY obsahuje všechny vypsané předměty v semestrech uvedených v elementu ROZVRH. Protože jsou samozřejmě stejné předměty vypisovány v různých předmětech, jsou jednotlivé záznamy identifikované složeným primárním klíčem \texttt{id, sem\_id}.
+Element PREDMETY obsahuje všechny vypsané předměty v semestrech uvedených v elementu ROZVRH. Protože jsou samozřejmě stejné předměty vypisovány v různých semestrech, jsou jednotlivé záznamy identifikované složeným primárním klíčem \texttt{id, sem\_id}.
 
 Element obsahuje následující atributy a elementy:
 
@@ -499,16 +499,109 @@ Element obsahuje následující atributy a elementy:
 \end{itemize}
 Na rozdíl od toho, co popisuje Jakub Jirůtka, v současném rz.xml se nevyskytuje atribut \texttt{pr\_znamky\_hlas}.
 
-\subsection{*UCITELE}
-\subsection{*LISTKY}
-\subsection{*STUDENTI}
-\subsection{*LISTKY\_STUDENTU}
-\subsection{*JEDNORAZOVE\_TERMINY}
-\subsection{*CASOVA\_OKENKA}
-\subsection{*ZAPISY\_PREDMETU}
-\subsection{*VYPSANE\_TERMINY}
-\subsection{*ZKOUSEJICI}
-\subsection{*ZAPISY\_JA}
+\subsection{Učitelé a studenti}
+V KOSu existují samostatné tabulky osob, učitelů a studentů. V exportu jsou ovšem data osoby a učitele, resp. studenta sloučeny do jednoho elementu, což může přinést určité problémy.
+
+\subsubsection{UCITELE}
+U učitelů existuje jen drobná záludnost, a to že někteří externí učitelé, kteří nemají přístup do KOS nemají vyplněný atribut \texttt{login}. Element obsahuje tyto atributy:
+\begin{itemize}
+\item \texttt{id}
+\item \texttt{kat\_id} Identifikátor katedry, ke které učitel patří. Obsahuje i katedry, které v elementu \texttt{KATEDRY} nejsou, a také mnoho \texttt{NULL} hodnot.
+\item \texttt{login}
+\item \texttt{jmeno, prijmenu, titul\_pred, titul\_za}
+\item \texttt{uc\_email} Obsahuje nevalidní e-maily a množství nevyplněných hodnot.
+\item \texttt{osobni\_cislo}
+\item \texttt{osoba\_eid}
+\end{itemize}
+
+\subsubsection{STUDENTI}
+Záznamy v této části jsou identifikovány složeným klíčem \texttt{id, stud\_id} (id studia). Jedna osoba totiž může být zapsána do několika studijních oborů najednou.
+Element obsahuje tyto atributy:
+
+\begin{itemize}
+\item \texttt{id, stud\_id} identifikátor záznamu
+\item \texttt{jmeno, prijmeni, titul, titul\_za} Celé jméno včetně titulů (všimněte si, že na rozdíl od záznamů učitelů nemá titul před jménem suffix).
+\item \texttt{obor} Textový název studijního oboru, např. \uv{Web a multimedia (bakalářský)}
+\item \texttt{osoba\_eid}
+\item \texttt{osoba\_id} Obsahuje stejné hodnoty jako atribut \texttt{id}
+\item \texttt{rocnik}
+\item \texttt{skupina} Studijní skupina
+\item \texttt{stud\_email}
+\item \texttt{stlan\_id} ID studijního plánu
+\end{itemize}
+
+\subsection{ZAPISY\_PREDMETU}
+Obsahuje data spojové tabulky pro zápisy studentů do předmětů. Obsahuje celý identifikátor předmětu \texttt{predmet\_id, sem\_id} a identifikátor studenta \texttt{student\_id}.
+
+\subsection{LISTKY}
+Element LISTKY obsahuje záznamy o vypsaných paralelkách přednášek a cvičení přiřazených do konkrétních dní, časů a místností. Existují zde rozvrhové lístky předmětů a pak speciální události jiného typu - například porady, semináře, výuka na jiných školách a podobně. Tyto speciální záznamy lze rozlišit tím, že atribut \texttt{typ\_vyuky} obsahuje hodnotu \uv{J}. V tomto elementu najdeme tyto údaje:
+\begin{itemize}
+\item \texttt{id}
+\item \texttt{den\_cis} Den v týdnu, rozsah 1-7.
+\item \texttt{hodina} Číslo vyučovací hodiny, kdy lístek začíná.
+\item \texttt{pocet\_hodin} Počet vyučovacích hodin lístku.
+\item \texttt{katedra1\_id} Katedra, která vlastní lístek.
+\item \texttt{katedra2\_id} Katedra, která zajišťuje výuku.
+\item \texttt{mistnost\_id} Místnost, kde se výuka probíhá.
+\item \texttt{typ\_vyuky} Identifikace, zda jde o přednášku (P), cvičení (C), laboratoř (L), nebo speciální jinou událost (J).
+\item \texttt{pno, cno, lno} Jde o identifikátory ke které paralelce lístek přísluší. Např. \texttt{pno=1, cno=202, lno=NULL} znamená, že paralelku cvičení 202 lze zapsat jen s přednáškovou paralelkou 1.
+\item \texttt{predmet\_id} ID předmětu, ke kterému lístek přísluší. Element lístky neobsahuje druhou část složeného klíče předmětu \texttt{sem\_id}, protože se exportují jen lístky k semestru uvedeném v atributu \texttt{semestr} elementu \texttt{ROZVRH}.
+\item \texttt{ucitel1\_id, ucitel2\_id} ID učitelů, kteří zajišťují výuku. Pokud jde o lístek typu jiná událost, je vyplněn pouze \texttt{ucitel1\_id} a jde v tomto případě o vlastníka události.
+\item \texttt{sudy\_lichy} Příznak, zda-li jde o lístek, který je platný lichá nebo sudé týdny (pokud vždy, obsahuje atribut \texttt{NULL}).
+\item \texttt{text} U speciálních jiných událostí obsahuje její popis.
+\item \texttt{paralelka\_kod}
+\item \texttt{par\_jmeno} Jméno paralelky, většinou obsahuje nějakou poznámku.
+
+\end{itemize}
+
+\subsection{LISTKY\_STUDENTU}
+Obsahuje data spojové tabulky pro zápisy studentů do rozvrhu. Obsahuje identifikátor lístku \texttt{listek\_id} a identifikátor studenta \texttt{student\_id}. Mimochodem jde o datově největší element v exportu.
+
+\subsection{JEDNORAZOVE\_TERMINY}
+Tento element obsahuje informace o jednorázových akcích, která se například používají pro hromadné kontroly semestrálních prací nebo udělování zápočtů.
+
+Najdeme zde tyto atributy:
+\begin{itemize}
+\item \texttt{id}
+\item \texttt{nazev} Název akce
+\item \texttt{datum, cas} Datum a čas konání akce.
+\item \texttt{fakulta\_id}
+\item \texttt{katedra\_id}
+\item \texttt{misto\_id}
+\item \texttt{predmet\_id, sem\_id} Identifikátor předmětu, kterého se akce týká.
+\item \texttt{kapacita, obsazeno} Kapacita akce a počet přihlášených.
+\item \texttt{uzaverka} datum uzavření přihlašování (dd.mm.yyyy).
+\item \texttt{vypsal\_id}
+\item \texttt{poznamka}
+\end{itemize}
+
+\subsection{ZAPISY\_JA}
+Obsahuje data spojové tabulky pro zápisy studentů na jednorázovou akci. Obsahuje identifikátor akce \texttt{termin\_id} a identifikátor studenta \texttt{student\_id} a \texttt{id}.
+
+\subsection{VYPSANE\_TERMINY}
+Element obsahuje vypsané termíny zkoušek k předmětům. Najdeme v něm následující atributy:
+
+\begin{itemize}
+\item \texttt{id}
+\item \texttt{vypsal\_id} 
+\item \texttt{zacatek} Datum a čas začátku termínu (formát dd.mm.yyyy HH:MM)
+\item \texttt{konec} Datum a čas konce termínu (formát dd.mm.yyyy HH:MM)
+\item \texttt{predmet\_id, sem\_id} Identifikátor předmětu
+\item \texttt{misto\_id} ID místnosti, kde by se termín měla konat. Často není vůbec vyplněné a skutečná místnost je uvedená v poznámce.
+\item \texttt{poznamka}
+\end{itemize}
+
+\subsection{ZKOUSEJICI}
+Obsahuje data spojové tabulky určující, kteří učitelé předmět zkouší. Obsahuje identifikátor předmětu \texttt{predmet\_id, sem\_id} a identifikátor učitele \texttt{osoba\_id}.
+
+\subsection{CASOVA\_OKENKA}
+Tento element obsahuje data okének, které se používají pro plánování rozvrhu. Vždy když je vytvořena nějaká akce (např. lístek) ozančí se místnost jako zabraná právě vytvořením časového okénka. Žádný jiný element v exportu ale neobsahuje odkaz na záznamy v tomto elementu a ani tento element neobsahuje identifikaci místnosti ke které se vztahuje. Jeho existence tedy naprosto postrádá smysl.
+
+Element obsahuje atributy \texttt{id}, datum ve formátu dd.mm.yyyy (\texttt{den}), času začátku a konce okénka (\texttt{zacatek}, \texttt{konec}) a poznámku (\texttt{poznamka}).
+
+\section{Verzování databáze}
+\subsection{Zachování integrity dat}
+
 
 
 
@@ -541,11 +634,62 @@ PDO i dibi poskytují abstrakci, která je dostačující pro běžnou aplikaci,
 Z toho důvodu jsem v aplikaci vytvořil jednoduché rozhraní {\tt IDatabaseManager} které odstiňuje ostatní části od specifik databázového stroje. Převod systému pod jiný databázový stroj tedy spočívá jen v implementaci tohoto rozhraní pro konkrétní DBMS a změnu jednoho řádku v konfiguračním souboru.
 
 \subsection{Webové služby}
+Webové služby jsou technologický systém, který umožňuje propojit libovolné aplikace na různých platformách pomocí široce podporovaného a vždy dostupného protokolu HTTP. V dnešní době jsou běžně používány dva způsoby implementace webových služeb - REST a SOAP.
+
+\subsubsection{REST}
+Architektura REST (Representational State Transfer) zažila v posledních letech obrovskou vlnu popularizace. Není to vlastně ani standart, ale jen architektura rozhraní. Na rozdíl od procedurálního SOAP je REST orientován datově. Každý datový zdroj má specifické URI a pro komunikaci se službou se využívají metody protokolu HTTP GET, POST, PUT a DELETE. Díky tomu jsou REST služby snadno škálovatelné a jednoduché na pochopení. Velkou nevýhodou ovšem je chybějící podpora na úrovni programovacích jazyků (narozdíl od SOAP).
+
+
+\subsubsection{SOAP}
+SOAP (Simple Object Access Protocol) vychází ze specifikace XML-RPC a přebírá jeho hlavní rys - formát přenášených zpráv a jeho platformní nezávislost. SOAP umožňuje zasílání XML zpráv mezi dvěma aplikacemi a pracuje tedy na principu peer-to-peer. Mnohem častěji se ale technologie používá jako vzdálené volání procedur (RPC), tedy ve schématu klient-server. Stejně jako REST probíhá komunikace nejčastěji protokolem HTTP, ačkoli specifikace protokol nijak nepředepisuje a lze použít i SMTP, FTP a jiné.
+
+Dalším hlavním rysem služby na principu SOAP je možnost definice jejího rozhraní pomocí WSDL schématu. To popisuje procedury, která služba nabízí, typy jejich parametrů a návratových hodnot. I když je zpřístupnění WSDL popisu velmi užitečné a praktické, není vyžadováno a služba může být využívána i bez něj.
+
+Protože narozdíl od REST existuje v distribuci PHP knihovna pro práci se SOAP, a protože některé již existující části Studentovy berličky SOAP používají, zvolil jsem pro mají webovou službu také tento protokol.
+
+\section{Architektura aplikace}
+Jak jsem již uvedl v části o použitých technologiích, aplikace je postavena na Nette Frameworku, který využívá třívrstvou architekturu Model-View-Presenter. V této části najdete, co je to vlastně návrhový vzor MVP a jeho rozdíly oproti známějšímu vzoru Model-View-Controller.
+
+\subsection{Model-View-Controller}
+Model-View-Presenter (dále jen MVP) je odvozený od mnohem známějšího návrhového vzoru Model-View-Controller (dále jen MVC). MVC definuje rozdělení aplikace do tří samostatných vrstev tak, že modifikace v jedné vrstvě má minimální vliv na vrstvy ostatní. Aplikace se rozdělí na:
+\begin{itemize}
+\item Model - je doménově specifická reprezentace informací, s nimiž aplikace pracuje. V běžné webové aplikaci se modelová část stará o komunikaci s databází a persistenci dat.
+\item View (pohled) - jde o část aplikace, se kterou komunikuje uživatel, u webové aplikace jde tedy o šablony a výsledný HTML kód který se zobrazuje v prohlížeči.
+\item Controller (řadič, ovladač) - reaguje na události (většinou pocházející od uživatele), a zajišťuje změny v pohledu a v modelu
+\end{itemize}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=10cm]{figures/mvc.png}
+\caption{Architektura Model-View-Controller}
+\label{fig:mvc}
+\end{center}
+\end{figure}
+Tento princip poprvé popsal Trygve Reenskaug v roce 1979\cite{mvc-original}. Základní myšlenkou MVC je tedy rozdělení aplikace do tří modulů. Model pouze poskytuje své rozhraní a neví nic o Controlleru ani o View. View o modelu také vědět nemusí (pasivní view), nebo naopak může získávat data přímo z něj, dle zvolené koncepce. Controller potom slouží k propojení zbývajících dvou částí a zpracování požadavků od uživatele.
+
+MVC ovšem nelze chápat dogmaticky. Už v době svého vzniku bylo jeho pojetí velmi různorodé, první návrh vlastně ani není MVC, ale MVCE, kde \uv{E} znamená Editor. K čemu slouží? Jde v podstatě o totéž, co bylo v první implementaci MVC označeno jako Controller a je dokonce společně s View reprezentováno jednou třídou. Ve své prapůvodní podobně MVC vlastně nepoužívá nikdo, role a vztahy jednotlivých vrstev se chápou velmi volně. To je také důvod, proč se Nette Framework hlásí k MVC jen jako k duševně spřízněné architektuře.
+
+\subsection{Model-View-Presenter}
+
+Mnohem výstižnější pro logiku Nette Frameworku je méně známý vzor Model-View-Presenter. V Nette totiž platí myšlenka \uv{nechť je odkaz totéž, co zavolání funkce}\cite{zdrojak:nette}. View už není prostý HTML kód jako na počátku, ale jeho součástí je také Javascript pro obsluhu uživatelských požadavků a AJAXu. Presenter je tedy volán z View, nikoli přímo uživatelem. Došlo tak oproti MVC k posunutí významu vrstev:
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=10cm]{figures/mvp.png}
+\caption{Architektura Model-View-Presenter}
+\label{fig:mvp}
+\end{center}
+\end{figure}
+\begin{itemize}
+\item Model se stará stále o to samé, tedy o persistenci dat.
+\item View navíc oproti MVC zpracovává uživatelský vstup. Typicky například po kliknutí na odkaz volá nějakou funkci Presnteru. Aplikační logika ve View je většinou chybou.
+\item Presenter obsluhuje požadavky z View a manipuluje s Modelem. Spará se vlastně o \uv{prezentování} výsledků (odtud název Presenter).
+\end{itemize}
+
+Reálně je problém rozlišit, jestli má aplikace architekturu MVC nebo MVP, protože fakticky se vzory liší jen v detailech. Nette používá označení Presenter, naproti tomu například v Zend Frameworku najdeme Controllery, které se starají o totéž. Další informace o MVP lze najít například v \cite{mvp}.
+
 
 \section{*Načtení XML exportu}
 \subsection{*Cizí klíče a referenční závislosti}
-\section{*Verzování databáze}
-\subsection{*Zachování integrity dat}
+
 
 
 
