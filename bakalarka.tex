@@ -700,7 +700,7 @@ Tato kapitola obsahuje postup nasazení aplikace na produkční server, popis je
 \section{Nasazení aplikace}
 \subsection{Požadavky}
 \begin{itemize}
-\item Webový server s podporou PHP (doporučeným serverem, na kterým byla aplikace testována je Apache HTTPD 2.2 s PHP jako SAPI modulem).
+\item Webový server s podporou PHP (doporučeným serverem, na kterém byla aplikace testována je Apache HTTPD 2.2 s PHP jako SAPI modulem).
 \item PHP verze 5.3 nebo vyšší (aplikace využívá jmenné prostory a anonymní funkce). Jsou vyžadovány moduly PHP \textit{soap, curl, mbstring}.
 \item Relační databázový stroj (doporučeno MySQL nebo PostgreSQL), a odpovídající modul PHP pro jeho podporu (možné použít PDO i nativní rozšíření).
 \item Libovolný operační systém (testováno na platformě Windows a Debian GNU/Linux).
@@ -708,7 +708,7 @@ Tato kapitola obsahuje postup nasazení aplikace na produkční server, popis je
 V případě použití jiného databázového stroje než MySQL je nutné doplnit do aplikace podporu implementaci rozhraní pro správu databází pod tímto RDBMS. Více viz kap. \ref{idatabasemanager}.
 
 \subsection{Konfigurace}
-Konfigurace aplikace je umístěna na místě standardním pro Nette aplikace - v souboru \textit{/app/config.ini}. Je velmi důležité, aby tento soubor zůstal nepřístupný pro přístup z webu, protože obsahuje citlivé informace. Z webu by mimochodem měl být přístupný pouze adresář \textit{/www/}.
+Konfigurace aplikace je umístěna na místě standardním pro Nette aplikace - v souboru \textit{/app/config.ini}. Je velmi důležité, aby tento soubor zůstal nepřístupný pro přístup z webu, protože obsahuje citlivé informace. Z webu by měl být přístupný pouze adresář \textit{/www/}.
 
 Při nasazování aplikace je nutné soubor config.ini vytvořit, distribuce obsahuje ve stejné složce připravený soubor config-default.ini, který obsahuje výchozí nastavení.
 
@@ -725,8 +725,77 @@ Nastavení databáze:
 \item \textbf{database.password} Heslo pro připojení
 \item \textbf{database.charset} Kódování znaků
 \item \textbf{database.lazy} V případě nastavení této direktivy na TRUE je připojení k databázi vytvořeno až při provedení prvního dotazu.
+\item \textbf{service.IDatabaseManager} Nastavení jména třídy, implementující rozhraní \texttt{IDatabaseManager}, které se má použít pro práci s databází. Výchozí hodnotou je implementace pro \textit{MySQLDatabaseManager} pro databázový stroj MySQL.
 \end{itemize}
 Nastavení celé sekce \textit{database} vychází z API třídy \textit{DibiConnection}\cite{dibiconnection}, lze použít veškeré jeho možnosti. Na tomto místě bych také zdůraznil, že databázový uživatel musí mít práva pro vytváření, změnu a odstraňování databází a jejích tabulek.
+
+Nastavení importního modulu:
+\begin{itemize}
+\item \textbf{xml.remoteURL} URL adresa vzdáleného zdroje, odkud se má rz.xml stáhnout.
+\item \textbf{xml.login} Uživatelské jméno použité pro HTTP autentizaci.
+\item \textbf{xml.password} Heslo použité pro HTTP autentizaci.
+\item \textbf{xml.localRepository} Cesta k lokálnímu úložišti XML souborů.
+\item \textbf{xml.liveDatabase} Název databáze, do které bude aktuální verze rz.xml převedena.
+\end{itemize}
+
+
+\section{Ukázková implementace klienta služby}
+Protože webová služba umožňuje definici vlastního rozhraní služby, budu pro následující příklady předpokládat, že v aplikaci zadáno následující nastavení:
+\begin{itemize}
+\item Klient je identifikován jménem \uv{berlicka} a heslem \uv{test}.
+\item Klient může načíst data z revize databáze pod názvem \uv{testing}.
+\item Klient má definovánu jednu proceduru služby s názvem \textit{getStudentsInfo}, která má jako parametr pole studentských uživatelských jmen a vrací asociativní pole informací o studentech (z tabulky \textit{studenti}) indexované osobním ID.
+\end{itemize}
+
+Identifikace klientských aplikací probíhá zavoláním procedury \texttt{authenticate(jmeno, heslo)}. Je nutné volat tuto proceduru jako první, jinak služba vrací výjimku \textit{SoapFault}.
+
+Další pevnou součástí rozhraní služby je \texttt{useRevision}, která slouží k výběru aktivní revize. Revizi lze bez problémů změnit během komunikace se službou, čili různá volání procedur mohou pracovat s různými revizemi. Pokud není před zavoláním nějaké procedury vybrána revize voláním \texttt{useRevision}, automaticky se použije revize nastavená pro klienta jako výchozí.
+
+V distribuci PHP najdeme již zabudovanou podporu SOAP (přesněji je v rozšíření \textit{soap}, které je součástí distribuce), takže klienta vytvoříme snadno pomocí třídy SoapClient. Protože služba neposkytuje WSDL, je první parametr NULL a teprve druhým parametrem je určena adresa služby, tak jak to radí manuál PHP\cite{php:soap}. Nyní již slíbený příklad:
+\begin{verbatim}
+<?php
+
+$soap = new SoapClient(NULL, array(
+    "location" => 'http://URL_SERVERU/soap/',
+    "uri" => 'http://URL_SERVERU/soap/'));
+try {
+    $soap->authenticate('berlicka', 'test');
+    $soap->useRevision('testing');
+
+    $return = $soap->getStudentsInfo(array('langeja1'));
+    var_dump($return);
+} catch (SoapFault $e) {
+    echo $soap->getLastError();
+}
+
+?>
+\end{verbatim}
+
+Pokud vše proběhne v pořádku, obdržíme odpověď:
+
+\begin{verbatim}
+array(1) {
+   355981000 => array(14) {
+      "id" => "355981000" (9)
+      "jmeno" => "Jan" (3)
+      "login" => "langeja1" (8)
+      "obor" => "Web a multimedia (bakalářský)" (32)
+      "osoba_id" => "355981000" (9)
+      "prijmeni" => "Langer" (6)
+      "rocnik" => "3"
+      "skupina" => "72" (2)
+      "stlan_id" => "10201404" (8)
+      "stud_email" => "langeja1@fel.cvut.cz" (20)
+      "stud_id" => "15736704" (8)
+      "titul" => NULL
+      "titul_za" => NULL
+   }
+}
+\end{verbatim}
+
+\subsection{Zpracování chyb}
+Jakákoliv chyba při zpracování požadavku (například v SQL dotazu, nesprávný formát parametrů nebo chybná identifikace)na straně serveru služby je indikována vyhozením výjimky. Na klientské straně se to projeví výjimkou \textit{SoapFault}, je tedy velmi vhodné ji zachytávat blokem try-catch. Ani po vyhození této speciální výjimky, ale nedojde k uzavření spojení a tak je možné zjistit textový popis chyby voláním procedury \texttt{getLastError()}. Stejný text je na straně serveru také zalogován a je možná ho najít v administračním rozhraní.
+
 
 %*****************************************************************************
 \chapter{*Testování}
