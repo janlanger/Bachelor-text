@@ -627,7 +627,7 @@ Za dva roky veřejné existence si Nette získalo velkou popularitu na česko-sl
 Nutnost použití databázové abstrakce plyne z NP4a. Přímo v distribučním balíku PHP najdeme rozšíření PDO, které poskytuje abstrakční vrstvu a odstínění od konkrétní databáze. Já jsem se rozhodl nepoužít přímo PDO, ale knihovnu dibi.
 \subsubsection{dibi}
 Dibi je, jak se dočteme v podtitulu názvu \uv{tiny 'n' smart database layer} (malá a chytrá databázová vrstva). Jde o knihovnu, jejímž hlavním cílem je zjednodušit zápis SQL příkazů a ulehčit rutinní úlohy programátora, například získání výsledků jako dvourozměrné pole, vytvoření pole výsledků indexovaného podle klíče z databáze a podobně. Dibi také pomáhá předcházet zranitelnosti webů SQL Injection, neboť všechny parametry, které do dotazů vstupují jsou automaticky escapovány syntaxí podle použité databáze. Lze ho použít jednak jako nadstavbu PDO, tak přímo s nativními PHP rozšířeními pro jednotlivé databázové stroje.
-
+\label{idatabasemanager}
 \subsubsection{Rozhraní pro správu databází}
 PDO i dibi poskytují abstrakci, která je dostačující pro běžnou aplikaci, které pracuje s jednou databází\footnote{Databází zde myslím kolekci tabulek. U MySQL se používá termín databáze, například u PostgreSQL by byl správný termín \uv{schéma}}. S jinými databázemi lze samozřejmě pracovat prostřednictvím \uv{tečkové} notace {\tt databáze.tabulka.sloupec}, ovšem v momentě, kdy je potřeba nastavit některou databázi jako výchozí (např. u MySQL příkazem {\tt USE database}), nenabízí PDO ani dibi žádnou možnost. Totéž pak platí i pro možnosti pro vytváření databáze a tabulek, jejich mazání, úpravy struktury a podobně.  A to je přesně to, co v této aplikaci potřebuji, neboť každá revize odpovídá samostatné databázi. Přímé zapsání těchto příkazů by samozřejmě způsobilo svázání aplikace s konkrétním DBMS, neboť syntaxe těchto příkazů ke u jednotlivých strojů různá.
 
@@ -694,12 +694,39 @@ Reálně je problém rozlišit, jestli má aplikace architekturu MVC nebo MVP, p
 
 
 %*****************************************************************************
-\chapter{*Implementace}
-
+\chapter{Implementace}
+Tato kapitola obsahuje postup nasazení aplikace na produkční server, popis jejích možností konfigurace a také příklad na klienta webové služby.
  
-\section{*Nasazení aplikace}
-\subsection{*Požadavky aplikace}
-\subsection{*Konfigurace}
+\section{Nasazení aplikace}
+\subsection{Požadavky}
+\begin{itemize}
+\item Webový server s podporou PHP (doporučeným serverem, na kterým byla aplikace testována je Apache HTTPD 2.2 s PHP jako SAPI modulem).
+\item PHP verze 5.3 nebo vyšší (aplikace využívá jmenné prostory a anonymní funkce). Jsou vyžadovány moduly PHP \textit{soap, curl, mbstring}.
+\item Relační databázový stroj (doporučeno MySQL nebo PostgreSQL), a odpovídající modul PHP pro jeho podporu (možné použít PDO i nativní rozšíření).
+\item Libovolný operační systém (testováno na platformě Windows a Debian GNU/Linux).
+\end{itemize}
+V případě použití jiného databázového stroje než MySQL je nutné doplnit do aplikace podporu implementaci rozhraní pro správu databází pod tímto RDBMS. Více viz kap. \ref{idatabasemanager}.
+
+\subsection{Konfigurace}
+Konfigurace aplikace je umístěna na místě standardním pro Nette aplikace - v souboru \textit{/app/config.ini}. Je velmi důležité, aby tento soubor zůstal nepřístupný pro přístup z webu, protože obsahuje citlivé informace. Z webu by mimochodem měl být přístupný pouze adresář \textit{/www/}.
+
+Při nasazování aplikace je nutné soubor config.ini vytvořit, distribuce obsahuje ve stejné složce připravený soubor config-default.ini, který obsahuje výchozí nastavení.
+
+Konfigurační soubor Nette aplikace je rozdělen na části \textit{common, development} a \textit{production}. Jednotlivé sekce je možné v jiných \uv{dědit}, podobně jako třídy programu. K tomu se používá notace se špičatou závorkou (např. \texttt{[production < common]}). Uvedený příklad znamená, že sekce \textit{production} rozšiřuje sekci \textit{common}. Stejně jako u dědění tříd je možné přepsat nastavení nadřazené sekce, čehož se využívá například pro rozdílná nastavení připojení k databázi na vývojovém a produkčním serveru.
+
+Konfigurační soubor obsahuje nastavení běhového prostředí aplikace a jejích služeb. Zde neuvádím všechny direktivy, které se v souboru vyskytují, ale jen ty které mohou být užitečné právě při nasazování aplikace. Zde neuvedené direktivy doporučuji neměnit, můžete tím znefunkčnit celou aplikaci!
+
+Nastavení databáze:
+\begin{itemize}
+\item \textbf{database.driver} Databázový driver pro připojení. Lze použít jak nativní driver \textit{mysql, mysqli, pgsql} nebo \textit{pdo}.
+\item \textbf{database.dsn} V případě použití PDO obsahuje DSN řetězec pro připojení k databázi. Při použití nativních ovladačů je ignorován.
+\item \textbf{database.host} Adresa databázového stroje.
+\item \textbf{database.username} Uživatelské jméno pro připojení
+\item \textbf{database.password} Heslo pro připojení
+\item \textbf{database.charset} Kódování znaků
+\item \textbf{database.lazy} V případě nastavení této direktivy na TRUE je připojení k databázi vytvořeno až při provedení prvního dotazu.
+\end{itemize}
+Nastavení celé sekce \textit{database} vychází z API třídy \textit{DibiConnection}\cite{dibiconnection}, lze použít veškeré jeho možnosti. Na tomto místě bych také zdůraznil, že databázový uživatel musí mít práva pro vytváření, změnu a odstraňování databází a jejích tabulek.
 
 %*****************************************************************************
 \chapter{*Testování}
