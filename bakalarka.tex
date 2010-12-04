@@ -40,7 +40,7 @@
 % Styles required in your work follow %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{graphicx}
-\usepackage{indentfirst} %1. odstavec jako v cestine.
+%\usepackage{indentfirst} %1. odstavec jako v cestine.
 
 \usepackage{k336_thesis_macros} % specialni makra pro formatovani DP a BP
  % muzete si vytvorit i sva vlastni v souboru k336_thesis_macros.sty
@@ -257,7 +257,7 @@ Očekávají se cca 1 -- 2 odstavce, maximálně půl stránky.
 %\parskip=5pt
 %11.12.2008 parskip + tolerance
 \normalfont
-\parskip=0.2\baselineskip plus 0.2\baselineskip minus 0.1\baselineskip
+\parskip=0.3\baselineskip plus 0.2\baselineskip minus 0.1\baselineskip
 
 % Odsazeni prvniho radku odstavce resi class book (neaplikuje se na prvni 
 % odstavce kapitol, sekci, podsekci atd.) Viz usepackage{indentfirst}.
@@ -268,7 +268,7 @@ Očekávají se cca 1 -- 2 odstavce, maximálně půl stránky.
 %*****************************************************************************
 \chapter{Úvod}
 
-V této úvodní kapitole naleznete stručnou historii dvou informačních systémů, kterých se tato práce bezprostředně dotýká - Komponenty Studium a Studentovy berličky.
+Tato práce se zabývá možností vzájemného sdílení dat mezi univerzitním systémem KOS a připravovanou novou verzí aplikace Studentova Berlička, které slouží pro podporu vedení cvičení. V této úvodní kapitole najdete nástin historického vývoje obou systémů.
 
 \section{KOS a jeho historie}
 Následující kapitola obsahuje krátký pohled do historie KOSu. Ačkoli informace vychází z malého počtu zdrojů, které navíc obsahují pouze kusé informace, jde o jediné zdroje, které se mi podařilo najít.
@@ -303,7 +303,7 @@ První základy Studentovy berličky byly položeny v zimním semestru 2005/2006
 
 Hned v následujícím semestru se přišly nové požadavky na podporu cvičení předmětů Teoretická informatika (TIN) a Aplikace výpočetní techniky (AVT). tyto požadavky zapříčinili nutnost systém v podstatě celý přepsat, bylo nutné přidat například podporu pro zadávání semestrálních prací, zakomponovat bodování docházky a podobně. Nová verze - Jagu 2 - si ovšem stále nesla neduhy svého předchůdce, především co se týče grafického zobrazení a přehlednosti. Na základě zkušeností s vývojem těchto dvou verzí došel Jiří Hunka k závěru, že je nutné vyvinout nový systém, který nebude postaven na bázi pouze jednoho předmětu, ale bude univerzální.
 
-Prvotní verze Studentovy berličky vznikla v rámci bakalářské práce Jiřího Hunky v roce 2007. Stav vycházející z tohoto zpracování je funkční dodnes.
+Prvotní verze Studentovy berličky vznikla v rámci bakalářské práce Jiřího Hunky v roce 2007. Vznikl tak komplexní systém, který usnadnil cvičícím vedení agendy cvičení, a studentům poskytl možnost kdykoliv zjistit vlastní hodnocení. Nová verze tak umožňovala bodování docházky, evidenci bodů za aktivitu na každé hodině, samozřejmě evidenci testů a také hodnocení a odevzdávání semestrálních prací.
 
 \subsection{Současný stav a budoucnost}
 
@@ -317,13 +317,12 @@ Ideálním postupem by bylo celou Studentovu berličku napsat znova. Nejedná se
 
 Současný stav SB je v podstatě typický pro aplikaci napsanou v době, kdy PHP nemělo pořádnou podporu OOP. Aplikace tak nemá žádnou architekturu, prezentační a aplikační logika jsou úzce spojeny a aplikaci nelze snadno rozšiřovat. Z těchto důvodů bylo rozhodnuto, že bude Studentova berlička bude navržena a vytvořena od základů znovu. Na toto téma již bylo zadáno v minulých semestrech několik bakalářských a diplomových prací, které řeší jednotlivé části (jádro, datové úložiště, podporu pluginů, a několik samostatných modulů).
 
-\section{*Cíl práce}
-Cílem této práce je nalezení, nebo vytvoření datového zdroje, který by poskytl aplikaci Studentova berlička a jejím rozšiřujícím modulům přístup k základním datům o studentech, učitelích a rozvrhu. Toto řešení by mělo být dostatečně univerzální aby pokrylo potřeby nejen Studentovy berličky a jejích modulů, ale i případných dalších aplikací. Základním požadavkem je, kromě univerzálnosti, také možnost vytváření revizí dat a jejich vzájemné porovnávání.
+
 
 %*****************************************************************************
 \chapter{Popis problému, specifikace cíle}
 
-\section{Současný způsob získávání dat}
+\section{Současný způsob získávání dat z KOS}
 Jak popisuje Jiří Hunka ve své bakalářské práci\cite{hunka:bp}, současná verze Studentovy berličky používá pro import textové soubory spravované Ing. Martinem Bílým. Ing. Bílý k nim uvádí tyto informace:
 
 \begin{quotation}
@@ -336,7 +335,7 @@ Jednotlivé textové soubory obsahují informace o katedrách, místnostech, stu
 
 Pro tato data je v databázi Studentovi berličky vytvořena struktura tabulek, která odpovídá struktuře dat v souborech. Import dat pak probíhá ručním spouštěním skriptu administrátorem. Tento skript je v současné verzi spouštěn několikrát, ale pouze na začátku semestru. Několikrát proto, že ve zdrojových datech můžou nějaké záznamy několik dní chybět. V průběhu semestru pak již nedochází k aktualizaci dat, přesuny studentů mezi paralelkami jsou řešeny interně v Berličce a jakákoliv změna v KOS se v semestru už neprojeví.
 
-Spuštění importního skriptu v průběhu semestru by totiž bylo velmi rizikové. Studentova berlička přímo aktivně používá tabulky s importovanými daty a zapisuje do nich změny, které se provádějí v aplikaci. Spuštění imprtního skriptu by tak mělo za následek jejich přepsání daty z KOS, které nemusí být správné a přesné (student chodí na jiné cvičení, než kam je zapsán - v Berličce si ho cvičící přesune, v KOSu to např. kvůli kapacitě nemusí jít).
+Spuštění importního skriptu v průběhu semestru by totiž bylo velmi rizikové. Studentova berlička přímo aktivně používá tabulky s importovanými daty a zapisuje do nich změny, které se provádějí v aplikaci. Spuštění importního skriptu by tak mělo za následek jejich přepsání daty z KOS, které nemusí být správné a přesné (student chodí na jiné cvičení, než kam je zapsán - v Berličce si ho cvičící přesune, v KOSu to např. kvůli kapacitě nemusí jít).
 
 Tento způsob má několik zjevných nedostatků:
 \begin{itemize}
@@ -346,13 +345,24 @@ Tento způsob má několik zjevných nedostatků:
 \item Bylo by velmi problematické data o rozvrhu poskytnout jiným aplikacím a rozšířením SB.
 \end{itemize}
 
+\section{Cíl práce}
+Pro novou verzi Studentovy Berličky je proto nutné připravit nové řešení importu dat z univerzitního systému KOS.
 
+Cílem této práce je toto řešení najít v rámci existujících aplikací, nebo navrhnout a implementovat. Toto řešení musí být dostatečně univerzální, aby dokázalo obsloužit požadavky nejen Studentovy Berličky, ale i jejích rozšiřujících modulů a případně dalších samostatných aplikací, například systému na podporu projektů v týmu. Zároveň by nový způsob měl odstranit většinu, ne-li všechny, zmíněné nedostatky.
 
+Výsledný systém by tedy měl umožňovat:
+\begin{itemize}
+\item Poskytnutí stejného rozsahu dat, jak má stávající řešení.
+\item Možnost přístupu ke stále stejné verzi databáze (revizi).
+\item Možnost částečné aktualizace revize.
+\item Rozhraní, které lze snadno využívat v široké škále aplikací.
+\end{itemize}
 
+\section{Možnosti získání dat o rozvrhu}
 
-\section{Možnosti získání dat z KOS}
+Studijní informační systém KOS je uzavřený systém, ke kterému v podstatě nelze získat přímý aplikační přístup. Samotný KOS totiž neposkytuje žádné dostupné API, pomocí kterého by mohli aplikace jednotlivých fakult a kateder získat alespoň základní data o studentech, učitelích a vyučovaných předmětech. Někteří si proto v minulosti vyžádali nějakou formu generovaného výstupu vhodnou pro svou aplikaci. Jedním takovým exportem je i soubor rz.xml který obsahuje data rozvrhu, tady studenty, učitele, předměty, zápisy do paralelek a další. Každý, kdo chce tento typ dat ve své aplikaci použít, musí tento soubor nějakým způsobem zpracovat - typicky převést do podoby databáze se kterou pak pracuje samotná aplikace. 
 
-Studijní informační systém KOS je uzavřený systém, ke kterému v podstatě nelze získat přímý aplikační přístup. Samotný KOS totiž neposkytuje žádné dostupné API, pomocí kterého by mohli aplikace jednotlivých fakult a kateder získat alespoň základní data o studentech, učitelích a vyučovaných předmětech. Někteří si proto v minulosti vyžádali nějakou formu generovaného výstupu vhodnou pro svou aplikaci. Jedním takovým exportem je i soubor rz.xml který obsahuje data rozvrhu, tady studenty, učitele, předměty, zápisy do paralelek a další. Každý, kdo chce tento typ dat ve své aplikaci použít, musí tento soubor nějakým způsobem zpracovat - typicky převést do podoby databáze se kterou pak pracuje samotná aplikace. Rozhodl jsem se proto nejdříve zjistit, jak získávání dat řeší některé větší aplikace, a zda-li by se nedali nějakým způsobem využít pro Studentovu berličku.
+Rozhodl jsem se proto nejdříve zjistit, jak získávání dat řeší některé větší aplikace, a zda-li by se nedali nějakým způsobem využít pro Studentovu berličku.
 
 \section{EDUX}
 Aplikace EDUX je webový systém sloužící k organizaci výuky a publikování výukových materiálů na webu pro učitele i studenty. Jde o otevřený systém postavený na aplikaci DokuWiki, jejíchž vlastnosti přebírá a rozšiřuje. V současné době je provozován na serverových clusterech na FEL i na FIT. Studentova berlička by měla v budoucnu s EDUXem úzce spolupracovat, stát se v podstatě jeho plug-inem. EDUX samozřejmě také potřebuje pro své fungování data o rozvrhu z KOS, která získává z exportu rz.xml. Požádal jsem proto Ing. Tomáše Kadlece, který se o EDUX stará, o vyjádření jakým způsobem aplikace zmíněný soubor zpracovává.
@@ -378,8 +388,8 @@ Bohužel se mi tedy nepodařilo navíc takovou existující aplikaci, která by 
 \begin{enumerate}
 \item Importní modul bude převádět data ze souboru rz.xml do podoby relační databáze.
 \item Import bude plně automatický.
-\item Importní modul bude kontrolovat definované referenční závislosti mezi daty.
-\item Importní modul nebude závislý na aktuální struktuře rz.xml, ale bude strukturu dat zpracovávat ze samotného souboru.
+\item Importní modul bude kontrolovat referenční závislosti mezi daty.
+\item Importní modul nebude závislý na aktuální struktuře rz.xml, ale bude konkrétní strukturu zjišťovat ze samotného souboru.
 \item Zpracování bude logováno aby bylo možné odhalit případná selhání.
 \end{enumerate}
 
@@ -611,9 +621,6 @@ Element obsahuje atributy \texttt{id}, datum ve formátu dd.mm.yyyy (\texttt{den
 
 
 
-
-
-
 %*****************************************************************************
 \chapter{Návrh řešení}
 
@@ -695,10 +702,73 @@ Mnohem výstižnější pro logiku Nette Frameworku je méně známý vzor Model
 
 Reálně je problém rozlišit, jestli má aplikace architekturu MVC nebo MVP, protože fakticky se vzory liší jen v detailech. Nette používá označení Presenter, naproti tomu například v Zend Frameworku najdeme Controllery, které se starají o totéž. Další informace o MVP lze najít například v \cite{mvp}.
 
+\section{Zpracování XML exportu}
+Dávkové zpracování velkého množství dat z XML souboru do relační databáze, jejichž aktuální strukturu vlastně zjišťujeme za běhu, a zároveň splnit všechny funkční i nefunkční požadavky a také dosáhnout přiměřené rychlosti zpracování a paměťové náročnosti představovalo nesnadný úkol.
 
-\section{*Načtení XML exportu}
-\subsection{*Cizí klíče a referenční závislosti}
+\subsection{Způsob čtení dat}
+Pro práci s XML poskytuje PHP (ve verzi 5) hned několik možných přístupů - SimpleXML, SAX, DOM, XPath, XSL transformaci a XMLReader\cite{kosek:phpAxml}. Ze zkušenosti jsem zavrhl SimpleXML, protože je na tento ukol příliš \uv{simple} (hodí se spíše pro jednodušší úlohy) a poté také XPath a XSLT, protože použití jednoho z těchto přístupů by znamenalo rozdrobení funkční logiky do dvou odlišných jazyků. Zbývalo tedy rozhodnutí, zda použít DOM nebo SAX.
 
+\subsubsection{DOM}
+Rozhraní DOM je standardizovaný způsob práce s XML dokumenty definovaný W3 konsorciem. Při přístupu přes DOM se z dokumenty v paměti vytvoří hiearchický objektový model, který pak můžeme volně procházet. Každý element, atribut, textový uzel odpovídá v paměti objektu. Pomocí metod a vlastností každého z nich můžeme snadno zjišťovat význam uzlu ve stromu, jeho názve, obsah, jeho dětské uzly a uzel rodiče. Strom je možné procházet a vyhledávat v něm. Tento přístup má ale jednu zásadní nevýhodu - pro vytvoření stromu je nutné celý dokument načíst a udržovat v paměti, takže nároky na ni jsou velké.
+
+První nekompletní verze importéru používala právě objektový přístup pomocí DOM, neboť se mi toto řešení zdálo jednodušší než ostatní přístupy. Tato první verze ovšem pouze převáděla data do databáze tak jak byly, bez jakékoliv kontroly referenčních závislostí. Při snaze tuto funkčnost doplnit jsem ovšem narazil na problém právě s alokací paměti, kdy skript snadno překračoval limit 256 MB zabrané paměti. Taktéž rychlost nebyla nijak oslnivá a tak nezbylo nic jiného, než importní skript navrhnout znovu.
+
+\subsubsection{SAX a XMLReader}
+
+SAX (Simple API for XML) je jednoduché rozhraní, které proudově čte XML dokument a aplikaci předává informace vyvoláváním událostí, které odpovídají částem dokumentu (tzv. push model). Díky tomu je zpracování rychlé a paměťově nenáročné, na druhou stranu je jeho implementace v porovnání s jinými přístupy komplikovanější. Specifikem implementace SAX v PHP je také to, že rozhraní není tak rychlé jako v jiných jazycích, protože má velkou režii předávání dat mezi samotným parserem v C a aplikací v PHP. 
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=10cm]{figures/sax.png}
+\caption{Rozhraní SAX - princip push modelu}
+\label{fig:sax}
+\end{center}
+\end{figure}
+
+Je proto většinou mnohem vhodnější použít třídu XMLReader, což je implementace pull modelu na bázi rozhraní SAX. Data ze zpracovávaného dokumentu tak čteme až v momentě, kdy je aplikace potřebuje a výsledný kód je mnohem jednodušší a přímočařejší. Navíc XMLReader je, narozdíl od procedurálního SAX, v PHP implementován objektově, což práci s ním ještě více usnadňuje.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=10cm]{figures/xmlreader.png}
+\caption{Rozhraní XMLReader - princip pull modelu}
+\label{fig:xmlreader}
+\end{center}
+\end{figure}
+
+
+\subsection{Hlídání referenční integrity}
+
+Najít správné řešení kontroly referenčních závislostí dat při splnění funkčních požadavků 1c a 1d vyžadovalo přistoupit k určitým kompromisům. Je totiž prakticky nemožné rozeznat přímo ve struktuře rz.xml atributy které jsou cizími klíči a správně je navázat na odpovídající záznamy. 
+
+\subsubsection{Definice referencí} \label{defref}
+Z toho důvodu jsem po konzultaci s vedoucím práce přistoupil k řešení, kdy aplikace umožňuje definici referenčních závislostí prostřednictvím webového formuláře v administračním rozhraní. Prostřednictvím tohoto jednoduchého formuláře je možné nadefinovat nejen cizí klíče, ale i primární klíče a obecné databázové indexy.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=13cm]{figures/import_setup.png}
+\caption{Ukázka rozhraní pro definici klíčů}
+\label{fig:importSetup}
+\end{center}
+\end{figure}
+
+Data pro tento formulář jsou získávána ze struktury databáze posledního importu (z poslední noci), v případě, že se tedy v rz.xml objeví nová data je možné velmi jednoduše a rychle potřebnou definici doplnit bez nutnosti zasahovat do kódu aplikace.
+
+\subsubsection{Kontrola referenčních závislostí}
+Dalším krokem k zajištění referenční integrity dat je začlenění její kontroly do importního skriptu. Jak už jsem uvedl výše, skript využívá proudové zpracování dat na bázi SAX.
+Vzhledem k tomu, že skript zjišťuje strukturu dat za běhu, není možné se ani obecně spolehnout na to, že záznamy jsou uvedeny ve správném pořadí podle referenčních závislostí. Zároveň je však nutné najít správný kompromis mezi stoprocentně konzistentní databází (všechny závislosti, které je možné definovat jsou splněny) a minimalizací množství dat, která z rz.xml musíme zahodit. Když uvedu krajní případ, tak pokud bychom definovali relaci \texttt{katedry.nadrizena=katedry.id}, tak se do databáze nenaimportuje v podstatě nic, neboť v elementu KATEDRY chybí záznam rektorátu, na který odkazuje záznam fakulty, na který odkazují záznamy kateder, které jsou v relaci se spoustou dalších elementů, a tak dále. 
+
+\subsubsection{Fronta záznamů a cache identifikátorů}
+Problém pořadí závislostí dat jsem vyřešil použitím fronty záznamů při jejich vkládání do databáze. Záznam (entitu), který je kompletně přečten z XML a připraven k vložení do databáze přidáme do fronty. Z definice referenčních závislostí popsané v kapitole \ref{refdef} snadno zjistíme jestli je záznam závislý na jiné tabulce. Pokud je, musíme zkontrolovat před jeho vložením do databáze, zdali již všechny odkazované záznamy byly vloženy.
+
+Tato kontrola probíhá prostřednictvím kešování identifikátorů. Z definice v kap. \ref{defref} totiž lze snadno zjistit i jaké záznamy závisí na právě vkládané entitě a identifikátory odkazované z jiných tabulek uložit do cache. Při vkládání závislých záznamů pak už jen jednoduše zkontrolujeme, jestli všechny záznamy, na kterých ten právě vkládaný závisí již byly vloženy. 
+
+Paměťová náročnost tohoto postupu závisí na množství záznamů, jejichž závislosti nejsou v momentě načtení splněny. Respektive, abych byl přesnější, protože operace, která kontroluje reference a vyprazdňuje frontu, je poměrně \uv{drahá} (časově a paměťově náročná), není spouštěna vždy při vložení nové entity, ale až po určitém množství záznamů ve frontě a při ukončení parsování dat jedné tabulky.
+
+Při testování nepřesahovala alokované paměť hodnoty 100 MB a zároveň se mi tímto postupem podařilo dosáhnout u stávajícího rz.xml rychlosti kolem 30 000 vložených záznamů za minutu.
+
+Schéma řešení fronty je zobrazeno na obrázku \ref{fig:queue}.
+
+//TODO - class diagram fronty.
 
 \section{*Verzování databáze}
 \subsection{*Zachování integrity dat}
