@@ -7,4 +7,4 @@
 *.out
 bakalarka.pdf
 *.toc
-original\*
+original/*
