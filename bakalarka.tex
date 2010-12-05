@@ -20,6 +20,9 @@
 % pripadne pisete-li cesky, pak lze zkusit take:
 %\usepackage[OT1]{fontenc} 
 \usepackage[utf8]{inputenc}
+\usepackage{cmap}
+\usepackage{mathpazo}
+
 %=-=-=-=-=-=-=-=-=-=-=-=--=%
 % In case of problems with PDF fonts, one may try to uncomment this line:
 %\usepackage{lmodern}
@@ -256,7 +259,8 @@ Očekávají se cca 1 -- 2 odstavce, maximálně půl stránky.
 % horizontalní mezera mezi dvema odstavci
 %\parskip=5pt
 %11.12.2008 parskip + tolerance
-\normalfont
+%\normalfont
+\fontsize{11pt}{14pt}\selectfont
 \parskip=0.3\baselineskip plus 0.2\baselineskip minus 0.1\baselineskip
 
 % Odsazeni prvniho radku odstavce resi class book (neaplikuje se na prvni 
@@ -273,9 +277,9 @@ Tato práce se zabývá možností vzájemného sdílení dat mezi univerzitním
 \section{KOS a jeho historie}
 Následující kapitola obsahuje krátký pohled do historie KOSu. Ačkoli informace vychází z malého počtu zdrojů, které navíc obsahují pouze kusé informace, jde o jediné zdroje, které se mi podařilo najít.
 \subsection{Historický vývoj}
-Historie Komponenty Studium se začala psát před osmnácti lety, v akademickém roce 1992/93\cite{forum:historie-kos}. Tehdejší děkan Fakulty elektrotechnické prof. Hlavička ustanovil komisi, která měla za úkol vytvoření informačního systému pro podporu studijních agend fakulty. Ačkoli původní plán byl takový, že systém vytvoří vlastními silami profesionálové z Katedry počítačů, nakonec jej ale na základě specifikací od akademických pracovníků z řady kateder vytvořila kladenská softwarová firma Tril, spol s.r.o.\cite{forum:neocekavana}.
+Historie Komponenty Studium se začala psát před osmnácti lety, v akademickém roce 1992/93\cite{forum:historie-kos}. Tehdejší děkan Fakulty elektrotechnické prof. Hlavička ustanovil komisi, která měla za úkol vytvoření informačního systému pro podporu studijních agend fakulty. Přestože původní plán byl takový, že systém vytvoří vlastními silami profesionálové z Katedry počítačů, nakonec jej ale na základě specifikací od akademických pracovníků z řady kateder vytvořila kladenská softwarová firma Tril, spol s.r.o.\cite{forum:neocekavana}.
 
-Systém byl (a stále je) postaven nad databázovým strojem Oracle, uživatelské rozhraní bylo vygenerováno prostřednictvím Oracle Forms verze 4, a bylo přístupné prostřednictvím znakového terminálu. Zavedení systému značně zjednodušilo správu studijních agend a dovolilo studentům samostatně řešit některé úkoly bez nutnosti navštívit Pedagogické oddělení. Nedlouho po vytvoření systému jej zavedla také Fakulta strojní a později i zbylé fakulty ČVUT.
+Systém byl (a stále je) postaven nad databázovým strojem Oracle, uživatelské rozhraní bylo vygenerováno prostřednictvím Oracle Forms verze 4, a bylo přístupné pomocí znakového terminálu. Zavedení systému značně zjednodušilo správu studijních agend a dovolilo studentům samostatně řešit některé úkoly bez nutnosti navštívit Pedagogické oddělení. Nedlouho po vytvoření systému jej zavedla také Fakulta strojní a později i zbylé fakulty ČVUT.
 
 KOS přístupný pouze přes znakový terminál fungoval téměř deset let, do roku 2002. Za tu dobu se ve velké míře rozšířili osobní počítače a vysokorychlostní internet i do domácností, a tak sílily hlasy po webovém rozhraní. Bylo vypsáno výběrové řízení na WWW rozhraní KOSu pro role Student a Ucitel. Zadání specifikovalo společné WWW rozhraní pro celé ČVUT, které bude komunikovat se všemi třemi (FEL, FS a VIC) instancemi  databáze. Zároveň mělo být řešení postaveno na existujících základech a umožnit koexistenci s terminálovým přístupem. 
 
@@ -322,6 +326,8 @@ Současný stav SB je v podstatě typický pro aplikaci napsanou v době, kdy PH
 %*****************************************************************************
 \chapter{Popis problému, specifikace cíle}
 
+V této kapitole je postupně probráno existující řešení získávání dat z KOS Studentovou Beličkou, z jehož nedostatků vyplyne cíl této práce. Následně jsou probrány možnosti, jakými lze získat data z KOS, včetně prozkoumání existujících řešení, a specifikace požadavků na vlastní řešení.  
+
 \section{Současný způsob získávání dat z KOS}
 Jak popisuje Jiří Hunka ve své bakalářské práci\cite{hunka:bp}, současná verze Studentovy berličky používá pro import textové soubory spravované Ing. Martinem Bílým. Ing. Bílý k nim uvádí tyto informace:
 
@@ -333,7 +339,7 @@ K souborům umožním přístup těm, kteří je potřebují pro svůj projekt, 
 
 Jednotlivé textové soubory obsahují informace o katedrách, místnostech, studentech, učitelích, rozvrhové lístky a zápisy studentů na předměty. Víceméně jde tedy o kompletní rozvrh. Data jednotlivých sloupců jsou v souborech oddělena čárkou, Ing. Bílý uvádí i jejich význam.
 
-Pro tato data je v databázi Studentovi berličky vytvořena struktura tabulek, která odpovídá struktuře dat v souborech. Import dat pak probíhá ručním spouštěním skriptu administrátorem. Tento skript je v současné verzi spouštěn několikrát, ale pouze na začátku semestru. Několikrát proto, že ve zdrojových datech můžou nějaké záznamy několik dní chybět. V průběhu semestru pak již nedochází k aktualizaci dat, přesuny studentů mezi paralelkami jsou řešeny interně v Berličce a jakákoliv změna v KOS se v semestru už neprojeví.
+Pro tato data je v databázi Studentovi berličky vytvořena struktura tabulek, která je obrazem struktury dat v souborech. Import dat pak probíhá ručním spouštěním skriptu administrátorem. Tento skript je v současné verzi spouštěn několikrát, ale pouze na začátku semestru. Několikrát proto, že ve zdrojových datech můžou nějaké záznamy několik dní chybět. V průběhu semestru pak již nedochází k aktualizaci dat, přesuny studentů mezi paralelkami jsou řešeny interně v Berličce a jakákoliv změna v KOS se v semestru už neprojeví.
 
 Spuštění importního skriptu v průběhu semestru by totiž bylo velmi rizikové. Studentova berlička přímo aktivně používá tabulky s importovanými daty a zapisuje do nich změny, které se provádějí v aplikaci. Spuštění importního skriptu by tak mělo za následek jejich přepsání daty z KOS, které nemusí být správné a přesné (student chodí na jiné cvičení, než kam je zapsán - v Berličce si ho cvičící přesune, v KOSu to např. kvůli kapacitě nemusí jít).
 
@@ -348,11 +354,11 @@ Tento způsob má několik zjevných nedostatků:
 \section{Cíl práce}
 Pro novou verzi Studentovy Berličky je proto nutné připravit nové řešení importu dat z univerzitního systému KOS.
 
-Cílem této práce je toto řešení najít v rámci existujících aplikací, nebo navrhnout a implementovat. Toto řešení musí být dostatečně univerzální, aby dokázalo obsloužit požadavky nejen Studentovy Berličky, ale i jejích rozšiřujících modulů a případně dalších samostatných aplikací, například systému na podporu projektů v týmu. Zároveň by nový způsob měl odstranit většinu, ne-li všechny, zmíněné nedostatky.
+Cílem této práce je toto řešení najít v rámci existujících aplikací, nebo navrhnout a implementovat. Toto řešení musí být dostatečně univerzální, aby dokázalo obsloužit požadavky nejen Studentovy Berličky, ale i jejích rozšiřujících modulů a případně dalších nezávislých aplikací, například systému na podporu projektů v týmu. Zároveň by nový způsob měl odstranit většinu, ne-li všechny, zmíněné nedostatky.
 
 Výsledný systém by tedy měl umožňovat:
 \begin{itemize}
-\item Poskytnutí stejného rozsahu dat, jak má stávající řešení.
+\item Poskytnutí stejného rozsahu dat, jako má stávající řešení.
 \item Možnost přístupu ke stále stejné verzi databáze (revizi).
 \item Možnost částečné aktualizace revize.
 \item Rozhraní, které lze snadno využívat v široké škále aplikací.
@@ -362,14 +368,14 @@ Výsledný systém by tedy měl umožňovat:
 
 Studijní informační systém KOS je uzavřený systém, ke kterému v podstatě nelze získat přímý aplikační přístup. Samotný KOS totiž neposkytuje žádné dostupné API, pomocí kterého by mohli aplikace jednotlivých fakult a kateder získat alespoň základní data o studentech, učitelích a vyučovaných předmětech. Někteří si proto v minulosti vyžádali nějakou formu generovaného výstupu vhodnou pro svou aplikaci. Jedním takovým exportem je i soubor rz.xml který obsahuje data rozvrhu, tady studenty, učitele, předměty, zápisy do paralelek a další. Každý, kdo chce tento typ dat ve své aplikaci použít, musí tento soubor nějakým způsobem zpracovat - typicky převést do podoby databáze se kterou pak pracuje samotná aplikace. 
 
-Rozhodl jsem se proto nejdříve zjistit, jak získávání dat řeší některé větší aplikace, a zda-li by se nedali nějakým způsobem využít pro Studentovu berličku.
+Rozhodl jsem se proto nejdříve zjistit, jak získávání dat řeší jiné aplikace a zda-li by se nedaly nějakým způsobem využít pro Studentovu berličku.
 
 \section{EDUX}
-Aplikace EDUX je webový systém sloužící k organizaci výuky a publikování výukových materiálů na webu pro učitele i studenty. Jde o otevřený systém postavený na aplikaci DokuWiki, jejíchž vlastnosti přebírá a rozšiřuje. V současné době je provozován na serverových clusterech na FEL i na FIT. Studentova berlička by měla v budoucnu s EDUXem úzce spolupracovat, stát se v podstatě jeho plug-inem. EDUX samozřejmě také potřebuje pro své fungování data o rozvrhu z KOS, která získává z exportu rz.xml. Požádal jsem proto Ing. Tomáše Kadlece, který se o EDUX stará, o vyjádření jakým způsobem aplikace zmíněný soubor zpracovává.
+Aplikace EDUX je webový systém sloužící k organizaci výuky a publikování výukových materiálů na webu pro učitele i studenty. Jde o otevřený systém postavený na aplikaci DokuWiki, jejíchž vlastnosti přebírá a rozšiřuje. V současné době je provozován na FEL i FIT na serverových clusterech. Studentova berlička by měla v budoucnu s EDUXem úzce spolupracovat, stát se v podstatě jeho plug-inem. EDUX samozřejmě také potřebuje pro své fungování data o rozvrhu z KOS, která získává z exportu rz.xml. Požádal jsem proto Ing. Tomáše Kadlece, který se o EDUX stará, o vyjádření jakým způsobem aplikace zmíněný soubor zpracovává.
 
 EDUX zpracovává rz.xml formou XSL transformace, ze které jsou generovány informace rovnou ve formátu pro Dokuwiki. Tento import je prováděn každou noc, aplikace si zároveň udržuje 90 dní zpět rozdílovou zálohu pro případ problémů, ale jak uvádí Ing. Kadlec, za 1,5 roku provozu EDUXu ji nebylo nutné použít. Studentově berličce tedy nemůže EDUX nabídnout žádný výstup, žádnou \uv{mezi-databázi} vlastně ani nepoužívá.
 
-\section{*KOS API}
+\section{KOS API}
 V letním semestru 2009/2010 vytvořil Jakub Jirůtka v rámci své bakalářské práce\cite{jirutka} aplikaci nazvanou KOSapi. Jde o implementaci webové služby na bázi REST architektury nad zmíněným exportem z KOS rz.xml. Tato aplikace významně zjednodušuje získávání dat rozvrhu z KOS, neboť složité parsování a transformaci XML souboru do přístupnější formy nahrazuje RESTful webová služba s jednoduchou komunikací na bázi požadavek-odpověď nad protokolem HTTP.
 
 Ačkoli tato aplikace řeší několik úskalí práce s rz.xml, nakonec jsem ji nepoužil především z těchto důvodů:
@@ -378,8 +384,8 @@ Ačkoli tato aplikace řeší několik úskalí práce s rz.xml, nakonec jsem ji
 \item Druhý, a podstatnějším důvod je ten, že v době, kdy jsem na této práci začal pracovat (jaro 2010) nebylo KOSapi ještě hotové a nasazené, k tomu došlo až na podzim. Je ovšem možné, že v budoucnu bude KOSapi nějakým způsobem využito.
 \end{itemize}
 
-\section{*Vlastní řešení}
-Bohužel se mi tedy nepodařilo navíc takovou existující aplikaci, která by splnila všechny požadavky, a proto jsem přistoupil k navržení a implementaci vlastního aplikace. Prvním krokem k tomu bylo přesné specifikování požadavků.
+Jelikož se mi nepodařilo najít takovou existující aplikaci, která by splnila všechny požadavky a mohla data poskytnout, rozhodl jsem se navrhnout a implementovat vlastní aplikaci. Prvním krokem k jejímu zdárnému vývoji je přesné specifikování požadavků.
+
 \section{Specifikace požadavků}
 \subsection{Funkční požadavky}
 
@@ -453,12 +459,6 @@ To by mělo být zajištěno právě možností vytvářet revize databáze. Ka�
 \item Aktualizovat pouze data
 \item Aktualizovat vše - to znamená strukturu tabulky i data
 \end{itemize}
-%\end{itemize}
-%\begin{itemize}
-%\item Neaktualizovat - V tomto případě zůstane tabulka stále stejná z okamžiku vytvoření revize.
-%\item Aktualizovat data - Tabulka bude automaticky po importování nové verze rz.xml naplněna aktuálními daty. Tato možnost bude doplněna navíc o údaj maximálního počtu změn v řádcích tabulky, pro které se ještě může provést aktualizace. V případě že bude tento počet překročen, bude upozorněn správce klientské aplikace. Stejně tak v případě že dojde ke změně struktury.
-%\item Aktualizovat vše - V takovém případě bude tato tabulka vždy přepsána aktuální verzí z posledního importu. Aplikace v takovém případě dostává stejná data jako by přistupovala přímo k "live" databázi a změny nejsou kontrolovány.
-%\end{itemize}
 
 Typickým příkladem proč jsou tyto možnosti potřeba je tento - student si v KOS změní například e-mail a my samozřejmě chceme, aby se změna objevila i v Berličce. Zároveň ale nechceme, aby se u tabulky samovolně mohla změnit struktura a proto nechceme tyto data získávat přímo z \uv{živé} databáze. Správa revizí a jejich aktualizací by také měla pomoci předejít zmíněnému problému s přeindexováním dat.
 
@@ -473,6 +473,8 @@ Tomu jsem se chtěl vyhnout, proto místo jediného rozhraní aplikace bude umo�
 
 %*****************************************************************************
 \chapter{Analýza}
+
+Tato kapitola obsahuje analýzu zdrojových dat ze zdrojového souboru včetně popisu významu jednotlivých elementů, které se v něm vyskytují.
 
 \section{Struktura exportu z KOS}
 Jak jsem už zmínil, jediným dostupným způsobem jak získat data rozvrhu je rz.xml. Práce s tímto souborem je celkem obtížná, protože k němu neexistuje naprosto žádná dokumentace. U většiny elementů a atributů lze ale celkem bez problémů rozluštit jejich význam, a tak jsem v podstatě až do doby, než Jakub Jirutky\cite{jirutka} dokončil svou práci neměl potřebu pátrat po významu těch několika zbylých, nerozluštěných. V své práci Jakub Jirůtka zpracovat velmi podrobný popis struktury souboru, a vytvořil tak \textit{de facto} jeho první dokumentaci. 
@@ -624,6 +626,7 @@ Element obsahuje atributy \texttt{id}, datum ve formátu dd.mm.yyyy (\texttt{den
 %*****************************************************************************
 \chapter{Návrh řešení}
 
+V této kapitole naleznete seznámení s technologiemi, které byly použity při zpracování této práce. Dále je zde popsán princip zpracováni importu, a řešení verzování dat a vlastní definice rozhraní webové služby.
 
 \section{Použité technologie}
 Pro implementaci aplikace byl použit skriptovací jazyk PHP a databázový stroj MySQL, a to především z toho důvodu, že s nimi mám nejvíce praktických zkušeností. Nezanedbatelným argumentem je také to, že stávající Studentova berlička je také využívá.
@@ -719,7 +722,7 @@ SAX (Simple API for XML) je jednoduché rozhraní, které proudově čte XML dok
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=10cm]{figures/sax.png}
+\includegraphics[width=12cm]{figures/sax.png}
 \caption{Rozhraní SAX - princip push modelu}
 \label{fig:sax}
 \end{center}
@@ -729,7 +732,7 @@ Je proto většinou mnohem vhodnější použít třídu XMLReader, což je impl
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=10cm]{figures/xmlreader.png}
+\includegraphics[width=12cm]{figures/xmlreader.png}
 \caption{Rozhraní XMLReader - princip pull modelu}
 \label{fig:xmlreader}
 \end{center}
@@ -745,7 +748,7 @@ Z toho důvodu jsem po konzultaci s vedoucím práce přistoupil k řešení, kd
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=13cm]{figures/import_setup.png}
+\includegraphics[scale=0.6]{figures/import_setup.png}
 \caption{Ukázka rozhraní pro definici klíčů}
 \label{fig:importSetup}
 \end{center}
@@ -758,20 +761,86 @@ Dalším krokem k zajištění referenční integrity dat je začlenění její 
 Vzhledem k tomu, že skript zjišťuje strukturu dat za běhu, není možné se ani obecně spolehnout na to, že záznamy jsou uvedeny ve správném pořadí podle referenčních závislostí. Zároveň je však nutné najít správný kompromis mezi stoprocentně konzistentní databází (všechny závislosti, které je možné definovat jsou splněny) a minimalizací množství dat, která z rz.xml musíme zahodit. Když uvedu krajní případ, tak pokud bychom definovali relaci \texttt{katedry.nadrizena=katedry.id}, tak se do databáze nenaimportuje v podstatě nic, neboť v elementu KATEDRY chybí záznam rektorátu, na který odkazuje záznam fakulty, na který odkazují záznamy kateder, které jsou v relaci se spoustou dalších elementů, a tak dále. 
 
 \subsubsection{Fronta záznamů a cache identifikátorů}
-Problém pořadí závislostí dat jsem vyřešil použitím fronty záznamů při jejich vkládání do databáze. Záznam (entitu), který je kompletně přečten z XML a připraven k vložení do databáze přidáme do fronty. Z definice referenčních závislostí popsané v kapitole \ref{refdef} snadno zjistíme jestli je záznam závislý na jiné tabulce. Pokud je, musíme zkontrolovat před jeho vložením do databáze, zdali již všechny odkazované záznamy byly vloženy.
+Problém pořadí závislostí dat jsem vyřešil použitím fronty záznamů při jejich vkládání do databáze. Záznam (entitu), který je kompletně přečten z XML a připraven k vložení do databáze přidáme do fronty. Z definice referenčních závislostí popsané v kapitole \ref{defref} snadno zjistíme jestli je záznam závislý na jiné tabulce. Pokud je, musíme zkontrolovat před jeho vložením do databáze, zdali již všechny odkazované záznamy byly vloženy.
 
 Tato kontrola probíhá prostřednictvím kešování identifikátorů. Z definice v kap. \ref{defref} totiž lze snadno zjistit i jaké záznamy závisí na právě vkládané entitě a identifikátory odkazované z jiných tabulek uložit do cache. Při vkládání závislých záznamů pak už jen jednoduše zkontrolujeme, jestli všechny záznamy, na kterých ten právě vkládaný závisí již byly vloženy. 
 
-Paměťová náročnost tohoto postupu závisí na množství záznamů, jejichž závislosti nejsou v momentě načtení splněny. Respektive, abych byl přesnější, protože operace, která kontroluje reference a vyprazdňuje frontu, je poměrně \uv{drahá} (časově a paměťově náročná), není spouštěna vždy při vložení nové entity, ale až po určitém množství záznamů ve frontě a při ukončení parsování dat jedné tabulky.
+Paměťová náročnost tohoto řešení je závislá na počtu záznamů, které nemají splněny závislosti a je nutné je držet ve frontě, a také, i když v mnohem menší míře na množství závislostí a potažmo identifikátorů, které je nutné ukládat do cache. Navíc, protože operace, která kontroluje reference a vyprazdňuje frontu, je poměrně \uv{drahá} (časově a paměťově náročná), není spouštěna vždy při vložení nové entity, ale až po určitém množství záznamů ve frontě a při ukončení parsování dat jedné tabulky.
 
-Při testování nepřesahovala alokované paměť hodnoty 100 MB a zároveň se mi tímto postupem podařilo dosáhnout u stávajícího rz.xml rychlosti kolem 30 000 vložených záznamů za minutu.
+Při testování nepřesahovala alokovaná paměť hodnoty 100 MB a zároveň se tímto postupem podařilo dosáhnout u stávajícího rz.xml rychlosti kolem 30 000 vložených záznamů za minutu.
 
 Schéma řešení fronty je zobrazeno na obrázku \ref{fig:queue}.
 
-//TODO - class diagram fronty.
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.5]{figures/import.png}
+\caption{Architektura importního skriptu}
+\label{fig:queue}
+\end{center}
+\end{figure}
 
-\section{*Verzování databáze}
-\subsection{*Zachování integrity dat}
+
+\section{Verzování databáze}
+Požadavky na možnost verzování a definice schématu aktualizace dat vychází především ze zkušeností s provozem stávající verze Studentovy Berličky a problémů které jí pokusy o průběžný import dat v minulosti způsobily. Nemůžeme se totiž spolehnout na to, že data v rz.xml jsou stoprocentně konzistentní, nemůžeme se ani spolehnout že v rz.xml najdeme vždy všechna data, může se stít, že na pár dní z exportu vypadnou a zase se objeví.
+
+Pro řešení těchto problémů jsem navrhl možnosti vytváření revizí databáze a vzájemné porovnávání rozdílů mezi nimi. Tím snadno odstraníme nebezpečí nekontrolované změny dat a jejich struktury a zároveň umožníme jejich zaktualizování v momentě, kdy je klientská aplikace na změny připravena, nebo když změny nepředstavují pro aplikaci problém.
+
+\subsection{Aktualizace revize}
+U každé revize lze na úrovni jednotlivých tabulek definovat, zda-li se má tabulka udržovat ve stavu v jakém byla při vytvoření revize, nebo ji má importní skript aktualizovat. Jsou k dispozici tyto možnosti:
+
+\begin{itemize}
+\item Neaktualizovat - V tomto případě zůstane tabulka stále stejná z okamžiku vytvoření revize.
+\item Aktualizovat data - Tabulka bude automaticky po importování nové verze rz.xml naplněna aktuálními daty. Tato možnost bude doplněna navíc o údaj maximálního počtu změn v řádcích tabulky, pro které se ještě může provést aktualizace. V případě že bude tento počet překročen, bude upozorněn správce klientské aplikace. Stejně tak v případě že dojde ke změně struktury.
+\item Aktualizovat vše - V takovém případě bude tato tabulka vždy přepsána aktuální verzí z posledního importu. Aplikace v takovém případě dostává stejná data jako by přistupovala přímo k "live" databázi a změny nejsou kontrolovány.
+\end{itemize}
+
+Definicí schématu \uv{aktualizovat pouze data} spolu s určením rozumného maximálního počtu změn v tabulce tak snadno dosáhneme potřebného promítnutí menších změn (například změna e-mailu) do revize, ale změny přes velký počet záznamů tabulky (jakým může být i dříve zmíněné přečíslování indexů) se do revize neprojeví dokud je administrátor klientské aplikace nezkontroluje a nepotvrdí.
+
+Jednotlivé vytvořené jsou interně reprezentovány samostatnou databází, takovéto řešení je zřejmě tím nejvhodnějším pro tuto úlohu.
+
+\subsection{Podmnožiny hlavní databáze}
+
+Motivací pro navržení této funkce byl prostý fakt, že rz.xml obsahuje velké množství dat a vytvořená databáze tak zabírá zhruba 30MB. Ačkoli to není nijak závratně mnoho, je naprosto zbytečné, aby jednotlivé revize obsahovaly obraz celého rz.xml. Typická klientská aplikace totiž nepotřebuje všechna data, většinou si vystačí pouze s jejich zlomkem, třeba i jen s informacemi o jednom předmětu. Další výhodou je, že databázový stroj nebude muset prohledávat tisíce řádků, ale pouze jejich zlomek a může tak výsledky vracet rychleji, což samozřejmě zrychlí i odpověď webové služby.
+
+U vytvářené podmnožiny je velmi důležité, aby data v ní zůstala v konzistentní podobě a obsahovala všechny odkazované záznamy. Původní záměr byl takový, že si uživatel nadefinuje, které tabulky chce v revizi mít a při vytvoření budou automaticky rozpoznány veškeré závislosti které tabulky mají a to i například prostřednictvím takzvaných spojových tabulek. Řešení tohoto problému formou automatického rozpoznávání se ale ukázalo jako poměrně komplikovaný úkol a proto byl prozatím odložen.
+
+Ve stávající verzi je tedy nutné vybrat do revize všechny tabulky, které revize bude obsahovat, včetně zmíněných spojových tabulek. Zároveň je možné odstranit sloupce cizích klíčů, které nechceme do revize přenést. Nicméně rozhraní a skript vytvářející revize odstranění cizích klíčů, jejich obrazy v revizi nebudou, nevyžadují, uživatel je pouze výrazně upozorněn na možnou nekonzistenci.
+
+\section{Definice rozhraní}
+
+Jak už bylo řečeno v požadavcích, aplikace umožňuje vlastní definici rozhraní webové služby SOAP. Uživatel má možnost definovat název procedury, její parametry včetně typů, způsob získání výsledků a návratový typ.
+
+Zatímco implementace této funkčnosti v jiných, kompilovaných, jazycích by byla nejspíše velmi komplikovaná, pokud vůbec možná, v PHP lze tento problém řešit jednoduše a přímočaře využitím magické metody \texttt{call}. Tato metoda je volána vždy, pokud nad instancí třídy voláme metodu, která v ní není definována (ani v jejích předcích). Ve třídě, která se stará o obsluhu požadavků webové služby proto definujeme tuto metodu a obsloužení všech metod, které jsou uživatelsky definované je předáno právě jí. Procedury, která jsou pevnou součástí rozhraní služby (například pro identifikaci a autentizaci klienta) definujeme přímo v kódu třídy a PHP skript je zavolá přímo. V \texttt{call} tak máme jistotu že je volána jenom na uživatelsky definované procedury služby.
+
+V současné verzi probíhá definice prostřednictvím formulářů na obrázcích \ref{fig:defOperace} a \ref{fig:defSQL}. V prvním formuláři uživatel definuje základní parametry procedury, ve druhém pak SQL dotaz, který se má při volání provést. SQL definice jedné operace se může lišit vůči jednotlivým revizím. 
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.5]{figures/operace.png}
+\caption{Formulář definice procedury webové služby}
+\label{fig:defOperace}
+\end{center}
+\end{figure}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.5]{figures/sql.png}
+\caption{Formulář definice SQL dotazu}
+\label{fig:defSQL}
+\end{center}
+\end{figure}
+
+Výsledky je možné získávat ve třech podobách:
+\begin{itemize}
+\item Základní - jsou vráceny všechny výsledky v poli indexovaném od nuly.
+\item Asociativní - podobně jako první možnost, ale pole je indexováno definovaným asociativním klíčem (nejčastěji primární klíč). Definice tohoto kliče se může lišit vůči jednotlivým revizím.
+\item Jedno hodnotu - jak název napovídá, je vrácena jen jedna hodnota. Hodí se například pro použití s agregačními funkcemi SQL.
+\end{itemize}
+
+Pro otestování jednotlivých procedur služby je k dispozici testovací rozhraní.
+
+Dalším krokem ve vývoji tohoto rozhraní bude generování potřebného SQL dotazu prostřednictvím uživatelsky přívětivějšího průvodce, bez nutnosti vypisovat samotný dotaz.
+
 
 %*****************************************************************************
 \chapter{Implementace}
@@ -879,19 +948,11 @@ Jakákoliv chyba při zpracování požadavku (například v SQL dotazu, nesprá
 
 %*****************************************************************************
 \chapter{*Testování}
-\begin{itemize}
- \item Způsob, průběh a výsledky testování.
- \item Srovnání s existujícími řešeními, pokud jsou známy.
-\end{itemize}
-
+\section{Jednotkové testování}
+\section{Testování v reálném provozu}
 %*****************************************************************************
 \chapter{*Závěr}
-
-\begin{itemize}
-\item Zhodnocení splnění cílů DP/BP a  vlastního přínosu práce (při formulaci je třeba vzít v potaz zadání práce).
-\item Diskuse dalšího možného pokračování práce.
-\end{itemize} 
-
+\section{Splnění cíle a zadání}
 %*****************************************************************************
 % Seznam literatury je v samostatnem souboru reference.bib. Ten
 % upravte dle vlastnich potreb, potom zpracujte (a do textu
