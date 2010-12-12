@@ -158,7 +158,7 @@ unicode=true,
 	 \typeout{Nazev prace: \WorkTitle}
 	 \typeout{Vedouci prace: \Supervisor}
 	 \typeout{***************************************************}
-	 \newcommand\Department{Katedra počítačů}
+	 \newcommand\Department{Katedra počítačové grafiky a interakce}
 	 \newcommand\Faculty{Fakulta elektrotechnická}
 	 \newcommand\University{České vysoké učení technické v Praze}
 	 \newcommand\labelSupervisor{Vedoucí práce}
@@ -260,7 +260,7 @@ Očekávají se cca 1 -- 2 odstavce, maximálně půl stránky.
 %\parskip=5pt
 %11.12.2008 parskip + tolerance
 %\normalfont
-\fontsize{11pt}{15.5pt}\selectfont
+\fontsize{11pt}{15pt}\selectfont
 \parskip=0.3\baselineskip plus 0.2\baselineskip minus 0.1\baselineskip
 
 % Odsazeni prvniho radku odstavce resi class book (neaplikuje se na prvni 
@@ -272,31 +272,32 @@ Očekávají se cca 1 -- 2 odstavce, maximálně půl stránky.
 %*****************************************************************************
 \chapter{Úvod}
 
-Tato práce se zabývá možností vzájemného sdílení dat mezi univerzitním systémem KOS a připravovanou novou verzí aplikace Studentova Berlička, které slouží pro podporu vedení cvičení. V této úvodní kapitole najdete nástin historického vývoje obou systémů.
+Tato práce se zabývá možností vzájemného sdílení dat mezi univerzitním systémem KOS a připravovanou novou verzí aplikace Studentova Berlička, která slouží pro podporu vedení cvičení. V této úvodní kapitole najdete nástin historického vývoje obou systémů.
 
 \section{KOS a jeho historie}
-Následující kapitola obsahuje krátký pohled do historie KOSu. Ačkoli informace vychází z malého počtu zdrojů, které navíc obsahují pouze kusé informace, jde o jediné zdroje, které se mi podařilo najít.
+Ačkoli informace v následující kapitole o historii KOS vychází z malého počtu zdrojů, které navíc obsahují pouze kusé informace, jde o jediné zdroje, které se mi podařilo najít.
+
 \subsection{Historický vývoj}
-Historie Komponenty Studium se začala psát před osmnácti lety, v akademickém roce 1992/93\cite{forum:historie-kos}. Tehdejší děkan Fakulty elektrotechnické prof. Hlavička ustanovil komisi, která měla za úkol vytvoření informačního systému pro podporu studijních agend fakulty. Přestože původní plán byl takový, že systém vytvoří vlastními silami profesionálové z Katedry počítačů, nakonec jej ale na základě specifikací od akademických pracovníků z řady kateder vytvořila kladenská softwarová firma Tril, spol s.r.o.\cite{forum:neocekavana}.
+Historie Komponenty Studium se začala psát před osmnácti lety, v akademickém roce 1992/93\cite{forum:historie-kos}. Tehdejší děkan Fakulty elektrotechnické prof. Hlavička ustanovil komisi, která měla za úkol vytvoření informačního systému pro podporu studijních agend fakulty. Přestože původní plán byl takový, že systém vytvoří vlastními silami profesionálové z Katedry počítačů, nakonec jej na základě specifikací od akademických pracovníků z většiny kateder vytvořila kladenská softwarová firma Tril, spol s.r.o.\cite{forum:neocekavana}.
 
 Systém byl (a stále je) postaven nad databázovým strojem Oracle, uživatelské rozhraní bylo vygenerováno prostřednictvím Oracle Forms verze 4, a bylo přístupné pomocí znakového terminálu. Zavedení systému značně zjednodušilo správu studijních agend a dovolilo studentům samostatně řešit některé úkoly bez nutnosti navštívit Pedagogické oddělení. Nedlouho po vytvoření systému jej zavedla také Fakulta strojní a později i zbylé fakulty ČVUT.
 
-KOS přístupný pouze přes znakový terminál fungoval téměř deset let, do roku 2002. Za tu dobu se ve velké míře rozšířili osobní počítače a vysokorychlostní internet i do domácností, a tak sílily hlasy po webovém rozhraní. Bylo vypsáno výběrové řízení na WWW rozhraní KOSu pro role Student a Ucitel. Zadání specifikovalo společné WWW rozhraní pro celé ČVUT, které bude komunikovat se všemi třemi (FEL, FS a VIC) instancemi  databáze. Zároveň mělo být řešení postaveno na existujících základech a umožnit koexistenci s terminálovým přístupem. 
+KOS přístupný pouze přes znakový terminál fungoval téměř deset let, do roku 2002. Za tu dobu se ve velké míře rozšířili osobní počítače a vysokorychlostní internet i do domácností, a tak sílily hlasy po webovém rozhraní. Bylo proto vypsáno výběrové řízení na WWW rozhraní KOSu pro role Student a Ucitel. Zadání specifikovalo společné WWW rozhraní pro celé ČVUT, které bude komunikovat se všemi třemi (FEL, FS a VIC) instancemi  databáze. Zároveň mělo být řešení postaveno na existujících základech a umožnit koexistenci s terminálovým přístupem. 
 
 Zakázku vyhrála firma Trask Solutions, a.s. a webový KOS byl v září 2002 uveden do provozu, zatím jen nad instancí spravovanou ve VIC. K tomu uvádí Ing. Halaška\cite{student:komentar-ke-kos} \textit{\uv{Urychlené uvedení vybraných WWW formulářů do provozu k prvnímu září 2002 bylo možné (z našeho hlediska) pouze za cenu některých bezpečnostních kompromisů, kterých se my na FEL bojíme.}} To se nakonec ukázalo jako správné rozhodnutí, rozhraní totiž obsahovalo množství závažných chyb, a tak se WWW KOS zpřístupnil pro studenty a učitele na FEL až v září 2003\cite{student:kos-na-web}.
 
 \subsection{Současný stav KOS}
 Píše se rok 2010 a KOS má za sebou 18 let své existence. Po akci \uv{Sjednocení instancí KOS} z listopadu 2008\cite{sik} již běží pouze v jedné instanci pod správou VIC pro celou univerzitu. Je téměř neuvěřitelné, že systém přežil až do dnešních dní, navíc jak uvádí Ing. Halaška\cite{student:komentar-ke-kos} \textit{\uv{aniž by bylo nutné cokoliv zásadně měnit}}. Za těch 18 let ale udělal vývoj v informatice pořádný skok kupředu, a KOS dnes v porovnání s informačními systémy jiných českých univerzit\footnote{Za zmínku stojí především IS/STAG Západočeské univerzity nebo IS Masarykovy univerzity v Brně, který obdržel v roce 2005 ocenění EUNIS Elite Award. Systém je formou outsourcingu nasazován i na jiných školách v ČR. } již neobstojí.
 
-Velkým problémem současného stavu je neexistence aplikačního rozhraní. V době kdy je ve velké míře prosazován svobodný přístup k informacím, má ČVUT informační systém, který je proprietární, a z vnějšku pro aplikace kateder v podstatě nepřístupný.
+Velkým problémem současného stavu je neexistence přístupu prostřednictvím aplikačního rozhraní. V době kdy je ve velké míře prosazován svobodný přístup k informacím, má ČVUT informační systém, který je proprietární, a z vnějšku pro aplikace kateder v podstatě nepřístupný.
 
 
-\section{Studentova berlička}
+\section{Studentova Berlička}
 
-Studentova berlička je prací, kterou vytvořil Jiří Hunka při jeho studiu na ČVUT FEL a věnoval se jí ve své bakalářské\cite{hunka:bp} i diplomové\cite{hunka:dp} práci, za kterých jsem čerpal následující informace. Tato kapitola popisuje v několika odstavcích její historii.
+Studentova Berlička je prací, kterou vytvořil Jiří Hunka při jeho studiu na ČVUT FEL a věnoval se jí ve své bakalářské\cite{hunka:bp} i diplomové\cite{hunka:dp} práci, za kterých jsem čerpal následující informace. Tato kapitola popisuje v několika odstavcích její historii.
 
 \subsection{Historický vývoj}
-První základy Studentovy berličky byly položeny v zimním semestru 2005/2006, kdy Ing. Jiří Chludil v rámci dobrovolné práce pro předmět Datové struktury a algoritmy zadal vytvoření dynamického systému pro správu cvičení. Prvotní požadavky byly poměrně jednoduché, a tak na sebe první verze, tedy pod názvem Jagu I nenechala slouho čekat. Systém byl po grafické i funkční stránce velmi omezený, ale stal se odrazovým můstkem pro další vývoj.
+První základy Studentovy berličky byly položeny v zimním semestru 2005/2006, kdy Ing. Jiří Chludil v rámci dobrovolné práce pro předmět Datové struktury a algoritmy zadal vytvoření dynamického systému pro správu cvičení. Prvotní požadavky byly poměrně jednoduché, a tak na sebe první verze, tehdy pod názvem Jagu I, nenechala slouho čekat. Systém byl po grafické i funkční stránce velmi omezený, ale stal se odrazovým můstkem pro další vývoj.
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=15cm]{figures/jaguI.png}
@@ -305,9 +306,9 @@ První základy Studentovy berličky byly položeny v zimním semestru 2005/2006
 \end{center}
 \end{figure}
 
-Hned v následujícím semestru se přišly nové požadavky na podporu cvičení předmětů Teoretická informatika (TIN) a Aplikace výpočetní techniky (AVT). tyto požadavky zapříčinili nutnost systém v podstatě celý přepsat, bylo nutné přidat například podporu pro zadávání semestrálních prací, zakomponovat bodování docházky a podobně. Nová verze - Jagu 2 - si ovšem stále nesla neduhy svého předchůdce, především co se týče grafického zobrazení a přehlednosti. Na základě zkušeností s vývojem těchto dvou verzí došel Jiří Hunka k závěru, že je nutné vyvinout nový systém, který nebude postaven na bázi pouze jednoho předmětu, ale bude univerzální.
+Hned v následujícím semestru se přišly nové požadavky na podporu cvičení předmětů Teoretická informatika a Aplikace výpočetní techniky. Tyto požadavky zapříčinili nutnost systém v podstatě celý přepsat, bylo nutné přidat například podporu pro zadávání semestrálních prací, zakomponovat bodování docházky a podobně. Nová verze - Jagu 2 - si ovšem stále nesla neduhy svého předchůdce, především co se týče grafické prezentace a přehlednosti. Na základě zkušeností s vývojem těchto dvou verzí došel Jiří Hunka k závěru, že je nutné vyvinout nový systém, který nebude postaven na bázi pouze jednoho předmětu, ale bude univerzální.
 
-Prvotní verze Studentovy berličky vznikla v rámci bakalářské práce Jiřího Hunky v roce 2007. Vznikl tak komplexní systém, který usnadnil cvičícím vedení agendy cvičení, a studentům poskytl možnost kdykoliv zjistit vlastní hodnocení. Nová verze tak umožňovala bodování docházky, evidenci bodů za aktivitu na každé hodině, samozřejmě evidenci testů a také hodnocení a odevzdávání semestrálních prací.
+První  verze Studentovy Berličky vznikla v rámci bakalářské práce Jiřího Hunky v roce 2007. Vznikl tak komplexní systém, který usnadnil cvičícím vedení agendy cvičení, a studentům poskytl možnost kdykoliv zjistit vlastní hodnocení. Nová verze tak umožňovala bodování docházky, evidenci bodů za aktivitu na každé hodině, samozřejmě evidenci testů a také hodnocení a odevzdávání semestrálních prací.
 
 \subsection{Současný stav a budoucnost}
 
@@ -319,7 +320,7 @@ s využitím protokolu SOAP umožnilo kompletní napojení na jakékoli rozší�
 Ideálním postupem by bylo celou Studentovu berličku napsat znova. Nejedná se pouze o silná slova, ale o ideální postup, který se navrhuje projektům, které dospějí do této fáze.
 \end{quotation}
 
-Současný stav SB je v podstatě typický pro aplikaci napsanou v době, kdy PHP nemělo pořádnou podporu OOP. Aplikace tak nemá žádnou architekturu, prezentační a aplikační logika jsou úzce spojeny a aplikaci nelze snadno rozšiřovat. Z těchto důvodů bylo rozhodnuto, že bude Studentova berlička bude navržena a vytvořena od základů znovu. Na toto téma již bylo zadáno v minulých semestrech několik bakalářských a diplomových prací, které řeší jednotlivé části (jádro, datové úložiště, podporu pluginů, a několik samostatných modulů).
+Současný stav SB je v podstatě typický pro aplikaci napsanou v době, kdy PHP nemělo plnou podporu OOP. Aplikace tak nemá žádnou architekturu, prezentační a aplikační logika jsou úzce spojeny a aplikaci nelze snadno rozšiřovat. Z těchto důvodů bylo rozhodnuto, že bude Studentova berlička bude navržena a vytvořena od základů znovu, ve formě samostatných modulů. Na toto téma již bylo zadáno v minulých semestrech několik bakalářských a diplomových prací, které řeší jednotlivé části (jádro, datové úložiště, podporu pluginů, a několik samostatných modulů).
 
 
 
@@ -329,7 +330,7 @@ Současný stav SB je v podstatě typický pro aplikaci napsanou v době, kdy PH
 V této kapitole je postupně probráno existující řešení získávání dat z KOS Studentovou Beličkou, z jehož nedostatků vyplyne cíl této práce. Následně jsou probrány možnosti, jakými lze získat data z KOS, včetně prozkoumání existujících řešení, a specifikace požadavků na vlastní řešení.  
 
 \section{Současný způsob získávání dat z KOS}
-Jak popisuje Jiří Hunka ve své bakalářské práci\cite{hunka:bp}, současná verze Studentovy berličky používá pro import textové soubory spravované Ing. Martinem Bílým. Ing. Bílý k nim uvádí tyto informace:
+Jak popisuje Jiří Hunka ve své bakalářské práci\cite{hunka:bp}, současná verze Studentovy Berličky používá pro import textové soubory spravované Ing. Martinem Bílým. Ing. Bílý k nim uvádí tyto informace:
 
 \begin{quotation}
 Není mi známo, jak vypadají skutečné databázové tabulky KOSu a jaké všechny atributy obsahují. Vycházím z pravidelně exportovaných XML dat v souboru rz.xml, která předzpracovávám, načítám do jiné databáze, lehce začišťuji a podstatné informace ukládám do následujících souborů v podadresáři data. Každý soubor v datovém adresáři představuje jednu tabulku.
@@ -337,11 +338,11 @@ Není mi známo, jak vypadají skutečné databázové tabulky KOSu a jaké vše
 K souborům umožním přístup těm, kteří je potřebují pro svůj projekt, diplomovou či i jinou práci. Uživatel se zavazuje, že data použije právě k těmto účelům.
 \end{quotation}
 
-Jednotlivé textové soubory obsahují informace o katedrách, místnostech, studentech, učitelích, rozvrhové lístky a zápisy studentů na předměty. Víceméně jde tedy o kompletní rozvrh. Data jednotlivých sloupců jsou v souborech oddělena čárkou, Ing. Bílý uvádí i jejich význam.
+Jednotlivé textové soubory obsahují informace o katedrách, místnostech, studentech, učitelích, rozvrhové lístky a zápisy studentů na předměty. Víceméně jde tedy o kompletní rozvrh. Data jednotlivých sloupců jsou v souborech oddělena čárkou, Ing. Bílý uvádí v dokumentaci i jejich významy.
 
-Pro tato data je v databázi Studentovi berličky vytvořena struktura tabulek, která je obrazem struktury dat v souborech. Import dat pak probíhá ručním spouštěním skriptu administrátorem. Tento skript je v současné verzi spouštěn několikrát, ale pouze na začátku semestru. Několikrát proto, že ve zdrojových datech můžou nějaké záznamy několik dní chybět. V průběhu semestru pak již nedochází k aktualizaci dat, přesuny studentů mezi paralelkami jsou řešeny interně v Berličce a jakákoliv změna v KOS se v semestru už neprojeví.
+Pro tato data je v databázi Studentovi Berličky vytvořena struktura tabulek, která je obrazem struktury dat v souborech. Import dat pak probíhá ručním spouštěním skriptu administrátorem. Tento skript je v současné verzi spouštěn několikrát, ale pouze na začátku semestru. Několikrát proto, že ve zdrojových datech můžou nějaké záznamy několik dní chybět. V průběhu semestru pak již nedochází k aktualizaci dat, přesuny studentů mezi paralelkami jsou řešeny interně v Berličce a jakákoliv změna v KOS se v semestru už neprojeví.
 
-Spuštění importního skriptu v průběhu semestru by totiž bylo velmi rizikové. Studentova berlička přímo aktivně používá tabulky s importovanými daty a zapisuje do nich změny, které se provádějí v aplikaci. Spuštění importního skriptu by tak mělo za následek jejich přepsání daty z KOS, které nemusí být správné a přesné (student chodí na jiné cvičení, než kam je zapsán - v Berličce si ho cvičící přesune, v KOSu to např. kvůli kapacitě nemusí jít).
+Spuštění importního skriptu v průběhu semestru by totiž bylo velmi rizikové. Studentova Berlička přímo aktivně používá tabulky s importovanými daty a zapisuje do nich změny, které se provádějí v aplikaci. Spuštění importního skriptu by tak mělo za následek jejich přepsání daty z KOS, které nemusí být správné a přesné (student chodí na jiné cvičení, než kam je zapsán - v Berličce si ho cvičící přesune, v KOSu to například kvůli kapacitě nemusí jít).
 
 Tento způsob má několik zjevných nedostatků:
 \begin{itemize}
@@ -352,7 +353,7 @@ Tento způsob má několik zjevných nedostatků:
 \end{itemize}
 
 \section{Cíl práce}
-Pro novou verzi Studentovy Berličky je proto nutné připravit nové řešení importu dat z univerzitního systému KOS.
+Pro novou verzi Studentovy Berličky je proto nutné připravit nové řešení importu dat z univerzitního systému.
 
 Cílem této práce je toto řešení najít v rámci existujících aplikací, nebo navrhnout a implementovat. Toto řešení musí být dostatečně univerzální, aby dokázalo obsloužit požadavky nejen Studentovy Berličky, ale i jejích rozšiřujících modulů a případně dalších nezávislých aplikací, například systému na podporu projektů v týmu. Zároveň by nový způsob měl odstranit většinu, ne-li všechny, zmíněné nedostatky.
 
@@ -368,25 +369,24 @@ Výsledný systém by tedy měl umožňovat:
 
 Studijní informační systém KOS je uzavřený systém, ke kterému v podstatě nelze získat přímý aplikační přístup. Samotný KOS totiž neposkytuje žádné dostupné API, pomocí kterého by mohli aplikace jednotlivých fakult a kateder získat alespoň základní data o studentech, učitelích a vyučovaných předmětech. Někteří si proto v minulosti vyžádali nějakou formu generovaného výstupu vhodnou pro svou aplikaci. Jedním takovým exportem je i soubor rz.xml který obsahuje data rozvrhu, tady studenty, učitele, předměty, zápisy do paralelek a další. Každý, kdo chce tento typ dat ve své aplikaci použít, musí tento soubor nějakým způsobem zpracovat - typicky převést do podoby databáze se kterou pak pracuje samotná aplikace. 
 
-Rozhodl jsem se proto nejdříve zjistit, jak získávání dat řeší jiné aplikace a zda-li by se nedaly nějakým způsobem využít pro Studentovu berličku.
+Rozhodl jsem se proto nejdříve zjistit, jak získávání dat řeší jiné aplikace a zda-li by se nedaly nějakým způsobem využít pro Studentovu Berličku.
 
-\section{EDUX}
-Aplikace EDUX je webový systém sloužící k organizaci výuky a publikování výukových materiálů na webu pro učitele i studenty. Jde o otevřený systém postavený na aplikaci DokuWiki, jejíchž vlastnosti přebírá a rozšiřuje. V současné době je provozován na FEL i FIT na serverových clusterech. Studentova berlička by měla v budoucnu s EDUXem úzce spolupracovat, stát se v podstatě jeho plug-inem. EDUX samozřejmě také potřebuje pro své fungování data o rozvrhu z KOS, která získává z exportu rz.xml. Požádal jsem proto Ing. Tomáše Kadlece, který se o EDUX stará, o vyjádření jakým způsobem aplikace zmíněný soubor zpracovává.
+\subsection{EDUX}
+Aplikace EDUX je webový systém sloužící k organizaci výuky a publikování výukových materiálů na webu pro učitele i studenty. Jde o otevřený systém postavený na aplikaci DokuWiki, jejíchž vlastnosti přebírá a rozšiřuje. V současné době je provozován na FEL i FIT na serverových clusterech. Studentova Berlička by měla v budoucnu s EDUXem úzce spolupracovat, stát se v podstatě jeho plug-inem. EDUX samozřejmě také potřebuje pro své fungování data o rozvrhu z KOS, která získává z exportu rz.xml. Požádal jsem proto Ing. Tomáše Kadlece, který se o EDUX stará, o vyjádření jakým způsobem aplikace zmíněný soubor zpracovává.
 
-EDUX zpracovává rz.xml formou XSL transformace, ze které jsou generovány informace rovnou ve formátu pro Dokuwiki. Tento import je prováděn každou noc, aplikace si zároveň udržuje 90 dní zpět rozdílovou zálohu pro případ problémů, ale jak uvádí Ing. Kadlec, za 1,5 roku provozu EDUXu ji nebylo nutné použít. Studentově berličce tedy nemůže EDUX nabídnout žádný výstup, žádnou \uv{mezi-databázi} vlastně ani nepoužívá.
+Zdrojové XML je EDUXem zpracováno pomocí XSL transformace, ze které jsou generovány informace rovnou ve formátu pro Dokuwiki. Tento import je prováděn každou noc, aplikace si zároveň udržuje 90 dní zpět rozdílovou zálohu pro případ problémů, ale jak uvádí Ing. Kadlec, za 1,5 roku provozu EDUXu ji nebylo nutné použít. Studentově Berličce ale nemůže EDUX nabídnout žádný výstup, žádnou \uv{mezi-databázi} vlastně ani nepoužívá.
 
-\section{KOS API}
+\subsection{KOS API}
 V letním semestru 2009/2010 vytvořil Jakub Jirůtka v rámci své bakalářské práce\cite{jirutka} aplikaci nazvanou KOSapi. Jde o implementaci webové služby na bázi REST architektury nad zmíněným exportem z KOS rz.xml. Tato aplikace významně zjednodušuje získávání dat rozvrhu z KOS, neboť složité parsování a transformaci XML souboru do přístupnější formy nahrazuje RESTful webová služba s jednoduchou komunikací na bázi požadavek-odpověď nad protokolem HTTP.
 
 Ačkoli tato aplikace řeší několik úskalí práce s rz.xml, nakonec jsem ji nepoužil především z těchto důvodů:
 \begin{itemize}
-\item Aplikace udržuje vždy jen aktuální verzi dat (z poslední noci). Nelze tedy vytvářet revize a vzájemně je porovnávat, což je jeden z cílů této práce. Bylo by nejspíše nutné implementovat nějakou nadstavbu nad KOSapi, která by toto podporovala.
-\item Druhý, a podstatnějším důvod je ten, že v době, kdy jsem na této práci začal pracovat (jaro 2010) nebylo KOSapi ještě hotové a nasazené, k tomu došlo až na podzim. Je ovšem možné, že v budoucnu bude KOSapi nějakým způsobem využito.
+\item KOSapi nepodporuje vytváření revizí dat, natož pak jejich porovnávání a částečnou aktualizaci. Bylo by proto nejspíše nutné vytvořit nějakou formu nadstavby nad KOSapi, která by tuto funkcionalitu doplnila.
+\item Nejpodstatnější důvod je ale ten, že v době, kdy jsem na této práci začal pracovat (jaro 2010) nebylo KOSapi ještě hotové a nasazené, k tomu došlo až na podzim. Je ovšem možné, že v budoucnu bude KOSapi nějakým způsobem využito.
 \end{itemize}
 
-Jelikož se mi nepodařilo najít takovou existující aplikaci, která by splnila všechny požadavky a mohla data poskytnout, rozhodl jsem se navrhnout a implementovat vlastní aplikaci. Prvním krokem k jejímu zdárnému vývoji je přesné specifikování požadavků.
-
 \section{Specifikace požadavků}
+Jelikož se mi nepodařilo najít takovou existující aplikaci, která by splnila všechny požadavky a mohla data poskytnout, rozhodl jsem se navrhnout a implementovat vlastní aplikaci. Prvním krokem k jejímu zdárnému vývoji je přesné specifikování požadavků.
 \subsection{Funkční požadavky}
 
 \begin{enumerate}
@@ -415,7 +415,7 @@ Jelikož se mi nepodařilo najít takovou existující aplikaci, která by splni
 \item Pro každou klientskou aplikaci bude možné definovat přístup ke stále stejné revizi databáze.
 \item U revize bude možné na úrovni tabulek definovat stupeň udržované aktuálnosti dat (viz kap. \ref{rozbor})
 \item Revize může obsahovat pouze podmnožinu celé databáze.
-%\item Revize bude možné porovnávat s aktuální verzí dat.
+\item Revize bude možné vzájemně porovnávat.
 \item Zároveň systém také umožní přístup ke vždy aktuálním datům (každodenně importovaným).
 \end{enumerate}
 \end{enumerate}
@@ -425,7 +425,7 @@ Jelikož se mi nepodařilo najít takovou existující aplikaci, která by splni
 \item Použitelnost
 \begin{enumerate}
 \item Celá aplikace bude uživatelsky přívětivá a snadno použitelná.
-\item Použitá technologie WS umožní integraci služby s aplikacemi na běžně používaných platformách pro vývoj webových aplikací a plug-inů Studentovy berličky (PHP, C++, Java...).
+\item Použitá technologie WS umožní integraci služby s aplikacemi na běžně používaných platformách pro vývoj webových aplikací a plug-inů Studentovy Berličky (PHP, C++, Java...).
 \end{enumerate}
 
 \item Modulárnost
@@ -451,7 +451,7 @@ Jelikož se mi nepodařilo najít takovou existující aplikaci, která by splni
 Některé výše zmíněné požadavky vycházejí ze zkušeností v provozu aktuální verze Studentovy berličky. V této části bych proto rád specifikoval, proč jsou některé požadavky nutné a důležité.
 
 \subsubsection{Verzování dat a porovnávání revizí}
-V exportu rz.xml se čas od času vyskytují chyby. To je zkrátka potřeba brát jako fakt a počítat s ním. Jak jsem se dozvěděl od Ing. Chludila a Ing. Kadlece, občas se například stane, že část dat v exportu několik dní chybí a poté se v něm zase objeví. V minulosti také došlo k přečíslování identifikátorů studentů, což způsobilo nefunkčnost Studentovi berličky, která je samozřejmě v databázi využívá. Základním požadavkem na novou aplikaci tedy je, aby dokázala předejít těmto situacím.
+V exportu rz.xml se čas od času vyskytují chyby. To je zkrátka potřeba brát jako fakt a počítat s ním. Jak jsem se dozvěděl od Ing. Chludila a Ing. Kadlece, občas se například stane, že část dat v exportu několik dní chybí a poté se v něm zase objeví. V minulosti také došlo k přečíslování identifikátorů studentů, což způsobilo nefunkčnost Studentovy Berličky, která je samozřejmě v databázi využívá. Základním požadavkem na novou aplikaci tedy je, aby dokázala předejít těmto situacím.
 
 To by mělo být zajištěno právě možností vytvářet revize databáze. Každá tabulka v revizi také bude mít možnost definovat stupeň zpracování aktualizace:
 \begin{itemize}
@@ -463,7 +463,7 @@ To by mělo být zajištěno právě možností vytvářet revize databáze. Ka�
 Typickým příkladem proč jsou tyto možnosti potřeba je tento - student si v KOS změní například e-mail a my samozřejmě chceme, aby se změna objevila i v Berličce. Zároveň ale nechceme, aby se u tabulky samovolně mohla změnit struktura a proto nechceme tyto data získávat přímo z \uv{živé} databáze. Správa revizí a jejich aktualizací by také měla pomoci předejít zmíněnému problému s přeindexováním dat.
 
 \subsubsection{Vytváření podmnožin databáze}
-Nutnost tohoto požadavku plyne z prostého faktu, že databáze vytvořená ze současného rz.xml obsahuje cca 130 000 záznamů a zabírá cca 30 MB. Typická klientská aplikace ale nepotřebuje všechna data, ale jen jejich část, například informace o jednom předmětu a jeho studentech. Z toho důvodu je zbytečné, vytvářet revizi celá databáze, ale stačí nám pouze její část. U této části musí být také zajištěna konzistence dat , neboť tabulky jsou vzájemně propojeny cizími klíči. Tomuto problému se budu podrobněji věnovat v analýze.
+Nutnost tohoto požadavku plyne z prostého faktu, že databáze vytvořená ze současného rz.xml obsahuje cca 130 000 záznamů a zabírá cca 30 MB. Typická klientská aplikace ale nepotřebuje všechna data, ale jen jejich část, například informace o jednom předmětu a jeho studentech. Z toho důvodu je zbytečné vytvářet revizi celé databáze, ale stačí nám pouze její část. U této části musí být také zajištěna konzistence dat , neboť tabulky jsou vzájemně propojeny cizími klíči. Tomuto problému se budu podrobněji věnovat déle v textu.
 
 \subsubsection{Vlastní definice rozhraní}
 Ze zkušenosti vím, že definice univerzálního rozhraní služby je velmi problematická. Vždy totiž časem přijde takový požadavek, který stávající rozhraní buď vůbec neřeší, nebo jej řeší neefektivně. Takový požadavek pak typicky vyústí v přidání dalších parametrů nebo rovnou nových operací služby, a to \uv{jediné, správné a univerzální} rozhraní se rozrůstá do velkého objemu, a stává se nepřehledným.
@@ -474,14 +474,14 @@ Tomu jsem se chtěl vyhnout, proto místo jediného rozhraní aplikace bude umo�
 %*****************************************************************************
 \chapter{Analýza}
 
-Tato kapitola obsahuje analýzu zdrojových dat ze zdrojového souboru včetně popisu významu jednotlivých elementů, které se v něm vyskytují.
+Jak už jsem naznačil, aplikace využije jako zdroj dat soubor rz.xml. Tato kapitola obsahuje analýzu dat ze zdrojového souboru včetně popisu významu jednotlivých elementů, které se v něm vyskytují.
 
 \section{Struktura exportu z KOS}
-Jak jsem už zmínil, jediným dostupným způsobem jak získat data rozvrhu je rz.xml. Práce s tímto souborem je celkem obtížná, protože k němu neexistuje naprosto žádná dokumentace. U většiny elementů a atributů lze ale celkem bez problémů rozluštit jejich význam, a tak jsem v podstatě až do doby, než Jakub Jirutky\cite{jirutka} dokončil svou práci neměl potřebu pátrat po významu těch několika zbylých, nerozluštěných. V své práci Jakub Jirůtka zpracovat velmi podrobný popis struktury souboru, a vytvořil tak \textit{de facto} jeho první dokumentaci. 
+Práce s rz.xml je celkem obtížná, protože k němu neexistuje naprosto žádná dokumentace. U většiny elementů a atributů lze ale celkem bez problémů rozluštit jejich význam, a tak jsem v podstatě až do doby, než Jakub Jirutky\cite{jirutka} dokončil svou práci neměl potřebu pátrat po významu těch několika zbylých, nerozluštěných. V své práci Jakub Jirůtka zpracovat velmi podrobný popis struktury souboru, a vytvořil tak \textit{de facto} jeho první dokumentaci. 
 
 Soubor obsahuje jeden kořenový element ROZVRH, v něm pak následují elementy jednotlivých \uv{tabulek}, každý s právě jením výskytem. Tabulky pak obsahují data jednotlivých \uv{řádků}, názvy atributů jsou sloupce, hodnoty atributů pak data jednotlivých sloupců. Některé elementy řádků pak ještě obsahují vnořené elementy, kde pak platí že název tagu je názvem sloupce, data v něm pak data příslušného sloupce. Jde například o popis předmětu a požadavků u tabulky PREDMETY, tedy o delší text.
 
-Následující text popisuje stručně strukturu rz.xml, zaměřil jsem se především na rozdíly oproti struktuře kterou popisuje Jakub Jirutka ve své práci\cite{jirutka}. Jednotlivé elementy nejsou v následujícím textu uvedeny v pořadí v jakém se nacházejí v exportu, ale podle logických souvislostí.
+Následující text popisuje strukturu rz.xml, zaměřil jsem se především na rozdíly oproti struktuře kterou popisuje Jakub Jirutka ve své práci\cite{jirutka}. Jednotlivé elementy nejsou v následujícím textu uvedeny v pořadí v jakém se nacházejí v exportu, ale podle logických souvislostí.
 
 \subsection{ROZVRH}
 Element ROZVRH je kořenovým elementem XML stromu dokumentu. Obsahuje základní informace o semestrech:
@@ -497,7 +497,7 @@ V databázi KOS tvoří jsou rektorát, fakulty a katedry umístěny v jedné ta
 Element obsahuje atributy \texttt{id, nadrizena, nazev\_cz, nazev\_en} (český a anglický název) a číselný \texttt{kod} střediska.
 
 \subsection{MISTNOSTI}
-Element obsahuje místnosti ve kterých probíhá výuka. Atributy jsou \texttt{id, cislo} (např. KN:E-107), lokalitu (\texttt{lok}) a odkaz na katedru, která má místnost ve správě (\texttt{kat\_id}).
+Element obsahuje místnosti ve kterých probíhá výuka. Atributy jsou \texttt{id, cislo} (např. KN:E-107), lokalita (\texttt{lok}) a odkaz na katedru, která má místnost ve správě (\texttt{kat\_id}).
 
 \subsection{PREDMETY}
 Element PREDMETY obsahuje všechny vypsané předměty v semestrech uvedených v elementu ROZVRH. Protože jsou samozřejmě stejné předměty vypisovány v různých semestrech, jsou jednotlivé záznamy identifikované složeným primárním klíčem \texttt{id, sem\_id}.
@@ -507,14 +507,14 @@ Element obsahuje následující atributy a elementy:
 \begin{itemize}
 \item \texttt{id, sem\_id} identifikátor záznamu
 \item \texttt{kod} Kód předmětu, např. Y36BAP.
-\item \texttt{garanti} Identifikátory učitelů, kteří jsou garanty předmětu. Obsahuje hodnoty oddělené čárkou.
+\item \texttt{garanti} Identifikátory učitelů, kteří jsou garanty předmětu. Hodnoty jsou oddělené čárkou.
 \item \texttt{kat\_id, pr\_kat\_id} Identifikátor katedry, která předmět zajišťuje (oba atributy obsahují stejnou hodnotu).
-\item \texttt{nazev, nazev\_an} Český, respektive anglický název předmětu (ano, anglický název má skutečně suffix \textit{an}, nikoliv \textit{en})
+\item \texttt{nazev, nazev\_an} Český, respektive anglický název předmětu (anglický název má skutečně suffix \textit{an}, nikoliv \textit{en})
 \item \texttt{rozsah} Hodinová dotace předmětu.
 \item \texttt{pr\_forma\_studia} Forma studia pro kterou je předmět určen.
 \item \texttt{pr\_kredity} Počet kreditů za absolvování předmětu.
 \item \texttt{pr\_zpuszak} Způsob zakončení předmětu, hodnoty [KZ|Z|ZK|Z,ZK|NIC].
-\item \texttt{pr.kapacita, pr\_obsazeno, pr\_zapnuto} Kapacita předmětu, počet zapsaných a příznak určující, zda-li je zapnuto hlídání překročení kapacity. (ano, atribut kapacita skutečně obsahuje v názvu tečku, nikoliv podtržítko).
+\item \texttt{pr.kapacita, pr\_obsazeno, pr\_zapnuto} Kapacita předmětu, počet zapsaných a příznak určující, zda-li je zapnuto hlídání překročení kapacity. ( atribut kapacita skutečně obsahuje v názvu tečku, nikoliv podtržítko).
 \item \texttt{pr\_program\_id} ID programů ve kterých je možné předmět zapsat. Obsahuje hodnoty oddělené čárkou.
 \item \texttt{pr\_p\_blok, pr\_c\_blok, pr\_l\_blok} Toto jsou pomocné atributy, které určují, kolik rozvrhových lístků má být vygenerováno pro přednášky, cvičení a laboratoře.
 \item \texttt{pozadavky, poznamka} Toto jsou vnořené elementy v elementu řádku, obsahují textový popis požadavků na předmět, respektive textovou poznámku.
@@ -569,7 +569,7 @@ Element LISTKY obsahuje záznamy o vypsaných paralelkách přednášek a cviče
 \item \texttt{pno, cno, lno} Jde o identifikátory ke které paralelce lístek přísluší. Např. \texttt{pno=1, cno=202, lno=NULL} znamená, že paralelku cvičení 202 lze zapsat jen s přednáškovou paralelkou 1.
 \item \texttt{predmet\_id} ID předmětu, ke kterému lístek přísluší. Element lístky neobsahuje druhou část složeného klíče předmětu \texttt{sem\_id}, protože se exportují jen lístky k semestru uvedeném v atributu \texttt{semestr} elementu \texttt{ROZVRH}.
 \item \texttt{ucitel1\_id, ucitel2\_id} ID učitelů, kteří zajišťují výuku. Pokud jde o lístek typu jiná událost, je vyplněn pouze \texttt{ucitel1\_id} a jde v tomto případě o vlastníka události.
-\item \texttt{sudy\_lichy} Příznak, zda-li jde o lístek, který je platný lichá nebo sudé týdny (pokud vždy, obsahuje atribut \texttt{NULL}).
+\item \texttt{sudy\_lichy} Příznak, zda-li jde o lístek, který je platný liché nebo sudé týdny (pokud vždy, obsahuje atribut \texttt{NULL}).
 \item \texttt{text} U speciálních jiných událostí obsahuje její popis.
 \item \texttt{paralelka\_kod}
 \item \texttt{par\_jmeno} Jméno paralelky, většinou obsahuje nějakou poznámku.
@@ -617,10 +617,22 @@ Element obsahuje vypsané termíny zkoušek k předmětům. Najdeme v něm násl
 Obsahuje data spojové tabulky určující, kteří učitelé předmět zkouší. Obsahuje identifikátor předmětu \texttt{predmet\_id, sem\_id} a identifikátor učitele \texttt{osoba\_id}.
 
 \subsection{CASOVA\_OKENKA}
-Tento element obsahuje data okének, které se používají pro plánování rozvrhu. Vždy když je vytvořena nějaká akce (např. lístek) ozančí se místnost jako zabraná právě vytvořením časového okénka. Žádný jiný element v exportu ale neobsahuje odkaz na záznamy v tomto elementu a ani tento element neobsahuje identifikaci místnosti ke které se vztahuje. Jeho existence tedy naprosto postrádá smysl.
+Tento element obsahuje data okének, které se používají pro plánování rozvrhu. Vždy když je vytvořena nějaká akce (např. lístek) označí se místnost jako zabraná právě vytvořením časového okénka. Žádný jiný element v exportu ale neobsahuje odkaz na záznamy v tomto elementu a ani tento element neobsahuje identifikaci místnosti ke které se vztahuje. Jeho existence tedy naprosto postrádá smysl.
 
 Element obsahuje atributy \texttt{id}, datum ve formátu dd.mm.yyyy (\texttt{den}), času začátku a konce okénka (\texttt{zacatek}, \texttt{konec}) a poznámku (\texttt{poznamka}).
 
+\section{Verzování databáze}
+Vzhledem ke způsobu získávání data a požadavkům na systém přicházejí pro verzování dat z KOS pouze dva možné způsoby - uchovávání rozdílů a plné kopírování databází.
+
+\subsection{Rozdílová revize}
+Tento způsob spočívá v tom, že existuje jedna databáze která obsahuje všechny data a vytvoření a aktualizace pak probíhá formou uchování rozdílů oproti hlavní databázi. Výhodou tohoto postupu je malá náročnost na velikost úložiště, protože hlavní databáze existuje jen jednou a ostatní databáze revizí obsahují pouze záznamy, které se změnily. Další výhodou je jednodušší implementace aktualizací revizí, především v případě, kdy se příslušná tabulka má aktualizovat včetně struktury (v takovém případě by klient přistupoval nejspíše přímo k datům v hlavní databázi).
+
+Velkou nevýhodou je ovšem rychlost. Data by se musela při požadavku webové služby získávat z hlavní databáze a zároveň by se na ně musely aplikovat rozdíly uchované v záznamech revize, což by způsobilo vyšší výpočetní náročnost služby. Z toho důvodu jsem tento způsob nepoužil.
+
+\subsection{Kopírování verzí}
+Při použití tohoto způsobu dojde při vytvoření k přímému zkopírování dat do revize. Webové služba se pak při vyhledávání výsledků dotazuje pouze jednoho datového zdroje a její implementace tak je podstatně jednodušší než u předchozí varianty. Tento způsob má jednoznačnou výhodu v rychlosti, požadavky na WS se jednoduše čtou data z jedné databáze. Nevýhodou pak je větší náročnost na velikost úložiště a komplikovanější způsob aktualizace revizí. 
+
+Pro implementaci aplikace jsem zvolil tuto variantu, především kvůli jednodušší implementaci obsluhy webové služby a tím i pravděpodobně vyšší rychlosti zpracování požadavků. Vzhledem k umožnění tvorby revizí, které neobsahují celou databázi, ale jen její podmnožinu, by neměl být problém ani s větší datovou náročností řešení oproti rozdílovým revizím.
 
 
 %*****************************************************************************
@@ -629,7 +641,7 @@ Element obsahuje atributy \texttt{id}, datum ve formátu dd.mm.yyyy (\texttt{den
 V této kapitole naleznete seznámení s technologiemi, které byly použity při zpracování této práce. Dále je zde popsán princip zpracováni importu, a řešení verzování dat a vlastní definice rozhraní webové služby.
 
 \section{Použité technologie}
-Pro implementaci aplikace byl použit skriptovací jazyk PHP a databázový stroj MySQL, a to především z toho důvodu, že s nimi mám nejvíce praktických zkušeností. Nezanedbatelným argumentem je také to, že stávající Studentova berlička je také využívá.
+Pro implementaci aplikace byl použit skriptovací jazyk PHP a databázový stroj MySQL, a to především z toho důvodu, že s nimi mám nejvíce praktických zkušeností. Nezanedbatelným argumentem je také to, že Studentova berlička je na nich také postavena.
 
 \subsection{PHP}
 PHP je velmi oblíbený skriptovací programovací jazyk používaný především pro tvorbu dynamických webových stránek. Od verze 5 disponuje také dobrou podporou objektově orientovaného programování. Přestože si jazyk s sebou z minulosti nese spoustu nevýhod, jde dnes nejspíše o nejpoužívanější jazyk pro tvorbu webů. Poslední významná verze PHP 5.3 rozšířila možnosti jazyka také o deklaraci jmenných prostorů, anonymní funkce, řetězení výjimek a mnoho dalších menších změn.
@@ -645,10 +657,10 @@ Za dva roky veřejné existence si Nette získalo velkou popularitu na česko-sl
 \subsection{Databázová abstrakce}
 Nutnost použití databázové abstrakce plyne z NP4a. Přímo v distribučním balíku PHP najdeme rozšíření PDO, které poskytuje abstrakční vrstvu a odstínění od konkrétní databáze. Já jsem se rozhodl nepoužít přímo PDO, ale knihovnu dibi.
 \subsubsection{dibi}
-Dibi je, jak se dočteme v podtitulu názvu \uv{tiny 'n' smart database layer} (malá a chytrá databázová vrstva). Jde o knihovnu, jejímž hlavním cílem je zjednodušit zápis SQL příkazů a ulehčit rutinní úlohy programátora, například získání výsledků jako dvourozměrné pole, vytvoření pole výsledků indexovaného podle klíče z databáze a podobně. Dibi také pomáhá předcházet zranitelnosti webů SQL Injection, neboť všechny parametry, které do dotazů vstupují jsou automaticky escapovány syntaxí podle použité databáze. Lze ho použít jednak jako nadstavbu PDO, tak přímo s nativními PHP rozšířeními pro jednotlivé databázové stroje.
+Dibi je, jak se dočteme v podtitulu názvu \uv{tiny 'n' smart database layer} (malá a chytrá databázová vrstva). Jde o knihovnu, jejímž hlavním cílem je zjednodušit zápis SQL příkazů a ulehčit rutinní úlohy programátora, například získání výsledků jako dvourozměrné pole, vytvoření pole výsledků indexovaného podle klíče z databáze a podobně. Dibi také pomáhá předcházet zranitelnosti webů SQL Injection\footnote{Zranitelnost aplikací podsunutím části nebo celého SQL dotazu přes neošetřený uživatelský vstup.}, neboť všechny parametry, které do dotazů vstupují jsou automaticky escapovány syntaxí podle použité databáze. Lze ho použít jednak jako nadstavbu PDO, tak přímo s nativními PHP rozšířeními pro jednotlivé databázové stroje.
 \label{idatabasemanager}
 \subsubsection{Rozhraní pro správu databází}
-PDO i dibi poskytují abstrakci, která je dostačující pro běžnou aplikaci, které pracuje s jednou databází\footnote{Databází zde myslím kolekci tabulek. U MySQL se používá termín databáze, například u PostgreSQL by byl správný termín \uv{schéma}}. S jinými databázemi lze samozřejmě pracovat prostřednictvím \uv{tečkové} notace {\tt databáze.tabulka.sloupec}, ovšem v momentě, kdy je potřeba nastavit některou databázi jako výchozí (např. u MySQL příkazem {\tt USE database}), nenabízí PDO ani dibi žádnou možnost. Totéž pak platí i pro možnosti pro vytváření databáze a tabulek, jejich mazání, úpravy struktury a podobně.  A to je přesně to, co v této aplikaci potřebuji, neboť každá revize odpovídá samostatné databázi. Přímé zapsání těchto příkazů by samozřejmě způsobilo svázání aplikace s konkrétním DBMS, neboť syntaxe těchto příkazů ke u jednotlivých strojů různá.
+PDO i dibi poskytují abstrakci, která je dostačující pro běžnou aplikaci, které pracuje s jednou databází\footnote{Databází zde myslím kolekci tabulek. U MySQL se používá termín databáze, například u PostgreSQL by byl správný termín \uv{schéma}}. S jinými databázemi lze samozřejmě pracovat prostřednictvím \uv{tečkové} notace {\tt databáze.tabulka.sloupec}, ovšem v momentě, kdy je potřeba nastavit některou databázi jako výchozí (např. u MySQL příkazem {\tt USE database}), nenabízí PDO ani dibi žádnou možnost. Totéž pak platí i pro možnosti pro vytváření databáze a tabulek, jejich mazání, úpravy struktury a podobně.  A to je přesně to, co v této aplikaci potřebuji, neboť každá revize odpovídá samostatné databázi. Přímé zapsání těchto příkazů by samozřejmě způsobilo svázání aplikace s konkrétním DBMS, neboť syntaxe těchto příkazů je u jednotlivých strojů různá.
 
 Z toho důvodu jsem v aplikaci vytvořil jednoduché rozhraní {\tt IDatabaseManager} které odstiňuje ostatní části od specifik databázového stroje. Převod systému pod jiný databázový stroj tedy spočívá jen v implementaci tohoto rozhraní pro konkrétní DBMS a změnu jednoho řádku v konfiguračním souboru.
 
@@ -656,7 +668,7 @@ Z toho důvodu jsem v aplikaci vytvořil jednoduché rozhraní {\tt IDatabaseMan
 Webové služby jsou technologický systém, který umožňuje propojit libovolné aplikace na různých platformách pomocí široce podporovaného a vždy dostupného protokolu HTTP. V dnešní době jsou běžně používány dva způsoby implementace webových služeb - REST a SOAP.
 
 \subsubsection{REST}
-Architektura REST (Representational State Transfer) zažila v posledních letech obrovskou vlnu popularizace. Není to vlastně ani standart, ale jen architektura rozhraní. Na rozdíl od procedurálního SOAP je REST orientován datově. Každý datový zdroj má specifické URI a pro komunikaci se službou se využívají metody protokolu HTTP GET, POST, PUT a DELETE. Díky tomu jsou REST služby snadno škálovatelné a jednoduché na pochopení. Velkou nevýhodou ovšem je chybějící podpora na úrovni programovacích jazyků (narozdíl od SOAP).
+Architektura REST (Representational State Transfer) zažila v posledních letech obrovskou vlnu popularizace. Není to vlastně ani standart, ale jen architektura rozhraní. Na rozdíl od procedurálního SOAP je REST orientován datově. Každý datový zdroj má specifické URI a pro komunikaci se službou se využívají metody protokolu HTTP GET, POST, PUT a DELETE. Díky tomu jsou REST služby snadno škálovatelné a jednoduché na pochopení. Velkou nevýhodou ovšem je chybějící podpora na úrovni programovacích jazyků (na rozdíl od SOAP).
 
 
 \subsubsection{SOAP}
@@ -664,7 +676,7 @@ SOAP (Simple Object Access Protocol) vychází ze specifikace XML-RPC a přebír
 
 Dalším hlavním rysem služby na principu SOAP je možnost definice jejího rozhraní pomocí WSDL schématu. To popisuje procedury, která služba nabízí, typy jejich parametrů a návratových hodnot. I když je zpřístupnění WSDL popisu velmi užitečné a praktické, není vyžadováno a služba může být využívána i bez něj.
 
-Protože narozdíl od REST existuje v distribuci PHP knihovna pro práci se SOAP, a protože některé již existující části Studentovy berličky SOAP používají, zvolil jsem pro mají webovou službu také tento protokol.
+Protože na rozdíl od REST existuje v distribuci PHP knihovna pro práci se SOAP, a protože některé již existující části nové Studentovy Berličky SOAP používají, zvolil jsem pro webovou službu také tento protokol.
 
 \section{Architektura aplikace}
 Jak jsem již uvedl v části o použitých technologiích, aplikace je postavena na Nette Frameworku, který využívá třívrstvou architekturu Model-View-Presenter. V této části najdete, co je to vlastně návrhový vzor MVP a jeho rozdíly oproti známějšímu vzoru Model-View-Controller.
@@ -703,7 +715,13 @@ Mnohem výstižnější pro logiku Nette Frameworku je méně známý vzor Model
 \item Presenter obsluhuje požadavky z View a manipuluje s Modelem. Spará se vlastně o \uv{prezentování} výsledků (odtud název Presenter).
 \end{itemize}
 
-Reálně je problém rozlišit, jestli má aplikace architekturu MVC nebo MVP, protože fakticky se vzory liší jen v detailech. Nette používá označení Presenter, naproti tomu například v Zend Frameworku najdeme Controllery, které se starají o totéž. Další informace o MVP lze najít například v \cite{mvp}.
+Reálně je problém rozlišit, jestli má aplikace architekturu MVC nebo MVP, protože fakticky se vzory liší jen v detailech. Nette používá označení Presenter, naproti tomu například v Zend Frameworku najdeme Controllery, které mají obdobnou funkčnost. Další informace o MVP lze najít například v \cite{mvp}.
+
+\subsection{Modulární struktura}
+Jak vyplývá z NP2, výsledná aplikace má sestávat ze samostatných modulů pro import rz.xml, administraci služby a samotné webové služby. Samotné webové rozhraní administrace je, jak jsem už zmínil, postaveno na MVP frameworku Nette. Importní skript je pak spouštěn samostatně prostřednictvím CLI rozhraní PHP, webová služba je v podstatě jen obslužná třída, které předává požadavky interní PHP třída SoapServer. Importní a WS modul využívá z Nette jen systém automatického načítání tříd, všechny moduly pak sdílí samozřejmě databázové úložiště.
+
+Schéma práce aplikace je znázorněno na obrázku \ref{fig:struktura}. Vstupní XML soubor je zpracován importérem do \uv{live} databáze. Po dokončení samotného importu je spuštěna druhá fáze - aktualizace, případně vytvoření, revizí. Nastavení jejich aktualizace a vytváření se provádá v administrační části, a po vytvoření a nadefinování procedur webové služby jsou data přístupná prostřednictvím samotné webové služby.
+
 
 \section{Zpracování XML exportu}
 Dávkové zpracování velkého množství dat z XML souboru do relační databáze, jejichž aktuální strukturu vlastně zjišťujeme za běhu, a zároveň splnit všechny funkční i nefunkční požadavky a také dosáhnout přiměřené rychlosti zpracování a paměťové náročnosti představovalo nesnadný úkol.
@@ -715,6 +733,14 @@ Pro práci s XML poskytuje PHP (ve verzi 5) hned několik možných přístupů 
 Rozhraní DOM je standardizovaný způsob práce s XML dokumenty definovaný W3 konsorciem. Při přístupu přes DOM se z dokumenty v paměti vytvoří hiearchický objektový model, který pak můžeme volně procházet. Každý element, atribut, textový uzel odpovídá v paměti objektu. Pomocí metod a vlastností každého z nich můžeme snadno zjišťovat význam uzlu ve stromu, jeho názve, obsah, jeho dětské uzly a uzel rodiče. Strom je možné procházet a vyhledávat v něm. Tento přístup má ale jednu zásadní nevýhodu - pro vytvoření stromu je nutné celý dokument načíst a udržovat v paměti, takže nároky na ni jsou velké.
 
 První nekompletní verze importéru používala právě objektový přístup pomocí DOM, neboť se mi toto řešení zdálo jednodušší než ostatní přístupy. Tato první verze ovšem pouze převáděla data do databáze tak jak byly, bez jakékoliv kontroly referenčních závislostí. Při snaze tuto funkčnost doplnit jsem ovšem narazil na problém právě s alokací paměti, kdy skript snadno překračoval limit 256 MB zabrané paměti. Taktéž rychlost nebyla nijak oslnivá a tak nezbylo nic jiného, než importní skript navrhnout znovu.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=12cm]{figures/dom.png}
+\caption{Část DOM stromu souboru rz.xml}
+\label{fig:mvp}
+\end{center}
+\end{figure}
 
 \subsubsection{SAX a XMLReader}
 
@@ -728,7 +754,7 @@ SAX (Simple API for XML) je jednoduché rozhraní, které proudově čte XML dok
 \end{center}
 \end{figure}
 
-Je proto většinou mnohem vhodnější použít třídu XMLReader, což je implementace pull modelu na bázi rozhraní SAX. Data ze zpracovávaného dokumentu tak čteme až v momentě, kdy je aplikace potřebuje a výsledný kód je mnohem jednodušší a přímočařejší. Navíc XMLReader je, narozdíl od procedurálního SAX, v PHP implementován objektově, což práci s ním ještě více usnadňuje.
+Je proto většinou mnohem vhodnější použít třídu XMLReader, což je implementace pull modelu na bázi rozhraní SAX. Data ze zpracovávaného dokumentu tak čteme až v momentě, kdy je aplikace potřebuje a výsledný kód je mnohem jednodušší a přímočařejší. Navíc XMLReader je, na rozdíl od procedurálního SAX, v PHP implementován objektově, což práci s ním ještě více usnadňuje.
 
 \begin{figure}[h]
 \begin{center}
@@ -758,7 +784,7 @@ Data pro tento formulář jsou získávána ze struktury databáze posledního i
 
 \subsubsection{Kontrola referenčních závislostí}
 Dalším krokem k zajištění referenční integrity dat je začlenění její kontroly do importního skriptu. Jak už jsem uvedl výše, skript využívá proudové zpracování dat na bázi SAX.
-Vzhledem k tomu, že skript zjišťuje strukturu dat za běhu, není možné se ani obecně spolehnout na to, že záznamy jsou uvedeny ve správném pořadí podle referenčních závislostí. Zároveň je však nutné najít správný kompromis mezi stoprocentně konzistentní databází (všechny závislosti, které je možné definovat jsou splněny) a minimalizací množství dat, která z rz.xml musíme zahodit. Když uvedu krajní případ, tak pokud bychom definovali relaci \texttt{katedry.nadrizena=katedry.id}, tak se do databáze nenaimportuje v podstatě nic, neboť v elementu KATEDRY chybí záznam rektorátu, na který odkazuje záznam fakulty, na který odkazují záznamy kateder, které jsou v relaci se spoustou dalších elementů, a tak dále. 
+Vzhledem k tomu, že skript zjišťuje strukturu dat za běhu, není možné se ani obecně spolehnout na to, že záznamy jsou uvedeny ve správném pořadí podle referenčních závislostí. Zároveň je však nutné při definici najít správný kompromis mezi stoprocentně konzistentní databází (všechny závislosti, které je možné definovat jsou splněny) a minimalizací množství dat, která z rz.xml musíme zahodit. Když uvedu krajní případ, tak pokud bychom definovali relaci \texttt{katedry.nadrizena=katedry.id}, tak se do databáze nenaimportuje v podstatě nic, neboť v elementu KATEDRY chybí záznam rektorátu, na který odkazuje záznam fakulty, na který odkazují záznamy kateder, které jsou v relaci se spoustou dalších elementů, a tak dále. 
 
 \subsubsection{Fronta záznamů a cache identifikátorů}
 Problém pořadí závislostí dat jsem vyřešil použitím fronty záznamů při jejich vkládání do databáze. Záznam (entitu), který je kompletně přečten z XML a připraven k vložení do databáze přidáme do fronty. Z definice referenčních závislostí popsané v kapitole \ref{defref} snadno zjistíme jestli je záznam závislý na jiné tabulce. Pokud je, musíme zkontrolovat před jeho vložením do databáze, zdali již všechny odkazované záznamy byly vloženy.
@@ -781,7 +807,7 @@ Schéma řešení fronty je zobrazeno na obrázku \ref{fig:queue}.
 
 
 \section{Verzování databáze}
-Požadavky na možnost verzování a definice schématu aktualizace dat vychází především ze zkušeností s provozem stávající verze Studentovy Berličky a problémů které jí pokusy o průběžný import dat v minulosti způsobily. Nemůžeme se totiž spolehnout na to, že data v rz.xml jsou stoprocentně konzistentní, nemůžeme se ani spolehnout že v rz.xml najdeme vždy všechna data, může se stít, že na pár dní z exportu vypadnou a zase se objeví.
+Požadavky na možnost verzování a definice schématu aktualizace dat vychází především ze zkušeností s provozem stávající verze Studentovy Berličky a problémů které jí pokusy o průběžný import dat v minulosti způsobily. Nemůžeme se totiž spolehnout na to, že data v rz.xml jsou stoprocentně konzistentní, nemůžeme se ani spolehnout že v rz.xml najdeme vždy všechna data, může se stát, že na pár dní z exportu vypadnou a zase se objeví.
 
 Pro řešení těchto problémů jsem navrhl možnosti vytváření revizí databáze a vzájemné porovnávání rozdílů mezi nimi. Tím snadno odstraníme nebezpečí nekontrolované změny dat a jejich struktury a zároveň umožníme jejich zaktualizování v momentě, kdy je klientská aplikace na změny připravena, nebo když změny nepředstavují pro aplikaci problém.
 
@@ -867,7 +893,7 @@ Konfigurační soubor obsahuje nastavení běhového prostředí aplikace a jej�
 
 Nastavení databáze:
 \begin{itemize}
-\item \textbf{database.driver} Databázový driver pro připojení. Lze použít jak nativní driver \textit{mysql, mysqli, pgsql} nebo \textit{pdo}.
+\item \textbf{database.driver} Databázový driver pro připojení. Lze použít jak nativní driver \textit{mysql, mysqli, pgsql} tak i \textit{pdo}.
 \item \textbf{database.dsn} V případě použití PDO obsahuje DSN řetězec pro připojení k databázi. Při použití nativních ovladačů je ignorován.
 \item \textbf{database.host} Adresa databázového stroje.
 \item \textbf{database.username} Uživatelské jméno pro připojení
