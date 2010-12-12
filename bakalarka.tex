@@ -720,7 +720,15 @@ Reálně je problém rozlišit, jestli má aplikace architekturu MVC nebo MVP, p
 \subsection{Modulární struktura}
 Jak vyplývá z NP2, výsledná aplikace má sestávat ze samostatných modulů pro import rz.xml, administraci služby a samotné webové služby. Samotné webové rozhraní administrace je, jak jsem už zmínil, postaveno na MVP frameworku Nette. Importní skript je pak spouštěn samostatně prostřednictvím CLI rozhraní PHP, webová služba je v podstatě jen obslužná třída, které předává požadavky interní PHP třída SoapServer. Importní a WS modul využívá z Nette jen systém automatického načítání tříd, všechny moduly pak sdílí samozřejmě databázové úložiště.
 
-Schéma práce aplikace je znázorněno na obrázku \ref{fig:struktura}. Vstupní XML soubor je zpracován importérem do \uv{live} databáze. Po dokončení samotného importu je spuštěna druhá fáze - aktualizace, případně vytvoření, revizí. Nastavení jejich aktualizace a vytváření se provádá v administrační části, a po vytvoření a nadefinování procedur webové služby jsou data přístupná prostřednictvím samotné webové služby.
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=13cm]{figures/struktura.png}
+\caption{Schématické znázornění aplikace}
+\label{fig:struktura}
+\end{center}
+\end{figure}
+
+Schéma práce aplikace je znázorněno na obrázku \ref{fig:struktura}. Vstupní XML soubor je zpracován importérem do \uv{live} databáze. Po dokončení samotného importu je spuštěna druhá fáze - aktualizace, případně vytvoření, revizí. Nastavení jejich aktualizace a vytváření se provádí v administrační části, a po vytvoření a nadefinování procedur webové služby jsou data přístupná prostřednictvím samotné webové služby.
 
 
 \section{Zpracování XML exportu}
@@ -730,17 +738,16 @@ Dávkové zpracování velkého množství dat z XML souboru do relační datab�
 Pro práci s XML poskytuje PHP (ve verzi 5) hned několik možných přístupů - SimpleXML, SAX, DOM, XPath, XSL transformaci a XMLReader\cite{kosek:phpAxml}. Ze zkušenosti jsem zavrhl SimpleXML, protože je na tento ukol příliš \uv{simple} (hodí se spíše pro jednodušší úlohy) a poté také XPath a XSLT, protože použití jednoho z těchto přístupů by znamenalo rozdrobení funkční logiky do dvou odlišných jazyků. Zbývalo tedy rozhodnutí, zda použít DOM nebo SAX.
 
 \subsubsection{DOM}
-Rozhraní DOM je standardizovaný způsob práce s XML dokumenty definovaný W3 konsorciem. Při přístupu přes DOM se z dokumenty v paměti vytvoří hiearchický objektový model, který pak můžeme volně procházet. Každý element, atribut, textový uzel odpovídá v paměti objektu. Pomocí metod a vlastností každého z nich můžeme snadno zjišťovat význam uzlu ve stromu, jeho názve, obsah, jeho dětské uzly a uzel rodiče. Strom je možné procházet a vyhledávat v něm. Tento přístup má ale jednu zásadní nevýhodu - pro vytvoření stromu je nutné celý dokument načíst a udržovat v paměti, takže nároky na ni jsou velké.
-
-První nekompletní verze importéru používala právě objektový přístup pomocí DOM, neboť se mi toto řešení zdálo jednodušší než ostatní přístupy. Tato první verze ovšem pouze převáděla data do databáze tak jak byly, bez jakékoliv kontroly referenčních závislostí. Při snaze tuto funkčnost doplnit jsem ovšem narazil na problém právě s alokací paměti, kdy skript snadno překračoval limit 256 MB zabrané paměti. Taktéž rychlost nebyla nijak oslnivá a tak nezbylo nic jiného, než importní skript navrhnout znovu.
-
+Rozhraní DOM je standardizovaný způsob práce s XML dokumenty definovaný W3 konsorciem. Při přístupu přes DOM se z dokumenty v paměti vytvoří hierarchický objektový model, který pak můžeme volně procházet. Každý element, atribut, textový uzel odpovídá v paměti objektu. Pomocí metod a vlastností každého z nich můžeme snadno zjišťovat význam uzlu ve stromu, jeho názve, obsah, jeho dětské uzly a uzel rodiče. Strom je možné procházet a vyhledávat v něm. Tento přístup má ale jednu zásadní nevýhodu - pro vytvoření stromu je nutné celý dokument načíst a udržovat v paměti, takže nároky na ni jsou velké.
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=12cm]{figures/dom.png}
 \caption{Část DOM stromu souboru rz.xml}
-\label{fig:mvp}
+\label{fig:dom}
 \end{center}
 \end{figure}
+
+První nekompletní verze importéru používala právě objektový přístup pomocí DOM, neboť se mi toto řešení zdálo jednodušší než ostatní přístupy. Tato první verze ovšem pouze převáděla data do databáze tak jak byly, bez jakékoliv kontroly referenčních závislostí. Při snaze tuto funkčnost doplnit jsem ovšem narazil na problém právě s alokací paměti, kdy skript snadno překračoval limit 256 MB zabrané paměti. Taktéž rychlost nebyla nijak oslnivá a tak nezbylo nic jiného, než importní skript navrhnout znovu.
 
 \subsubsection{SAX a XMLReader}
 
