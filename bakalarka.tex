@@ -326,7 +326,7 @@ Současný stav SB je v podstatě typický pro aplikaci napsanou v době, kdy PH
 
 %*****************************************************************************
 \chapter{Popis problému, specifikace cíle}
-
+\label{popis}
 V této kapitole je postupně probráno existující řešení získávání dat z KOS Studentovou Beličkou, z jehož nedostatků vyplyne cíl této práce. Následně jsou probrány možnosti, jakými lze získat data z KOS, včetně prozkoumání existujících řešení, a specifikace požadavků na vlastní řešení.  
 
 \section{Současný způsob získávání dat z KOS}
@@ -474,7 +474,7 @@ Tomu jsem se chtěl vyhnout, proto místo jediného rozhraní aplikace bude umo�
 %*****************************************************************************
 \chapter{Analýza}
 
-Jak už jsem naznačil, aplikace využije jako zdroj dat soubor rz.xml. Tato kapitola obsahuje analýzu dat ze zdrojového souboru včetně popisu významu jednotlivých elementů, které se v něm vyskytují.
+Jak už jsem naznačil, aplikace využije jako zdroj dat soubor rz.xml. Tato kapitola obsahuje analýzu dat ze zdrojového souboru včetně popisu významu jednotlivých elementů, které se v něm vyskytují. Taktéž v této kapitole najdete možné varianty systému verzování databázových dat.
 
 \section{Struktura exportu z KOS}
 Práce s rz.xml je celkem obtížná, protože k němu neexistuje naprosto žádná dokumentace. U většiny elementů a atributů lze ale celkem bez problémů rozluštit jejich význam, a tak jsem v podstatě až do doby, než Jakub Jirutky\cite{jirutka} dokončil svou práci neměl potřebu pátrat po významu těch několika zbylých, nerozluštěných. V své práci Jakub Jirůtka zpracovat velmi podrobný popis struktury souboru, a vytvořil tak \textit{de facto} jeho první dokumentaci. 
@@ -980,12 +980,29 @@ Jakákoliv chyba při zpracování požadavku (například v SQL dotazu, nesprá
 
 
 %*****************************************************************************
-\chapter{*Testování}
+\chapter{Testování}
 \section{Jednotkové testování}
-\section{Testování v reálném provozu}
+Jednotkové (unit) testy slouží k testování samostatných částí aplikačního kódu - jednotek. Při použití oběktově orientovaného kódu je za jednotku většinou považována třída, a v rámci ní se obvykle testují jednotlivé metody. Jednotkové testování pomáhá udržovat při vývoji a pozdějším rozšiřování, zda-li jedno změnou nedošlo k chybnému chování programu na jiných místech. V PHP se pro vytváření těchto testů nejčastěji používá framework PHPUnit\cite{phpunit}.
+
+V balíku aplikace jsou vytvořené testy pro třídy modelu, presenterů a některých pomocných tříd. Najdete je v adresáři \textit{/test}.
+
+\section{Testování v provozu}
+
+Během implementace jednotlivých funkčních celků aplikace docházelo průběžně k jejich testování tak, aby poskytovaly požadovanou funkčnost. Během zkouškového období v lednu a únoru 2011 dojde ještě k otestování aplikace propojením s Portálem pro podporu projektů v týmu, který je na FIT vyvíjen. Samotná aplikace by pak měla být spolu s tímto portálem uvedena do reálného provozu ze začátkem letního semestru 2010/2011. Poté se na aplikaci budou moci napojit i další aplikace, včetně nové Studentovy Berličky.
+
 %*****************************************************************************
-\chapter{*Závěr}
-\section{Splnění cíle a zadání}
+\chapter{Závěr}
+V rámci této práce byl navržen a implementován relativně komplexní systém, který umožní aplikacím řízený přístup k datům o rozvrhu prostřednictvím standardního rozhraní SOAP. Aplikace takovéhoto typu samozřejmě není nikdy dokončena, vždy se dají najít věci, které by bylo vhodné doplnit, předělat nebo upravit. Jde o dlouhodobý projekt a hodlám se dalšímu rozvoji věnovat i po dokončení bakalářského studia.
+
+\section{Splnění cíle ze zadání}
+Informace, která by jistě v závěru práce chybět neměla je, zda-li byly splněny všechny body úvodního zadání.
+\begin{itemize}
+\item \textit{Prozkoumejte možnosti, jak čerpat informace z informačního systému fakulty KOS} - Možnosti byly prozkoumány v kapitole \ref{popis}.
+\item \textit{Proveďte analýzu potřeb Studentovy Berličky z hlediska možných importovatelných dat tak, aby zůstala zachována funkcionalita stávajícího řešení} - Výsledná aplikace využívá stejný zdroj dat jako původní řešení ve Studentově Berličce. Tato část zadání je tedy také splněna.
+\item \textit{Na základě analýz navrhněte řešení importu informací o studentech, cvičeních a učitelích z informačních systému fakulty KOS do aplikace Studentova Berlička.} - Toto bylo primárním cílem celé práce. Splněno.
+\item \textit{Implementovaný importní nástroj řádně otestujte.} Byly vytvořeny jednotkové testy a aplikace byla testována v průběhu vývoje. Otestování při propojení s reálnou aplikací a následně nasazení do provozu proběhne v nejbližší době.
+\end{itemize}
+
 %*****************************************************************************
 % Seznam literatury je v samostatnem souboru reference.bib. Ten
 % upravte dle vlastnich potreb, potom zpracujte (a do textu
