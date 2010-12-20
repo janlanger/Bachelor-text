@@ -275,7 +275,7 @@ Očekávají se cca 1 -- 2 odstavce, maximálně půl stránky.
 Tato práce se zabývá možností vzájemného sdílení dat mezi univerzitním systémem KOS a připravovanou novou verzí aplikace Studentova Berlička, která slouží pro podporu vedení cvičení. V této úvodní kapitole najdete nástin historického vývoje obou systémů.
 
 \section{KOS a jeho historie}
-Ačkoli informace v následující kapitole o historii KOS vychází z malého počtu zdrojů, které navíc obsahují pouze kusé informace, jde o jediné zdroje, které se mi podařilo najít.
+Přestože informace v následující kapitole o historii KOS vychází z malého počtu zdrojů, které navíc obsahují pouze kusé informace, myslím že si mi podařilo zachytit okamžiky jeho vývoje.
 
 \subsection{Historický vývoj}
 Historie Komponenty Studium se začala psát před osmnácti lety, v akademickém roce 1992/93\cite{forum:historie-kos}. Tehdejší děkan Fakulty elektrotechnické prof. Hlavička ustanovil komisi, která měla za úkol vytvoření informačního systému pro podporu studijních agend fakulty. Přestože původní plán byl takový, že systém vytvoří vlastními silami profesionálové z Katedry počítačů, nakonec jej na základě specifikací od akademických pracovníků z většiny kateder vytvořila kladenská softwarová firma Tril, spol s.r.o.\cite{forum:neocekavana}.
@@ -308,7 +308,7 @@ První základy Studentovy berličky byly položeny v zimním semestru 2005/2006
 
 Hned v následujícím semestru se přišly nové požadavky na podporu cvičení předmětů Teoretická informatika a Aplikace výpočetní techniky. Tyto požadavky zapříčinili nutnost systém v podstatě celý přepsat, bylo nutné přidat například podporu pro zadávání semestrálních prací, zakomponovat bodování docházky a podobně. Nová verze - Jagu 2 - si ovšem stále nesla neduhy svého předchůdce, především co se týče grafické prezentace a přehlednosti. Na základě zkušeností s vývojem těchto dvou verzí došel Jiří Hunka k závěru, že je nutné vyvinout nový systém, který nebude postaven na bázi pouze jednoho předmětu, ale bude univerzální.
 
-První  verze Studentovy Berličky vznikla v rámci bakalářské práce Jiřího Hunky v roce 2007. Vznikl tak komplexní systém, který usnadnil cvičícím vedení agendy cvičení, a studentům poskytl možnost kdykoliv zjistit vlastní hodnocení. Nová verze tak umožňovala bodování docházky, evidenci bodů za aktivitu na každé hodině, samozřejmě evidenci testů a také hodnocení a odevzdávání semestrálních prací.
+První  verze Studentovy Berličky vznikla v rámci bakalářské práce Jiřího Hunky v roce 2007. Vznikl tak komplexní systém, který usnadnil cvičícím vedení agendy cvičení, a studentům poskytl možnost kdykoliv zjistit vlastní hodnocení. Nová verze umožňovala bodování docházky, evidenci bodů za aktivitu na každé hodině, samozřejmě evidenci testů a také hodnocení a odevzdávání semestrálních prací.
 
 \subsection{Současný stav a budoucnost}
 
@@ -355,7 +355,7 @@ Tento způsob má několik zjevných nedostatků:
 \section{Cíl práce}
 Pro novou verzi Studentovy Berličky je proto nutné připravit nové řešení importu dat z univerzitního systému.
 
-Cílem této práce je toto řešení najít v rámci existujících aplikací, nebo navrhnout a implementovat. Toto řešení musí být dostatečně univerzální, aby dokázalo obsloužit požadavky nejen Studentovy Berličky, ale i jejích rozšiřujících modulů a případně dalších nezávislých aplikací, například systému na podporu projektů v týmu. Zároveň by nový způsob měl odstranit většinu, ne-li všechny, zmíněné nedostatky.
+Cílem této práce je toto řešení najít v rámci existujících aplikací, nebo navrhnout a implementovat řešení nové. Toto řešení musí být dostatečně univerzální, aby dokázalo obsloužit požadavky nejen Studentovy Berličky, ale i jejích rozšiřujících modulů a případně dalších nezávislých aplikací, například připravovaného systému na podporu projektů v týmu. Zároveň by nový způsob měl odstranit většinu, ne-li všechny, zmíněné nedostatky.
 
 Výsledný systém by tedy měl umožňovat:
 \begin{itemize}
@@ -477,7 +477,7 @@ Tomu jsem se chtěl vyhnout, proto místo jediného rozhraní aplikace bude umo�
 Jak už jsem naznačil, aplikace využije jako zdroj dat soubor rz.xml. Tato kapitola obsahuje analýzu dat ze zdrojového souboru včetně popisu významu jednotlivých elementů, které se v něm vyskytují. Taktéž v této kapitole najdete možné varianty systému verzování databázových dat.
 
 \section{Struktura exportu z KOS}
-Práce s rz.xml je celkem obtížná, protože k němu neexistuje naprosto žádná dokumentace. U většiny elementů a atributů lze ale celkem bez problémů rozluštit jejich význam, a tak jsem v podstatě až do doby, než Jakub Jirutky\cite{jirutka} dokončil svou práci neměl potřebu pátrat po významu těch několika zbylých, nerozluštěných. V své práci Jakub Jirůtka zpracovat velmi podrobný popis struktury souboru, a vytvořil tak \textit{de facto} jeho první dokumentaci. 
+Práce s rz.xml je celkem obtížná, protože k němu neexistuje naprosto žádná dokumentace. U většiny elementů a atributů lze ale celkem bez problémů rozluštit jejich význam, a tak jsem v podstatě až do doby, než Jakub Jirutka\cite{jirutka} dokončil svou práci neměl potřebu pátrat po významu těch několika zbylých, nerozluštěných. V své práci Jakub Jirůtka zpracoval velmi podrobný popis struktury souboru, a vytvořil tak \textit{de facto} jeho první dokumentaci. 
 
 Soubor obsahuje jeden kořenový element ROZVRH, v něm pak následují elementy jednotlivých \uv{tabulek}, každý s právě jením výskytem. Tabulky pak obsahují data jednotlivých \uv{řádků}, názvy atributů jsou sloupce, hodnoty atributů pak data jednotlivých sloupců. Některé elementy řádků pak ještě obsahují vnořené elementy, kde pak platí že název tagu je názvem sloupce, data v něm pak data příslušného sloupce. Jde například o popis předmětu a požadavků u tabulky PREDMETY, tedy o delší text.
 
@@ -641,7 +641,7 @@ Pro implementaci aplikace jsem zvolil tuto variantu, především kvůli jednodu
 V této kapitole naleznete seznámení s technologiemi, které byly použity při zpracování této práce. Dále je zde popsán princip zpracováni importu, a řešení verzování dat a vlastní definice rozhraní webové služby.
 
 \section{Použité technologie}
-Pro implementaci aplikace byl použit skriptovací jazyk PHP a databázový stroj MySQL, a to především z toho důvodu, že s nimi mám nejvíce praktických zkušeností. Nezanedbatelným argumentem je také to, že Studentova berlička je na nich také postavena.
+Pro implementaci aplikace byl použit skriptovací jazyk PHP a databázový stroj MySQL, a to především z toho důvodu, že s nimi mám nejvíce praktických zkušeností. Nezanedbatelným argumentem je také to, že Studentova Berlička je na nich také postavena.
 
 \subsection{PHP}
 PHP je velmi oblíbený skriptovací programovací jazyk používaný především pro tvorbu dynamických webových stránek. Od verze 5 disponuje také dobrou podporou objektově orientovaného programování. Přestože si jazyk s sebou z minulosti nese spoustu nevýhod, jde dnes nejspíše o nejpoužívanější jazyk pro tvorbu webů. Poslední významná verze PHP 5.3 rozšířila možnosti jazyka také o deklaraci jmenných prostorů, anonymní funkce, řetězení výjimek a mnoho dalších menších změn.
@@ -738,7 +738,7 @@ Dávkové zpracování velkého množství dat z XML souboru do relační datab�
 Pro práci s XML poskytuje PHP (ve verzi 5) hned několik možných přístupů - SimpleXML, SAX, DOM, XPath, XSL transformaci a XMLReader\cite{kosek:phpAxml}. Ze zkušenosti jsem zavrhl SimpleXML, protože je na tento ukol příliš \uv{simple} (hodí se spíše pro jednodušší úlohy) a poté také XPath a XSLT, protože použití jednoho z těchto přístupů by znamenalo rozdrobení funkční logiky do dvou odlišných jazyků. Zbývalo tedy rozhodnutí, zda použít DOM nebo SAX.
 
 \subsubsection{DOM}
-Rozhraní DOM je standardizovaný způsob práce s XML dokumenty definovaný W3 konsorciem. Při přístupu přes DOM se z dokumenty v paměti vytvoří hierarchický objektový model, který pak můžeme volně procházet. Každý element, atribut, textový uzel odpovídá v paměti objektu. Pomocí metod a vlastností každého z nich můžeme snadno zjišťovat význam uzlu ve stromu, jeho názve, obsah, jeho dětské uzly a uzel rodiče. Strom je možné procházet a vyhledávat v něm. Tento přístup má ale jednu zásadní nevýhodu - pro vytvoření stromu je nutné celý dokument načíst a udržovat v paměti, takže nároky na ni jsou velké.
+Rozhraní DOM je standardizovaný způsob práce s XML dokumenty definovaný W3 konsorciem. Při přístupu přes DOM se z dokumenty v paměti vytvoří hierarchický objektový model, který pak můžeme volně procházet. Každý element, atribut, textový uzel odpovídá v paměti objektu. Pomocí metod a vlastností každého z nich můžeme snadno zjišťovat význam uzlu ve stromu, jeho název, obsah, jeho dětské uzly a uzel rodiče. Strom je možné procházet a vyhledávat v něm. Tento přístup má ale jednu zásadní nevýhodu - pro vytvoření stromu je nutné celý dokument načíst a udržovat v paměti, takže nároky na ni jsou velké.
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=12cm]{figures/dom.png}
@@ -787,7 +787,7 @@ Z toho důvodu jsem po konzultaci s vedoucím práce přistoupil k řešení, kd
 \end{center}
 \end{figure}
 
-Data pro tento formulář jsou získávána ze struktury databáze posledního importu (z poslední noci), v případě, že se tedy v rz.xml objeví nová data je možné velmi jednoduše a rychle potřebnou definici doplnit bez nutnosti zasahovat do kódu aplikace.
+Data pro tento formulář jsou získávána ze struktury databáze posledního importu (z~poslední noci), v případě, že se tedy v rz.xml objeví nová data je možné velmi jednoduše a rychle potřebnou definici doplnit bez nutnosti zasahovat do kódu aplikace.
 
 \subsubsection{Kontrola referenčních závislostí}
 Dalším krokem k zajištění referenční integrity dat je začlenění její kontroly do importního skriptu. Jak už jsem uvedl výše, skript využívá proudové zpracování dat na bázi SAX.
@@ -833,7 +833,7 @@ Jednotlivé vytvořené jsou interně reprezentovány samostatnou databází, ta
 
 \subsection{Podmnožiny hlavní databáze}
 
-Motivací pro navržení této funkce byl prostý fakt, že rz.xml obsahuje velké množství dat a vytvořená databáze tak zabírá zhruba 30MB. Ačkoli to není nijak závratně mnoho, je naprosto zbytečné, aby jednotlivé revize obsahovaly obraz celého rz.xml. Typická klientská aplikace totiž nepotřebuje všechna data, většinou si vystačí pouze s jejich zlomkem, třeba i jen s informacemi o jednom předmětu. Další výhodou je, že databázový stroj nebude muset prohledávat tisíce řádků, ale pouze jejich zlomek a může tak výsledky vracet rychleji, což samozřejmě zrychlí i odpověď webové služby.
+Motivací pro navržení této funkce byl prostý fakt, že rz.xml obsahuje velké množství dat a vytvořená databáze tak zabírá zhruba 30MB. Ačkoli to není nijak závratně mnoho, je naprosto zbytečné, aby jednotlivé revize obsahovaly obraz celého rz.xml. Typická klientská aplikace totiž nepotřebuje všechna data, většinou si vystačí pouze s jejich zlomkem, třeba i jen s informacemi o jednom předmětu. Další výhodou je, že databázový stroj nebude muset prohledávat tisíce řádků, ale pouze malou část, a může tak výsledky vracet rychleji, což samozřejmě zrychlí i odpověď webové služby.
 
 U vytvářené podmnožiny je velmi důležité, aby data v ní zůstala v konzistentní podobě a obsahovala všechny odkazované záznamy. Původní záměr byl takový, že si uživatel nadefinuje, které tabulky chce v revizi mít a při vytvoření budou automaticky rozpoznány veškeré závislosti které tabulky mají a to i například prostřednictvím takzvaných spojových tabulek. Řešení tohoto problému formou automatického rozpoznávání se ale ukázalo jako poměrně komplikovaný úkol a proto byl prozatím odložen.
 
@@ -907,7 +907,7 @@ Nastavení databáze:
 \item \textbf{database.password} Heslo pro připojení
 \item \textbf{database.charset} Kódování znaků
 \item \textbf{database.lazy} V případě nastavení této direktivy na TRUE je připojení k databázi vytvořeno až při provedení prvního dotazu.
-\item \textbf{service.IDatabaseManager} Nastavení jména třídy, implementující rozhraní \texttt{IDatabaseManager}, které se má použít pro práci s databází. Výchozí hodnotou je implementace pro \textit{MySQLDatabaseManager} pro databázový stroj MySQL.
+\item \textbf{service.IDatabaseManager} Nastavení jména třídy, která implementuje připravené rozhraní \texttt{IDatabaseManager}, která se má použít pro práci s databází. Výchozí hodnotou je implementace \textit{MySQLDatabaseManager} pro databázový stroj MySQL.
 \end{itemize}
 Nastavení celé sekce \textit{database} vychází z API třídy \textit{DibiConnection}\cite{dibiconnection}, lze použít veškeré jeho možnosti. Na tomto místě bych také zdůraznil, že databázový uživatel musí mít práva pro vytváření, změnu a odstraňování databází a jejích tabulek.
 
@@ -976,7 +976,7 @@ array(1) {
 \end{verbatim}
 
 \subsection{Zpracování chyb}
-Jakákoliv chyba při zpracování požadavku (například v SQL dotazu, nesprávný formát parametrů nebo chybná identifikace)na straně serveru služby je indikována vyhozením výjimky. Na klientské straně se to projeví výjimkou \textit{SoapFault}, je tedy velmi vhodné ji zachytávat blokem try-catch. Ani po vyhození této speciální výjimky, ale nedojde k uzavření spojení a tak je možné zjistit textový popis chyby voláním procedury \texttt{getLastError()}. Stejný text je na straně serveru také zalogován a je možná ho najít v administračním rozhraní.
+Jakákoliv chyba při zpracování požadavku (například v SQL dotazu, nesprávný formát parametrů nebo chybná identifikace) na straně serveru služby je indikována vyhozením výjimky. Na klientské straně se to projeví výjimkou \textit{SoapFault}, je tedy velmi vhodné ji zachytávat blokem try-catch. Ani po vyhození této speciální výjimky, ale nedojde k uzavření spojení a tak je možné zjistit textový popis chyby voláním procedury \texttt{getLastError()}. Stejný text je na straně serveru také zalogován a je možná ho najít v administračním rozhraní.
 
 
 %*****************************************************************************
