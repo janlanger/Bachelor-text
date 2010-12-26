@@ -984,7 +984,7 @@ Jakákoliv chyba při zpracování požadavku (například v SQL dotazu, nesprá
 %*****************************************************************************
 \chapter{Testování}
 \section{Jednotkové testování}
-Jednotkové (unit) testy slouží k testování samostatných částí aplikačního kódu - jednotek. Při použití oběktově orientovaného kódu je za jednotku většinou považována třída, a v rámci ní se obvykle testují jednotlivé metody. Jednotkové testování pomáhá udržovat při vývoji a pozdějším rozšiřování, zda-li jedno změnou nedošlo k chybnému chování programu na jiných místech. V PHP se pro vytváření těchto testů nejčastěji používá framework PHPUnit\cite{phpunit}.
+Jednotkové (unit) testy slouží k testování samostatných částí aplikačního kódu - jednotek. Při použití oběktově orientovaného kódu je za jednotku většinou považována třída, a v rámci ní se obvykle testují jednotlivé metody. Jednotkové testování pomáhá udržovat při vývoji a pozdějším rozšiřování, zda-li jednou změnou nedošlo k chybnému chování programu na jiných místech. V PHP se pro vytváření těchto testů nejčastěji používá framework PHPUnit\cite{phpunit}.
 
 V balíku aplikace jsou vytvořené testy pro třídy modelu, presenterů a některých pomocných tříd. Najdete je v adresáři \textit{/test}.
 
@@ -995,6 +995,8 @@ Během implementace jednotlivých funkčních celků aplikace docházelo průbě
 %*****************************************************************************
 \chapter{Závěr}
 V rámci této práce byl navržen a implementován relativně komplexní systém, který umožní aplikacím řízený přístup k datům o rozvrhu prostřednictvím standardního rozhraní SOAP. Aplikace takovéhoto typu samozřejmě není nikdy dokončena, vždy se dají najít věci, které by bylo vhodné doplnit, předělat nebo upravit. Jde o dlouhodobý projekt a hodlám se dalšímu rozvoji věnovat i po dokončení bakalářského studia.
+
+Cílem této práce nebylo vyvinout univerzální systém, který obslouží jakoukoliv aplikaci, ani integrovat co největší množství datových zdrojů. Takovou úlohu by měla plnit aplikace KOS API (jeho připravovaná verze bude zpracovávat kromě rozvrhu i data Bílé knihy a připravují se další exporty). Cílem bylo vytvořit zdroj dat rozvrhu pro Studentovu Berličku a příbuzné aplikace (například již zmíněný systém pro podporu týmových projektů) a zároveň promítnout zkušenosti a odstranit problémy, které byly nalezeny v předchozích řešeních. Myslím, že výsledná aplikace tuto úlohu plní velmi dobře.
 
 \section{Splnění cíle ze zadání}
 Informace, která by jistě v závěru práce chybět neměla je, zda-li byly splněny všechny body úvodního zadání.
