@@ -225,7 +225,7 @@ Na tomto místě bych rád poděkoval vedoucímu této bakalářské práce Ing.
  
 \abstractpage
 
-Translation of Czech abstract into English.
+This thesis aims to design and implement a unified data source about timetable from the university information system KOS for Student's Crutch and its related applications. The document analyses the current solution in Student's Crutch and existing solutions in other applications. Based on this analysis, it proposes its own solution, which is then implemented and tested. The main emphasis is given on compatibility with the Student's Crutch related applications.
 
 % Prace v cestine musi krome abstraktu v anglictine obsahovat i
 % abstrakt v cestine.
@@ -235,7 +235,7 @@ Translation of Czech abstract into English.
 \vskip 2.75\baselineskip
 
 \noindent
-Tato práce si klade za cíl návrh a implementaci jednotného datového zdroje informací o rozvrhu z univerzitního systému KOS pro aplikace z okruhu Studentovy Berličky. Práce se zabývá analýzou stávajícího řešení ve Studentově Berličce a existujících řešení v jiných aplikacích a navrhuje vlastní řešení, které je následně implementováno. Velký důraz je kladen na analýzu a návrh, kterým je věnován největší prostor.
+Tato práce si klade za cíl návrh a implementaci jednotného datového zdroje informací o rozvrhu z univerzitního systému KOS pro aplikace z okruhu Studentovy Berličky. Práce se zabývá analýzou stávajícího řešení ve Studentově Berličce a existujících řešení v jiných aplikacích. Na jejím základě je navrženo vlastní řešení, které je následně implementováno a otestováno. Velký důraz je kladen na kompatibilitu s aplikacemi Studentovy Berličky.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Obsah / Table of Contents 
 
@@ -339,7 +339,7 @@ K souborům umožním přístup těm, kteří je potřebují pro svůj projekt, 
 
 Jednotlivé textové soubory obsahují informace o katedrách, místnostech, studentech, učitelích, rozvrhové lístky a zápisy studentů na předměty. Víceméně jde tedy o kompletní rozvrh. Data jednotlivých sloupců jsou v souborech oddělena čárkou, Ing. Bílý uvádí v dokumentaci i jejich významy.
 
-Pro tato data je v databázi Studentovi Berličky vytvořena struktura tabulek, která je obrazem struktury dat v souborech. Import dat pak probíhá ručním spouštěním skriptu administrátorem. Tento skript je v současné verzi spouštěn několikrát, ale pouze na začátku semestru. Několikrát proto, že ve zdrojových datech můžou nějaké záznamy několik dní chybět. V průběhu semestru pak již nedochází k aktualizaci dat, přesuny studentů mezi paralelkami jsou řešeny interně v Berličce a jakákoliv změna v KOS se v semestru už neprojeví.
+Pro tato data je v databázi Studentovy Berličky vytvořena struktura tabulek, která je obrazem struktury dat v souborech. Import dat pak probíhá ručním spouštěním skriptu administrátorem. Tento skript je v současné verzi spouštěn několikrát, ale pouze na začátku semestru. Několikrát proto, že ve zdrojových datech můžou nějaké záznamy několik dní chybět. V průběhu semestru pak již nedochází k aktualizaci dat, přesuny studentů mezi paralelkami jsou řešeny interně v Berličce a jakákoliv změna v KOS se v semestru už neprojeví.
 
 Spuštění importního skriptu v průběhu semestru by totiž bylo velmi rizikové. Studentova Berlička přímo aktivně používá tabulky s importovanými daty a zapisuje do nich změny, které se provádějí v aplikaci. Spuštění importního skriptu by tak mělo za následek jejich přepsání daty z KOS, které nemusí být správné a přesné (student chodí na jiné cvičení, než kam je zapsán - v Berličce si ho cvičící přesune, v KOSu to například kvůli kapacitě nemusí jít).
 
