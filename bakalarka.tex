@@ -212,7 +212,7 @@ unicode=true,
 
 \acknowledgements
 \noindent
-Zde můžete napsat své poděkování, pokud chcete a máte komu děkovat.
+Na tomto místě bych rád poděkoval vedoucímu této bakalářské práce Ing. Jiřímu Chludilovi za cenné připomínky na pravidelných konzultacích a vedení práce.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%   Prohlaseni / Declaration 
@@ -235,10 +235,7 @@ Translation of Czech abstract into English.
 \vskip 2.75\baselineskip
 
 \noindent
-Abstrakt práce by měl velmi stručně vystihovat její podstatu. Tedy čím se práce zabývá a co je jejím výsledkem/přínosem.
-
-\noindent
-Očekávají se cca 1 -- 2 odstavce, maximálně půl stránky.
+Tato práce si klade za cíl návrh a implementaci jednotného datového zdroje informací o rozvrhu z univerzitního systému KOS pro aplikace z okruhu Studentovy Berličky. Práce se zabývá analýzou stávajícího řešení ve Studentově Berličce a existujících řešení v jiných aplikacích a navrhuje vlastní řešení, které je následně implementováno. Velký důraz je kladen na analýzu a návrh, kterým je věnován největší prostor.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Obsah / Table of Contents 
 
@@ -284,7 +281,7 @@ Historie Komponenty Studium se začala psát před osmnácti lety, v akademické
 
 Systém byl (a stále je) postaven nad databázovým strojem Oracle, uživatelské rozhraní bylo vygenerováno prostřednictvím Oracle Forms verze 4, a bylo přístupné pomocí znakového terminálu. Zavedení systému značně zjednodušilo správu studijních agend a dovolilo studentům samostatně řešit některé úkoly bez nutnosti navštívit Pedagogické oddělení. Nedlouho po vytvoření systému jej zavedla také Fakulta strojní a později i zbylé fakulty ČVUT.
 
-KOS přístupný pouze přes znakový terminál fungoval téměř deset let, do roku 2002. Za tu dobu se ve velké míře rozšířili osobní počítače a vysokorychlostní internet i do domácností, a tak sílily hlasy po webovém rozhraní. Bylo proto vypsáno výběrové řízení na WWW rozhraní KOSu pro role Student a Ucitel. Zadání specifikovalo společné WWW rozhraní pro celé ČVUT, které bude komunikovat se všemi třemi (FEL, FS a VIC) instancemi  databáze. Zároveň mělo být řešení postaveno na existujících základech a umožnit koexistenci s terminálovým přístupem. 
+KOS přístupný pouze přes znakový terminál fungoval téměř deset let, do roku 2002. Za tu dobu se ve velké míře rozšířili osobní počítače a vysokorychlostní internet i do domácností, a tak sílily hlasy po webovém rozhraní. Bylo proto vypsáno výběrové řízení na WWW rozhraní KOSu pro uživatelské role studentů a učitelů. Zadání specifikovalo společné WWW rozhraní pro celé ČVUT, které bude komunikovat se všemi třemi (FEL, FS a VIC) instancemi  databáze. Zároveň mělo být řešení postaveno na existujících základech a umožnit koexistenci s terminálovým přístupem. 
 
 Zakázku vyhrála firma Trask Solutions, a.s. a webový KOS byl v září 2002 uveden do provozu, zatím jen nad instancí spravovanou ve VIC. K tomu uvádí Ing. Halaška\cite{student:komentar-ke-kos} \textit{\uv{Urychlené uvedení vybraných WWW formulářů do provozu k prvnímu září 2002 bylo možné (z našeho hlediska) pouze za cenu některých bezpečnostních kompromisů, kterých se my na FEL bojíme.}} To se nakonec ukázalo jako správné rozhodnutí, rozhraní totiž obsahovalo množství závažných chyb, a tak se WWW KOS zpřístupnil pro studenty a učitele na FEL až v září 2003\cite{student:kos-na-web}.
 
@@ -322,7 +319,7 @@ s využitím protokolu SOAP umožnilo kompletní napojení na jakékoli rozší�
 Ideálním postupem by bylo celou Studentovu berličku napsat znova. Nejedná se pouze o silná slova, ale o ideální postup, který se navrhuje projektům, které dospějí do této fáze.
 \end{quotation}
 
-Současný stav SB je v podstatě typický pro aplikaci napsanou v době, kdy PHP nemělo plnou podporu OOP. Aplikace tak nemá žádnou architekturu, prezentační a aplikační logika jsou úzce spojeny a aplikaci nelze snadno rozšiřovat. Z těchto důvodů bylo rozhodnuto, že bude Studentova berlička bude navržena a vytvořena od základů znovu, ve formě samostatných modulů. Na toto téma již bylo zadáno v minulých semestrech několik bakalářských a diplomových prací, které řeší jednotlivé části (jádro, datové úložiště, podporu pluginů, a několik samostatných modulů).
+Současný stav Studentovy Berličky je v podstatě typický pro aplikaci napsanou v době, kdy PHP nemělo plnou podporu OOP. Aplikace tak nemá žádnou architekturu, prezentační a aplikační logika jsou úzce spojeny a aplikaci nelze snadno rozšiřovat. Z těchto důvodů bylo rozhodnuto, že bude Studentova berlička bude navržena a vytvořena od základů znovu, ve formě samostatných modulů. Na toto téma již bylo zadáno v minulých semestrech několik bakalářských a diplomových prací, které řeší jednotlivé části (jádro, datové úložiště, podporu pluginů, a několik samostatných modulů).
 
 
 
@@ -351,7 +348,7 @@ Tento způsob má několik zjevných nedostatků:
 \item Import není automatický, ale je spouštěn ručně a vyžaduje součinnost s administrátorem.
 \item Data se v průběhu semestru neaktualizují. Změny paralelek, zrušení předmětu a podobné změny v KOS se v Berličce neprojeví.
 \item Případnou aktualizaci lze řešit jen stylem \uv{buď a nebo}. Bylo by velmi problematické dosáhnout například pouze aktualizace dat uživatelů, ale nepřepsat data o rozdělení paralelek, které mohou být v Berličce odlišná (upravená) od dat v KOS.
-\item Bylo by velmi problematické data o rozvrhu poskytnout jiným aplikacím a rozšířením SB.
+\item Bylo by velmi problematické data o rozvrhu poskytnout jiným aplikacím a rozšířením Studentovy Berličky.
 \end{itemize}
 
 \section{Cíl práce}
@@ -388,7 +385,7 @@ Ačkoli tato aplikace řeší několik úskalí práce s rz.xml, nakonec jsem ji
 \end{itemize}
 
 \section{Specifikace požadavků}
-Jelikož se mi nepodařilo najít takovou existující aplikaci, která by splnila všechny požadavky a mohla data poskytnout, rozhodl jsem se navrhnout a implementovat vlastní aplikaci. Prvním krokem k jejímu zdárnému vývoji je přesné specifikování požadavků.
+Jelikož se mi nepodařilo najít takovou existující aplikaci, která by splnila všechny požadavky a mohla data poskytnout, rozhodl jsem se navrhnout a implementovat vlastní řešení. Prvním krokem k jejímu zdárnému vývoji je přesné specifikování požadavků.
 \subsection{Funkční požadavky}
 
 \begin{enumerate}
@@ -986,7 +983,66 @@ Jakákoliv chyba při zpracování požadavku (například v SQL dotazu, nesprá
 \section{Jednotkové testování}
 Jednotkové (unit) testy slouží k testování samostatných částí aplikačního kódu - jednotek. Při použití oběktově orientovaného kódu je za jednotku většinou považována třída, a v rámci ní se obvykle testují jednotlivé metody. Jednotkové testování pomáhá udržovat při vývoji a pozdějším rozšiřování, zda-li jednou změnou nedošlo k chybnému chování programu na jiných místech. V PHP se pro vytváření těchto testů nejčastěji používá framework PHPUnit\cite{phpunit}.
 
-V balíku aplikace jsou vytvořené testy pro třídy modelu, presenterů a některých pomocných tříd. Najdete je v adresáři \textit{/test}.
+Ačkoli co největší pokrytí kódu testy vede k jednodušší kontrole změn v aplikaci, je nutné mít na paměti, že samotné 100\% pokrytí kódu úspěšnými testy nutně neznamená, že je kód v pořádku, protože například nemusí být ošetřeny všechny vstupy. Spolupráce aplikace s okolními systémy (jakými může být databáze, nebo i uživatel) v podstatě znemožňuje 100\% pokrytí dosáhnout, neboť výstup některých částí kódu není deterministický vzhledem ke vstupu, závisí na kontextu.
+
+V balíku aplikace jsou vytvořené testy pro třídy modelu a presenterů. Najdete je v adresáři \textit{/test}.
+
+V tabulkách  \ref{tab:tab1} a \ref{tab:tab2} naleznete přehled testů a pokrytí kódu.
+
+\begin{table}
+\begin{center}
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Třída} & \textbf{Počet testů} & \textbf{Počet kontrol (assertions)} & \textbf{Pokrytí kódu} \\
+\hline
+\hline
+Application & 5 & 7 & 80,49 \% \\
+\hline
+IndexDefinition & 1 & 3 & 86,96 \% \\
+\hline
+OperationSQL & 3 & 6 & 73,08 \% \\
+\hline
+Operation & 4 & 6 & 84,31 \% \\
+\hline
+UsersModel & 1 & 2 & 100 \% \\
+\hline
+\textbf{Celkem} & 14 & 20 & 84,97 \% \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Testy modelových tříd}
+\label{tab:tab1}
+\end{table}
+
+\begin{table}
+\begin{center}
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Třída} & \textbf{Počet testů} & \textbf{Počet kontrol (assertions)} & \textbf{Pokrytí kódu} \\
+\hline
+\hline
+AppPresenter & 5 & 5 & 68,75 \% \\
+\hline
+DefaultPresenter & 2 & 2 & 66,67 \% \\
+\hline
+KeyDefPresenter & 2 & 2 & 69,01 \% \\
+\hline
+LoginPresenter & 3 & 4 & 59,09 \% \\
+\hline
+OperationPresenter & 6 & 6 & 58,78 \% \\
+\hline
+RevisionPresenter & 8 & 11 & 54,29 \% \\
+\hline
+SoapTestPresenter & 4 & 4 & 60,26 \% \\
+\hline
+\textbf{Celkem} & 30 & 35 & 62,41 \% \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Testy presenetrů}
+\label{tab:tab2}
+\end{table}
+
 
 \section{Testování v provozu}
 
@@ -1074,7 +1130,6 @@ Informace, která by jistě v závěru práce chybět neměla je, zda-li byly sp
 \item[RPC] - Remote Procedure Call
 \item[SAPI] - Server Application Programming Interface
 \item[SAX] - Simple API for XML
-\item[SB] - Studentova Berlička
 \item[SMTP] - Simple Mail Transfer Protocol
 \item[SOAP] - Simple Object Access Protocol
 \item[SQL] - Structured Query Language
