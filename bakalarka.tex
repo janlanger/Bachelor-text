@@ -217,7 +217,7 @@ Na tomto místě bych rád poděkoval vedoucímu této bakalářské práce Ing.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%   Prohlaseni / Declaration 
 
-\declaration{V~Praze dne 15.\,5.\,2008}
+\declaration{V~Praze dne 6.\,1.\,2011}
 %\declaration{In Kořenovice nad Bečvárkou on May 15, 2008}
 
 
@@ -981,7 +981,7 @@ Jakákoliv chyba při zpracování požadavku (například v SQL dotazu, nesprá
 %*****************************************************************************
 \chapter{Testování}
 \section{Jednotkové testování}
-Jednotkové (unit) testy slouží k testování samostatných částí aplikačního kódu - jednotek. Při použití oběktově orientovaného kódu je za jednotku většinou považována třída, a v rámci ní se obvykle testují jednotlivé metody. Jednotkové testování pomáhá udržovat při vývoji a pozdějším rozšiřování, zda-li jednou změnou nedošlo k chybnému chování programu na jiných místech. V PHP se pro vytváření těchto testů nejčastěji používá framework PHPUnit\cite{phpunit}.
+Jednotkové (unit) testy slouží k testování samostatných částí aplikačního kódu - jednotek. Při použití objektově orientovaného kódu je za jednotku většinou považována třída, a v rámci ní se obvykle testují jednotlivé metody. Jednotkové testování pomáhá udržovat při vývoji a pozdějším rozšiřování, zda-li jednou změnou nedošlo k chybnému chování programu na jiných místech. V PHP se pro vytváření těchto testů nejčastěji používá framework PHPUnit\cite{phpunit}.
 
 Ačkoli co největší pokrytí kódu testy vede k jednodušší kontrole změn v aplikaci, je nutné mít na paměti, že samotné 100\% pokrytí kódu úspěšnými testy nutně neznamená, že je kód v pořádku, protože například nemusí být ošetřeny všechny vstupy. Spolupráce aplikace s okolními systémy (jakými může být databáze, nebo i uživatel) v podstatě znemožňuje 100\% pokrytí dosáhnout, neboť výstup některých částí kódu není deterministický vzhledem ke vstupu, závisí na kontextu.
 
@@ -1134,7 +1134,7 @@ Informace, která by jistě v závěru práce chybět neměla je, zda-li byly sp
 \item[SOAP] - Simple Object Access Protocol
 \item[SQL] - Structured Query Language
 \item[URL] - Uniform Resource Locator
-\item[VIC] - Výpočení a Informační Centrum ČVUT
+\item[VIC] - Výpočetní a Informační Centrum ČVUT
 \item[WS] - Web Services
 \item[WSDL] - Web Services Description Language
 \item[WWW] - World Wide Web
@@ -1144,24 +1144,19 @@ Informace, která by jistě v závěru práce chybět neměla je, zda-li byly sp
 
 %*****************************************************************************
 \chapter{Obsah přiloženého CD}
-\textbf{\large Tato příloha je povinná pro každou práci. Každá práce musí totiž obsahovat přiložené CD. Viz dále.}
+V této kapitole naleznete obsah CD přiloženého k této bakalářské práci.
 
-Může vypadat například takto. Váš seznam samozřejmě bude odpovídat typu vaší práce. (viz cite{infodp}):
-
-\begin{figure}[h]
-\begin{center}
-%\includegraphics[width=14cm]{figures/seznamcd}
-\caption{Seznam přiloženého CD --- příklad}
-%\label{fig:seznamcd}
-\end{center}
-\end{figure}
-
-Na GNU/Linuxu si strukturu přiloženého CD můžete snadno vyrobit příkazem:\\ 
-\verb|$ tree . >tree.txt|\\
-Ve vzniklém souboru pak stačí pouze doplnit komentáře.
-
-Z \textbf{README.TXT} (případne index.html apod.)  musí být rovněž zřejmé, jak programy instalovat, spouštět a jaké požadavky mají tyto programy na hardware.
-
-Adresář \textbf{text}  musí obsahovat soubor s vlastním textem práce v PDF nebo PS formátu, který bude později použit pro prezentaci diplomové práce na WWW.
+\begin{itemize}
+\item readme.txt - popis obsahu CD s dalšími informacemi
+\item aplikace/ - zdrojové kódy aplikace v PHP
+\begin{itemize}
+\item schema.sql - SQL definice hlavní databáze aplikace
+\end{itemize}
+\item text/
+\begin{itemize}
+\item src/ - zdrojový text v LaTeXu, včetně obrázků a šablon
+\item langeja1\_2011bach.pdf - text bakalářské práce ve formátu PDF
+\end{itemize} 
+\end{itemize}
 
 \end{document}
