@@ -8,7 +8,7 @@ Obsah CD:
 - readme.txt - tento text
 - /aplikace - zdrojové kódy aplikace v PHP
 - /aplikace/schema.sql - databázové schéma databáze aplikace (pro MySQL)
-- /text - takt bakaláøské práce v PDF a zdrojový text v LaTexu vèetnì obrázkù
+- /text - text bakaláøské práce v PDF a zdrojový text v LaTexu vèetnì obrázkù
 
 
 
